@@ -1,4 +1,5 @@
 class VNF():
+    """VNF类"""
     def __init__(self, VNF_id, VNF_request_CPU, VNF_request_Memory, VM_id, SFC_id, number_on_SFC, VNF_reliability):
         #VNF编号
         self.VNF_id = VNF_id
@@ -12,7 +13,7 @@ class VNF():
         self.SFC_id = SFC_id
         #VNF在SFC上所处的位置的编号（是此SFC上的第几个VNF）
         self.number_on_SFC = number_on_SFC
-        #VNF的可靠性
+        #VNF的可靠性，等于其所在的物理节点的可靠性
         self.VNF_reliability = VNF_reliability
 
 

@@ -1,4 +1,5 @@
 class SFC():
+    """SFC类"""
     def __init__(self, SFC_id, SFC_request_max_delay, SFC_request_min_reliability, VNF_list):
         #SFC的编号
         self.SFC_id = SFC_id
@@ -20,10 +21,14 @@ class SFC():
         self.VNF_list.remove(VNF_id)
         current_delay -= deleted_VNF_delay
 
-    #SFC初始形成方法
-
+    #SFC初始形成方法(是不是应该放在全局文件中比较好？)
+    def SFC_initial_formed(self):
+        return None
 
     #SFC可靠性计算方法
-
+    def get_SFC_relialibility(self):
+        return 0
 
     #SFC可靠性监测模块（还没有考虑好是不是在这个文件中实现，既然是整体上的方法，是不是应该在另一个全局文件中实现呢？？）
+    def SFC_reliability_monitoring(self):
+        return 0
