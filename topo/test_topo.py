@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import xlrd
 import xlwt
 G = nx.Graph()
-ExcelFile = xlrd.open_workbook('1.xlsx','r')
+ExcelFile = xlrd.open_workbook('cernet2.xlsx','r')
 #sheet1 = ExcelFile.sheet_names()
 nums = len(ExcelFile.sheets())
 for i in range(nums):
