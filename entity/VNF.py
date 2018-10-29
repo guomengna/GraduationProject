@@ -1,3 +1,6 @@
+from entity import VM
+
+
 class VNF():
     """VNF类"""
     def __init__(self, VNF_id, VNF_request_CPU, VNF_request_Memory, VM_id, SFC_id, number_on_SFC, VNF_reliability):
@@ -16,5 +19,10 @@ class VNF():
         #VNF的可靠性，等于其所在的物理节点的可靠性
         self.VNF_reliability = VNF_reliability
 
+    #根据VNF id获取VNF的可靠性
+    def getVNFRliability(self, VNFId):
+        if VNFId == self.VNF_id:
+            vm = VM()
+            return vm.getVMReliability(self.VM_id)
 
     #VNF迁移方法

@@ -1,7 +1,6 @@
 import time
 from threading import Timer
 
-
 class PhysicalNode():
     """物理节点类"""
     # 其上所承载的VM列表
@@ -118,14 +117,15 @@ class PhysicalNode():
         return overloadState, overloadPeriod, overloadeDegree
 
     #获取物理节点可靠性方法，返回可靠性
-    def get_reliability(self):
-        self.if_overloadState()
-        #若物理节点不过载，则直接返回塔克提供的可靠性
-        if self.overloadState == False:
-            reliability = self.provided_reliablity
-        #若物理节点过载，则根据过载程度和过载时间段计算过载后物理节点的可靠性
-        elif self.overloadState == True:
-            reliability = self.overloadDegree_contribution * self.overloadeDegree \
-                          + self.overloadPriod_contribution * self.overloadPeriod
-        return reliability
+    def get_reliability(self, NodeId):
+        if NodeId == self.physicalNode_id:
+            self.if_overloadState()
+            #若物理节点不过载，则直接返回塔克提供的可靠性
+            if self.overloadState == False:
+                reliability = self.provided_reliablity
+            #若物理节点过载，则根据过载程度和过载时间段计算过载后物理节点的可靠性
+            elif self.overloadState == True:
+                reliability = self.overloadDegree_contribution * self.overloadeDegree \
+                              + self.overloadPriod_contribution * self.overloadPeriod
+            return reliability
 

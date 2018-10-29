@@ -1,3 +1,6 @@
+from entity import PhysicalNode
+
+
 class VM():
     """虚拟机类，一个虚拟机上只有一个VNF"""
     def __init__(self, VM_id, VM_request_CPU, VM_request_Memory, physicalNode_id, VM_reliability):
@@ -12,3 +15,8 @@ class VM():
         #VM的可靠性，等预期所在的物理节点的可靠性
         self.VM_reliability = VM_reliability
 
+    #根据ID获取VM的可靠性
+    def getVMReliability(self, VMId):
+        if(VMId == self.VM_id):
+            physicalNode = PhysicalNode()
+            return physicalNode.get_reliability(self.physicalNode_id)

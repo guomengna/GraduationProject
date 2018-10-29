@@ -1,3 +1,6 @@
+from entity.VNF import VNF
+
+
 class SFC():
     """SFC类"""
     def __init__(self, SFC_id, SFC_request_max_delay, SFC_request_min_reliability, VNF_list):
@@ -25,10 +28,10 @@ class SFC():
     def SFC_initial_formed(self):
         return None
 
-    #SFC可靠性计算方法
-    def get_SFC_relialibility(self):
-        return 0
-
-    #SFC可靠性监测模块（还没有考虑好是不是在这个文件中实现，既然是整体上的方法，是不是应该在另一个全局文件中实现呢？？）
-    def SFC_reliability_monitoring(self):
-        return 0
+    #SFC可靠性计算方法，VNF_list中存储的是SFC上所有VNF的id。
+    def get_SFC_relialibility(self, VNF_list):
+        VNFInstance = VNF()
+        SFCReliability = 0
+        for VNFId in VNF_list:
+            SFCReliability *= VNFInstance.getVNFRliability(VNFId)
+        return SFCReliability
