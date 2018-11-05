@@ -22,7 +22,7 @@ class SFCReliabilityMonitor():
         #更新上一次时间间隔的值，本次计算的结果应该是下一次的baseLastTime
         self.baseLastTime = self.baseInterval
 
-    #监测此时网络中流量的多少（网络中的流量应该怎么在这里表示呢？？是否可以用网络中VNF们总共所需要的资源来表示呢）
+    #监测此时网络中流量的多少（网络中的流量应该怎么在这里表示呢？？是否可以用网络中所有VNF总共所需要的资源来表示呢）
     def flow_monitor(self):
         return 0
 
