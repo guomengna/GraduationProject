@@ -15,6 +15,10 @@ class VM():
         #VM的可靠性，等预期所在的物理节点的可靠性
         self.VM_reliability = VM_reliability
 
+    #根据VM id获取物理节点的id
+    def get_physicalNode_id(self):
+        return self.physicalNode_id
+
     #根据ID获取VM的可靠性
     def getVMReliability(self, VMId):
         if(VMId == self.VM_id):
