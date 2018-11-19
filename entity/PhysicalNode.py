@@ -129,3 +129,12 @@ class PhysicalNode():
                               + self.overloadPriod_contribution * self.overloadPeriod
             return reliability
 
+    #根据物理节点的ID获取此节点上当前可用CPU
+    def getAvailable_CPU(self, physicalNodeId):
+        if(physicalNodeId == self.physicalNode_id):
+            return self.available_CPU
+
+    # 根据物理节点的ID获取此节点上当前可用内存
+    def getAvailable_Memory(self, physicalNodeId):
+        if (physicalNodeId == self.physicalNode_id):
+            return self.available_Memory

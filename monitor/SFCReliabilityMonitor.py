@@ -1,6 +1,6 @@
 class SFCReliabilityMonitor():
     """SFC可靠性监测类"""
-    #本方法呗调用的次数
+    #本方法被调用的次数
     callCount = 0
     # 上一次的时间间隔，每次调用该方法之后都要更新此值,此时，本次计算的结果应该是下一次的baseLastTime
     baseLastTime = 100000

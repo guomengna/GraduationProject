@@ -16,8 +16,9 @@ class VM():
         self.VM_reliability = VM_reliability
 
     #根据VM id获取物理节点的id
-    def get_physicalNode_id(self):
-        return self.physicalNode_id
+    def get_physicalNode_id(self, VMId):
+        if(VMId == self.VM_id):
+            return self.physicalNode_id
 
     #根据ID获取VM的可靠性
     def getVMReliability(self, VMId):
