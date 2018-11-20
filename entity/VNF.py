@@ -1,4 +1,4 @@
-from entity import VM
+from entity import VM, PhysicalNode
 
 
 class VNF():
@@ -33,13 +33,25 @@ class VNF():
             vm = VM()
             return vm.getVMReliability(self.VM_id)
 
-    #获取当前VNF可以使用的CPU资源数
-    def getAvailibleCPU(self):
-        #根据VNF所在的物理节点上剩余的CPU来计算（VNF在启用之前已经位于物理机上了，但是并不处于运行状态，所以资源占用为0）
+    #根据VNF_id获取VNF的类型
+    def getVNFType(self, VNFId):
+        if VNFId == self.VNF_id:
+            return self.VNF_type
 
-        return 0
+    #获取当前VNF可以使用的CPU资源数
+    def getAvailibleCPU(self, VNFId):
+        #根据VNF所在的物理节点上剩余的CPU来计算（VNF在启用之前已经位于物理机上了，但是并不处于运行状态，所以资源占用为0）
+        vmId = self.get_VM_id(VNFId)
+        vmInstance = VM()
+        physicalNodeId = vmInstance.get_physicalNode_id(vmId)
+        physicalNodeInstance = PhysicalNode()
+        return physicalNodeInstance.getAvailable_CPU(physicalNodeId)
 
     # 获取当前VNF可以使用的内存资源数
-    def getAvailibleCPU(self):
+    def getAvailibleCPU(self, VNFId):
+        vmId = self.get_VM_id(VNFId)
+        vmInstance = VM()
+        physicalNodeId = vmInstance.get_physicalNode_id(vmId)
+        physicalNodeInstance = PhysicalNode()
+        return physicalNodeInstance.getAvailable_Memory(physicalNodeId)
 
-        return 0

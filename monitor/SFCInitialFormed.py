@@ -3,8 +3,10 @@
 # VNF_list里边包含VNF id、需求的资源、类型
 from entity.PhysicalNode import PhysicalNode
 from entity.SFC import SFC
+from entity.SFCList import sfcListSingleton
 from entity.VM import VM
 from entity.VNF import VNF
+from entity.VNFList import vnfListSingelton
 
 
 def SFC_initial_formed(self, request_delay, request_reliability, VNF_list):
@@ -37,11 +39,26 @@ def find_a_SFC(MaxSFCDelay, MinSFCReliablity, VNFTyprList, VNFRequestCPU, VNFReq
     #接下来判断此SFC是否满足时延和可靠性的约束
     if(sfcInstance.get_SFC_delay() < MaxSFCDelay):
         if(sfcInstance.get_SFC_relialibility(VNFList) > MinSFCReliablity):
-            #SFC满足要求,返回值是什么呢？SFC的id吗？id还没生成
-            return True
+            #SFC满足要求,返回值是SFC实例
+            sfcListSingleton.addSFCCount()
+            sfcInstance.SFC_id = sfcListSingleton.getSFCCount()+1
+            sfcListSingleton.addSFC(sfcListSingleton.getSFCCount()+1)
+            return sfcInstance
+        else:
+            print("此SFC实例的可靠性不满足要求")
+    else:
+        print("此SFC实例的时延不满足要求")
 
-    return None
-
-# 从所有的VNF中挑选出一个符合VNF类型要求的VNF
-def getAVNFByType():
-    return None#返回的是被选中VNF的id
+# 从所有的VNF中挑选出一个符合VNF类型要求的VNF,VNF type用数字来代替
+def getAVNFByType(VNFtype):
+    #网络中总共的VNFs
+    allVNFList = vnfListSingelton.getAllVNFList()
+    #同类型中已经被选过的VNF列表
+    VNFHadPicked = None
+    for i in len(allVNFList):
+        VNFinstance = VNF()
+        if(VNFinstance.getVNFType(allVNFList[i]) == VNFtype and allVNFList[i] not in VNFHadPicked):
+            VNFHadPicked.append(allVNFList[i])
+            return VNFinstance
+        else:
+            return None
