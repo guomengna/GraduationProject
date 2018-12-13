@@ -120,7 +120,7 @@ class PhysicalNode():
     def get_reliability(self, NodeId):
         if NodeId == self.physicalNode_id:
             self.if_overloadState()
-            #若物理节点不过载，则直接返回塔克提供的可靠性
+            #若物理节点不过载，则直接返回它可提供的可靠性
             if self.overloadState == False:
                 reliability = self.provided_reliablity
             #若物理节点过载，则根据过载程度和过载时间段计算过载后物理节点的可靠性

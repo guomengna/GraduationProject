@@ -33,6 +33,7 @@ for j in range(len(leftVNFlist)):
 
 class SFC():
     """SFC类"""
+    currentDelay = 0
     def __init__(self, SFC_id, SFC_request_max_delay, SFC_request_min_reliability, VNF_list):
         #SFC的编号
         self.SFC_id = SFC_id
@@ -42,6 +43,13 @@ class SFC():
         self.SFC_request_min_reliability = SFC_request_min_reliability
         #SFC上所连接的VNF列表，一般这个列表是不会更改的
         self.VNF_list = VNF_list
+
+    def getSFCId(self):
+        return self.SFC_id
+    def setDelay(self, delay):
+        self.currentDelay = delay
+    def getDelay(self):
+        return self.currentDelay
 
     #增加VNF到SFC上，用于初始SFC形成阶段
     def add_VNF_to_SFC(self, VNF_id, current_delay, additional_delay):
