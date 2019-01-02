@@ -44,10 +44,13 @@ class SFC():
         #SFC上所连接的VNF列表，一般这个列表是不会更改的
         self.VNF_list = VNF_list
 
+    #获取SFC的ID
     def getSFCId(self):
         return self.SFC_id
+    #设置SFC的时延
     def setDelay(self, delay):
         self.currentDelay = delay
+    #获取SFC的时延
     def getDelay(self):
         return self.currentDelay
 
@@ -98,5 +101,3 @@ class SFC():
                 if RightphysicalNodeId == leftVNFlist[i]:
                     delay = delaylist[i]
         return delay
-
-
