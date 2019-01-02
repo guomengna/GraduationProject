@@ -112,7 +112,7 @@ class SFCReliabilityMonitor():
             #w2为流量的减幅
             w2 = (lastFlowNeeds - currentFlowNeeds)/lastFlowNeeds
             if(abs(w2-1)>0 and abs(w2-1)<self.FLOW_ADD_OR_DELETE_Threthold):
-                newTimeInterval = min(b2 ,math.floor(lastFlowNeeds + lastFlowNeeds * w2))
+                newTimeInterval = min(b1 ,math.floor(lastFlowNeeds + lastFlowNeeds * w2))
             elif((w2-1)>self.FLOW_ADD_OR_DELETE_Threthold):
                 newTimeInterval = b2
             elif(w2<(1-self.FLOW_ADD_OR_DELETE_Threthold)):
