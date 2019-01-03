@@ -1,5 +1,8 @@
 import math
+import time
 
+from entity.SFC import SFC
+from entity.SFCList import sfcListSingleton
 from entity.VNF import VNF
 from entity.VNFList import VNFList, vnfListSingelton
 
@@ -33,8 +36,37 @@ class SFCReliabilityMonitor():
     #可靠性监测方法,按照计算出的当前时间间隔，在当前时钟的基础上加上此时间间隔，计算整个网络中SFC的可靠性
     #由此，我认为我的时间间隔设置初始值可能太小了，因为计算SFC的可靠性需要一定的时间，此时间应当比时间间隔小很多才好
     def reliability_monitor(self):
+        #如何能间隔不同的时间间隔调用相同的方法？
+        #隔上一个时间间隔就要重新调用SFC_reliability_caculating()方法，计算网络中的SFC可靠性如何实现呢？
 
-        return 0
+        #定义一个时间间隔变量，用于存储每次算出的时间间隔
+        timeIntervalVariable = self.reliability_monitor_timeInterval()
+        while(True):
+            #睡眠时间
+            sleepTime = timeIntervalVariable
+            #每次都要更新
+            timeIntervalVariable = self.reliability_monitor_timeInterval()
+            SFCReliabilityList = self.SFC_reliability_caculating()
+            #睡眠相应的时间间隔之后才再一次去测量
+            time.sleep(sleepTime)
+        return SFCReliabilityList
+
+    #全网中所有SFC的可靠性计算方法
+    def SFC_reliability_caculating(self):
+        # 存储全网中SFC的可靠性
+        SFCReliabilityList = []
+        #获取到网络中所有的SFC的列表
+        ALLSFCList = sfcListSingleton.getSFCList()
+        for i in len(ALLSFCList):
+            SFCInstance = SFC(ALLSFCList[i])
+            SFCreliability = SFCInstance.getSFCReliabilityAtFirst()
+            # 字典,存放每个SFC的ID和可靠性
+            SFCReliabilityDict = {}
+            SFCReliabilityDict['SFCID'] = ALLSFCList[i]
+            SFCReliabilityDict['reliability'] = SFCreliability
+            # 列表里放的是所有的字典（不知道编译会不会通过）
+            self.SFCReliabilityList.append(SFCReliabilityDict)
+        return SFCReliabilityList
 
     # 可靠性测量的时间间隔的确定
     def reliability_monitor_timeInterval(self):
@@ -56,14 +88,15 @@ class SFCReliabilityMonitor():
         self.baseLastTime = interval
         # 每次都要更新新的流量需求
         self.lastFlowNeeds = flowNeeds
+        return interval
 
     #监测此时网络中流量的多少（网络中的流量应该怎么在这里表示呢？？是否可以用网络中所有VNF总共所需要的资源来表示呢）
     def flow_monitor(self):
         #用当前网络中VNF所需要的资源(CPU)的总量来代表流量
         VNFListIntance = VNFList()
         #当前网络中活动的VNF列表,使用单例调用
-        allVNFList = vnfListSingelton.getActiveVNFList()
-        current_active_VNF_list = VNFListIntance.getActiveVNFList()
+        current_active_VNF_list = vnfListSingelton.getActiveVNFList()
+        #current_active_VNF_list = VNFListIntance.getActiveVNFList()
         # 总的资源需求值,初始为0
         totalNeededResource = 0
         #根据活动VNF列表获取列表中每个VNF此刻的资源需求值

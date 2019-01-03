@@ -43,6 +43,10 @@ class SFC():
         self.SFC_request_min_reliability = SFC_request_min_reliability
         #SFC上所连接的VNF列表，一般这个列表是不会更改的
         self.VNF_list = VNF_list
+        staticSFCReliability = self.get_SFC_relialibility(VNF_list)
+
+    def getSFCReliabilityAtFirst(self):
+        return self.staticSFCReliability
 
     #获取SFC的ID
     def getSFCId(self):

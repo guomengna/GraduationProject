@@ -4,7 +4,8 @@ class SFCList(object):
     SFCList = None
     def getSFCCount(self):
         return self.SFCCount
-
+    def getSFCList(self):
+        return SFCList
     def addSFCCount(self):
         self.SFCCount += 1
 
