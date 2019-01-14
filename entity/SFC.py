@@ -4,7 +4,9 @@ from numpy.core.tests.test_mem_overlap import xrange
 
 from entity.VM import VM
 from entity.VNF import VNF
-excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/cernet2_added.xlsx', 'r')
+excelFile = xlrd.open_workbook('D:/pycharm workspace'
+                               '/GraduationProject/topo/'
+                               'cernet2_added.xlsx', 'r')
 nums = len(excelFile.sheets())
 leftVNFlist = []
 rightVNFlist = []
@@ -34,6 +36,7 @@ for j in range(len(leftVNFlist)):
 class SFC():
     """SFC类"""
     currentDelay = 0
+
     def __init__(self, SFC_id, SFC_request_max_delay, SFC_request_min_reliability, VNF_list):
         #SFC的编号
         self.SFC_id = SFC_id
@@ -43,10 +46,15 @@ class SFC():
         self.SFC_request_min_reliability = SFC_request_min_reliability
         #SFC上所连接的VNF列表，一般这个列表是不会更改的
         self.VNF_list = VNF_list
-        staticSFCReliability = self.get_SFC_relialibility(VNF_list)
 
+    def getRequestMinReliability(self):
+        return self.SFC_request_min_reliability
+
+    #获取刚开始建立SFC时此SFC的可靠性
     def getSFCReliabilityAtFirst(self):
-        return self.staticSFCReliability
+        #最开始部署的时候的SFC可靠性
+        staticSFCReliability = self.get_SFC_relialibility(self.VNF_list)
+        return staticSFCReliability
 
     #获取SFC的ID
     def getSFCId(self):
@@ -79,8 +87,11 @@ class SFC():
     #获取SFC的时延,时延为SFC上各个VNF之间的时延的加和。
     def get_SFC_delay(self, VNF_list):
         SFCDelay = 0
-        for VNFIdLeft,VNFIdRight in VNF_list:
-            delay = self.delayBetweenVNFs(VNFIdLeft,VNFIdRight)
+        index = 0
+        for index in len(VNF_list-1):
+            VNFIdLeft = VNF_list[index]
+            VNFIdRight = VNF_list[index+1]
+            delay = self.delayBetweenVNFs(VNFIdLeft, VNFIdRight)
             self.delay_list.append(delay)
         for delay in self.delay_list:
             SFCDelay += delay

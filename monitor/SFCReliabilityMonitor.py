@@ -5,6 +5,7 @@ from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
 from entity.VNF import VNF
 from entity.VNFList import VNFList, vnfListSingelton
+from monitor import JudgeMigrationTime
 
 
 class SFCReliabilityMonitor():
@@ -32,7 +33,10 @@ class SFCReliabilityMonitor():
 
     #流量增减幅度的阈值
     FLOW_ADD_OR_DELETE_Threthold = 0.1
-
+    cunrrentSFCReliabilityList = []
+    # 存储可靠性低于阈值的SFC
+    unreliableSFCList = []
+    unreliableSFCReliabilityList = []
     #可靠性监测方法,按照计算出的当前时间间隔，在当前时钟的基础上加上此时间间隔，计算整个网络中SFC的可靠性
     #由此，我认为我的时间间隔设置初始值可能太小了，因为计算SFC的可靠性需要一定的时间，此时间应当比时间间隔小很多才好
     def reliability_monitor(self):
@@ -46,10 +50,41 @@ class SFCReliabilityMonitor():
             sleepTime = timeIntervalVariable
             #每次都要更新
             timeIntervalVariable = self.reliability_monitor_timeInterval()
-            SFCReliabilityList = self.SFC_reliability_caculating()
+            self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
+            #清空列表
+            unreliableSFCList = []
+            unreliableSFCReliabilityList = []
+            SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
+            # 存储全网中所有SFC的可靠性
+            SFCReliabilityList = SFCReliabilityMonitorInstance.reliability_monitor()
+            # 全网中所有SFC的ID列表
+            ALLSFCList = sfcListSingleton.getSFCList()
+            # 判断每条SFC的可靠性是否低于阈值
+            for i in len(ALLSFCList):
+                SFCInstance = SFC(ALLSFCList[i])
+                SFCRequestMinReliability = SFCInstance.getRequestMinReliability()
+                if(self.cunrrentSFCReliabilityList[i].values < SFCReliabilityList[i]):#可靠性小于需求值
+                    #将此SFC加入到不满足可靠性要求的SFC列表中
+                    unreliableSFCList.append(i)
+                    unreliableSFCReliabilityList.append(self.cunrrentSFCReliabilityList[i].values)
+                judgeMigrationTimeInstance = JudgeMigrationTime()
+                ifNeedMigration = judgeMigrationTimeInstance.ifNeedMigration(unreliableSFCList)
+                #调用JudgeMigrationTime类中的ifNeedMigration方法，判断此时是否需要进行迁移                                                         unreliableSFCReliabilityList)
+                if(ifNeedMigration == True):
+                    #判断是迁移一条还是多条SFC
+                    if(judgeMigrationTimeInstance.migrationOneOrMore() == True):
+                        #迁移某一条SFC
+                        """调用迁移一条SFC的方法，迁移可靠性低于阈值的SFC列表中的第一条SFC，调用方法处"""
+
+                    else:
+                        judgeMigrationTimeInstance = JudgeMigrationTime()
+                        neededMigrationSFCList = judgeMigrationTimeInstance.getNeededMigrationSFCList()
+                        """调用迁移多条SFC的方法，方法调用处"""
+
+
             #睡眠相应的时间间隔之后才再一次去测量
             time.sleep(sleepTime)
-        return SFCReliabilityList
+
 
     #全网中所有SFC的可靠性计算方法
     def SFC_reliability_caculating(self):
