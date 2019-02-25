@@ -8,8 +8,8 @@ excelFile = xlrd.open_workbook('D:/pycharm workspace'
                                '/GraduationProject/topo/'
                                'cernet2_added.xlsx', 'r')
 nums = len(excelFile.sheets())
-leftVNFlist = []
-rightVNFlist = []
+leftPhysicalNodelist = []
+rightPhysicalNodelist = []
 delaylist = []
 
 for i in range(nums):
@@ -21,16 +21,16 @@ ncols = sheet1.ncols  # 列
 for i in range(nrows):
     list = sheet1.row_values(i)
     #print(int(list[0]),int(list[1]),list[8])
-
-    leftVNF = int(list[0])
-    leftVNFlist.append(leftVNF)
-    rightVNF = int(list[1])
-    rightVNFlist.append(rightVNF)
+    #此处的list[0]其实应该是源物理节点，list[1]应该是目的物理节点
+    leftPhysicalNode = int(list[0])
+    leftPhysicalNodelist.append(leftPhysicalNode)
+    rightPhysicalNode = int(list[1])
+    rightPhysicalNodelist.append(rightPhysicalNode)
     delay = list[8]
     delaylist.append(delay)
 
-for j in range(len(leftVNFlist)):
-    print(leftVNFlist[j], rightVNFlist[j], delaylist[j])
+for j in range(len(leftPhysicalNodelist)):
+    print(leftPhysicalNodelist[j], rightPhysicalNodelist[j], delaylist[j])
     # print(totalList[j])
 
 class SFC():
@@ -65,6 +65,9 @@ class SFC():
     #获取SFC的时延
     def getDelay(self):
         return self.currentDelay
+    #获取SFC上的VNF列表
+    def getVNFList(self):
+        return self.VNF_list
 
     #增加VNF到SFC上，用于初始SFC形成阶段
     def add_VNF_to_SFC(self, VNF_id, current_delay, additional_delay):
@@ -108,11 +111,28 @@ class SFC():
         LeftphysicalNodeId = vmInstance.get_physicalNode_id(VNFInstanceLeft.get_VM_id())
         RightphysicalNodeId = vmInstance.get_physicalNode_id(VNFInstanceRight.get_VM_id())
         #由拓扑结构获取到左右两个物理节点之间的时延
-        for i in len(leftVNFlist):
-            if LeftphysicalNodeId == leftVNFlist[i]:
-                if RightphysicalNodeId == rightVNFlist[i]:
+        for i in range(len(leftPhysicalNodelist)):
+            if LeftphysicalNodeId == leftPhysicalNodelist[i]:
+                if RightphysicalNodeId == rightPhysicalNodelist[i]:
                     delay = delaylist[i]
-            elif LeftphysicalNodeId == rightVNFlist[i]:
-                if RightphysicalNodeId == leftVNFlist[i]:
+            elif LeftphysicalNodeId == rightPhysicalNodelist[i]:
+                if RightphysicalNodeId == leftPhysicalNodelist[i]:
+                    delay = delaylist[i]
+        return delay
+
+    def getLeftPhysicalNodelist(self):
+        return leftPhysicalNodelist
+
+    def getRightPhysicalNodelist(self):
+        return rightPhysicalNodelist
+
+    def getDelayBetweenPhysicalNode(self, leftNodeId, rightNodeId):
+        # 由拓扑结构获取到左右两个物理节点之间的时延
+        for i in range(len(leftPhysicalNodelist)):
+            if leftNodeId == leftPhysicalNodelist[i]:
+                if rightNodeId == rightPhysicalNodelist[i]:
+                    delay = delaylist[i]
+            elif leftNodeId == rightPhysicalNodelist[i]:
+                if rightNodeId == leftPhysicalNodelist[i]:
                     delay = delaylist[i]
         return delay

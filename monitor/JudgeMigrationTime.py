@@ -21,18 +21,18 @@ class JudgeMigrationTime():
 
     #判断是需要迁移一条SFC还是多条SFC,返回True代表需要迁移一条
     def migrationOneOrMore(self, unreliableSFCList, unreliableSFCReliabilityList):
-        neededMigrationSFCList = []
-        totalReliabilityBelowDegree = 0
-        reliabilityBelowDegreeList = []
+        self.neededMigrationSFCList = []
+        self.totalReliabilityBelowDegree = 0
+        self.reliabilityBelowDegreeList = []
 
-        for i in len(unreliableSFCList):
+        for i in range(len(unreliableSFCList)):
             SFCInstance = SFC(unreliableSFCList[i])
             requiredReliability = SFCInstance.getRequestMinReliability()
             reliabilityBelowDegree = (requiredReliability - unreliableSFCReliabilityList[i])/requiredReliability
-            totalReliabilityBelowDegree += reliabilityBelowDegree
-            neededMigrationSFCList.append(unreliableSFCList[i])
-            reliabilityBelowDegreeList.append(reliabilityBelowDegree)
-            if (totalReliabilityBelowDegree >= THRESHOLD_DEGREE):
+            self.totalReliabilityBelowDegree += reliabilityBelowDegree
+            self.neededMigrationSFCList.append(unreliableSFCList[i])
+            self.reliabilityBelowDegreeList.append(reliabilityBelowDegree)
+            if (self.totalReliabilityBelowDegree >= THRESHOLD_DEGREE):
                 return True
             else:
                 return False

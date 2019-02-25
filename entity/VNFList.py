@@ -3,10 +3,10 @@
 #此文件要在系统刚开始的时候就调用，给allVNFList赋值
 class VNFList(object):
     #存放网络中所有的VNF的ID
-    allVNFList = None
+    allVNFList = []
     allVNFCount = 0
     #存放当前网络中激活的VNF的id
-    activeVNFList = None
+    activeVNFList = []
     activeVNFCount = 0
     #激活的VNF部分
     def addActiveVNFList(self, VNFID):

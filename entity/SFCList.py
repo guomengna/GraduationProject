@@ -1,7 +1,7 @@
+"""将此类设置为单例模式，用于记录SFC的个数"""
 class SFCList(object):
-    """将此类设置为单例模式，用于记录SFC的个数"""
     SFCCount = 0
-    SFCList = None
+    SFCList = []
     def getSFCCount(self):
         return self.SFCCount
     def getSFCList(self):
