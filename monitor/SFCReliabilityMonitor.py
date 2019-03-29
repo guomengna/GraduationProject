@@ -5,7 +5,7 @@ from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
 from entity.VNF import VNF
 from entity.VNFList import VNFList, vnfListSingelton
-from monitor import JudgeMigrationTime
+from monitor.JudgeMigrationTime import JudgeMigrationTime
 
 
 class SFCReliabilityMonitor():
@@ -42,7 +42,6 @@ class SFCReliabilityMonitor():
     def reliability_monitor(self):
         # 如何能间隔不同的时间间隔调用相同的方法？
         # 隔上一个时间间隔就要重新调用SFC_reliability_caculating()方法，计算网络中的SFC可靠性如何实现呢？
-
         # 定义一个时间间隔变量，用于存储每次算出的时间间隔
         timeIntervalVariable = self.reliability_monitor_timeInterval()
         while(True):
@@ -67,7 +66,7 @@ class SFCReliabilityMonitor():
                     # 将此SFC加入到不满足可靠性要求的SFC列表中
                     unreliableSFCList.append(i)
                     unreliableSFCReliabilityList.append(self.cunrrentSFCReliabilityList[i].values)
-                judgeMigrationTimeInstance = JudgeMigrationTime
+                judgeMigrationTimeInstance = JudgeMigrationTime()
                 ifNeedMigration = judgeMigrationTimeInstance.ifNeedMigration(unreliableSFCList)
                 # 调用JudgeMigrationTime类中的ifNeedMigration方法，判断此时是否需要进行迁移                                                         unreliableSFCReliabilityList)
                 if(ifNeedMigration == True):
@@ -81,10 +80,8 @@ class SFCReliabilityMonitor():
                         neededMigrationSFCList = judgeMigrationTimeInstance.getNeededMigrationSFCList()
                         """调用迁移多条SFC的方法，方法调用处"""
 
-
             # 睡眠相应的时间间隔之后才再一次去测量
             time.sleep(sleepTime)
-
 
     # 全网中所有SFC的可靠性计算方法
     def SFC_reliability_caculating(self):
@@ -92,7 +89,7 @@ class SFCReliabilityMonitor():
         SFCReliabilityList = []
         # 获取到网络中所有的SFC的列表
         ALLSFCList = sfcListSingleton.getSFCList()
-        for i in len(ALLSFCList):
+        for i in range(len(ALLSFCList)):
             SFCInstance = SFC(ALLSFCList[i])
             SFCreliability = SFCInstance.getSFCReliabilityAtFirst()
             # 字典,存放每个SFC的ID和可靠性
@@ -100,7 +97,7 @@ class SFCReliabilityMonitor():
             SFCReliabilityDict['SFCID'] = ALLSFCList[i]
             SFCReliabilityDict['reliability'] = SFCreliability
             # 列表里放的是所有的字典（不知道编译会不会通过）
-            self.SFCReliabilityList.append(SFCReliabilityDict)
+            SFCReliabilityList.append(SFCReliabilityDict)
         return SFCReliabilityList
 
     # 可靠性测量的时间间隔的确定
@@ -164,6 +161,8 @@ class SFCReliabilityMonitor():
         a2 = 3
         b1 = 2
         b2 = 3
+        # 初始化返回值
+        newTimeInterval = 0
         if(currentFlowNeeds > lastFlowNeeds):
             # 若是流量增多
             # w1为流量的增幅
