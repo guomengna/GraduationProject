@@ -22,6 +22,7 @@ class PhysicalNode():
     #过载程度与过载时间对节点可靠性下降程度影响参数
     overloadDegree_contribution = 0.5
     overloadPriod_contribution = 0.5
+
     #初始化方法
     def __init__(self, physicalNode_id, capacity_CPU, capacity_Memory, provided_reliablity):
         # 物理节点的编号，在拓扑中，编号即代表位置
@@ -143,3 +144,23 @@ class PhysicalNode():
     def getAvailable_Memory(self, physicalNodeId):
         if (physicalNodeId == self.physicalNode_id):
             return self.available_Memory
+
+    # CPU资源更新(增加)
+    def addAvailable_CPU(self, physicalNodeId, cpu_resource):
+        if(physicalNodeId == self.physicalNode_id):
+            self.available_CPU += cpu_resource
+
+    # memory资源更新(增加)
+    def addAvailable_Memory(self, physicalNodeId, memory_resource):
+        if(physicalNodeId == self.physicalNode_id):
+            self.available_Memory += memory_resource
+
+    # CPU资源更新（删除）
+    def deleteAvailable_CPU(self, physicalNodeId, cpu_resource):
+        if (physicalNodeId == self.physicalNode_id):
+            self.available_CPU -= cpu_resource
+
+    # memory资源更新（删除）
+    def deleteAvailable_Memory(self, physicalNodeId, memory_resource):
+        if (physicalNodeId == self.physicalNode_id):
+            self.available_Memory -= memory_resource
