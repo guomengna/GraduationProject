@@ -30,7 +30,7 @@ class MigrationCostCaculation():
         VNFList = SFCInstance.getVNFList
         # 寻找此SFC上应当进行迁移的VNF(s),根据不同的迁移情形分别获取，在本项目中的其他位置实现此方法
         # 假设此时在此处已经获取到了需要迁移的VNF，即为needMigratedVNFList,此列表作为输入参数由外部传入
-        # 系统开始运行之前随机给每个VNF赋一个迁移时间的系数，当迁移发生时，此系数乘以源值目的地的距离，作为相对迁移时间。
+        # 系统开始运行之前随机给每个VNF赋一个迁移时间的系数，当迁移发生时，此系数乘以源至目的地的距离，作为相对迁移时间。
         # 也就是说还需要一个迁移目的地列表，此处同样作为输入参数传入,源到目的地之间的距离直接用拓扑中的时延来代替
         for i in range(len(needMigratedVNFList)):
             VNFInstance = VNF(needMigratedVNFList)
