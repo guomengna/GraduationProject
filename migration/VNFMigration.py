@@ -135,6 +135,7 @@ class VNFMigration():
 
             # 选择迁移vnfid1和vnfid2这两个vnf
                 # 首先为vnfid2寻找所有的des
+            des_list1 = self.findDestinationForVNF(vnfid1, migratedsfcId)
             des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
             vnf_list = [vnfid1, vnfid2]
             # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
@@ -144,7 +145,7 @@ class VNFMigration():
                         des_list = [des_list1[i], des_list2[j]]
                         MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
                                                                                   requestedResourceBefore,
-                                                                                  vnf_list, des_list1)
+                                                                                  vnf_list, des_list)
                         planEvalu = MigrationPlanEvaluationInstance.evaluation()
                         if(planEvalu > maxPlanEvaluation):
                             maxPlanEvaluation = planEvalu
