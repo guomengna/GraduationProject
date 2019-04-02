@@ -85,15 +85,74 @@ class VNFMigration():
                                                                                       requestedResourceBefore,
                                                                                       vnf_list, des_list)
                             planEvalu = MigrationPlanEvaluationInstance.evaluation()
-                            if(planEvalu < maxPlanEvaluation):
+                            if(planEvalu > maxPlanEvaluation):
                                 maxPlanEvaluation = planEvalu
                                 bestPlan = vnf_list
                                 bestDes = des_list
             return (maxPlanEvaluation, bestPlan, bestDes)
         else:
             """没有节点过载"""
+            maxPlanEvaluation = -9999  # 当前的最高评分
+            bestPlan = []  # 存放该方案中需要迁移的VNF列表
+            bestDes = []  # 存放最佳迁移方案中VNF所对应的目的地ID
+            # 保留三个拥有最大可靠性的VNF,vnfid1最大，vnfid2第二大，vnfid3第三大
+            vnfListOnThisSFC = SfcInstance.getVNFList()
+            vnfid1 = vnfListOnThisSFC[0]
+            vnfid2 = vnfListOnThisSFC[0]
+            vnfid3 = vnfListOnThisSFC[0]
+            for i in range(len(vnfListOnThisSFC)):
+                VNF_id = vnfListOnThisSFC[i]
+                vnfInstance = VNF(VNF_id)
+                reliability = vnfInstance.getVNFRliability(VNF_id)
+                vnfInstance1 = VNF(vnfid1)
+                vnfInstance2 = VNF(vnfid2)
+                vnfInstance3 = VNF(vnfid2)
+                if(reliability > vnfInstance1.getVNFRliability(vnfid1)):
+                    vnfid3 = vnfid2
+                    vnfid2 = vnfid1
+                    vnfid1 = i
+                elif(reliability > vnfInstance2.getVNFRliability(vnfid2)):
+                    vnfid3 = vnfid2
+                    vnfid2 = i
+                elif(reliability > vnfInstance3.getVNFRliability(vnfid3)):
+                    vnfid3 = i
+            # 可以选择迁移vnfid1或者vnfid1和vnfid2或者vnfid1和vnfid2和vnfid3
 
-            return None
+            # 选择迁移vnfid1
+                # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
+            desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            vnf_list = [vnfid1]
+            for i in range(len(desNodeList)):
+                des_list1 = [desNodeList[i]]
+                MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
+                                                                          requestedResourceBefore,
+                                                                          vnf_list, des_list1)
+                planEvalu = MigrationPlanEvaluationInstance.evaluation()
+                if(planEvalu > maxPlanEvaluation):
+                    maxPlanEvaluation = planEvalu
+                    bestPlan = vnf_list
+                    bestDes = des_list1
+
+            # 选择迁移vnfid1和vnfid2这两个vnf
+                # 首先为vnfid2寻找所有的des
+            des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
+            vnf_list = [vnfid1, vnfid2]
+            # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
+            for i in range(len(des_list1)):
+                for j in range(len(des_list2)):
+                    if(des_list1[i] != des_list2[j]):
+                        des_list = [des_list1[i], des_list2[j]]
+                        MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
+                                                                                  requestedResourceBefore,
+                                                                                  vnf_list, des_list1)
+                        planEvalu = MigrationPlanEvaluationInstance.evaluation()
+                        if(planEvalu > maxPlanEvaluation):
+                            maxPlanEvaluation = planEvalu
+                            bestPlan = vnf_list
+                            bestDes = des_list
+            """迁移三个VNF的代码实现没有写"""
+            # 返回最高评分、最佳方案（VNF列表和目的物理节点列表,两个列表的大小应该是相同的）
+            return (maxPlanEvaluation, bestPlan, bestDes)
 
     # 迁移多条SFC
     def migrateVNFsofMultiSFC(self):
