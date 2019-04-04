@@ -185,8 +185,10 @@ class VNFMigration():
         for nodeid in allNodeIdlist:
             ifjudgeList.append((nodeid, False))
         # 接下来，正式开始为每个SFC判断是否有节点过载（此节点既要位于sortedSFClist中，又要过载）
-        # 所有过载节点的集合
+        # 3.所有过载节点的集合
         overloadedNodeIdList = []
+        migVNFWithMinReliaList = []
+        migVNFWithMaxFlowList = []
         for sfcid in sortedSFClist:
             sfc = SFC(sfcid)
             vnfListOnThisSFC = sfc.getVNFList()
@@ -198,51 +200,69 @@ class VNFMigration():
                 node = PhysicalNode(nodeid)
                 if(node.overloadeState):
                     overloadedNodeIdList.append(nodeid)
-        # 4.在每个过载节点上选择一个位于可靠性最低的SFC上的VNF，加入到migVNFWithMinReliaList中
-        migVNFWithMinReliaList = []
-        # 因为排序过了，所以第0个的可靠性最低
-        sfcid = sortedSFClist[0]
-        sfc = SFC(sfcid)
-        vnflist = sfc.getVNFList()
-        for i in range(len(vnflist)):
-            vnfid = vnflist[i]
-            vnf = VNF(vnfid)
-            vmid = vnf.get_VM_id(vnfid)
-            nodeid = VM(vmid).get_physicalNode_id()
-            for j in range(len(allNodeIdlist)):
-                if(nodeid == allNodeIdlist[j][0]):
-                    # 若是显示False则说明此物理节点还没有被处理过，否则说明其上位于最不可靠的SFC上的vnf已经被添加过了
-                    if(allNodeIdlist[j][1] == False):
-                        if (nodeid in overloadedNodeIdList):
-                            # 将此VNF添加
-                            migVNFWithMinReliaList.append(vnfid)
-                            # 并将物理节点的处理标志设置为True
-                            allNodeIdlist[j][1] = True
-        # 至此，可靠性最低的SFC上的、而且同时位于过载物理节点上的所有的VNF已经被添加到migVNFWithMinReliaList中了
+        if(overloadedNodeIdList != None):
+            # 4.在每个过载节点上选择一个位于可靠性最低的SFC上的VNF，加入到migVNFWithMinReliaList中
+            # 因为排序过了，所以第0个的可靠性最低
+            sfcid = sortedSFClist[0]
+            sfc = SFC(sfcid)
+            vnflist = sfc.getVNFList()
+            for i in range(len(vnflist)):
+                vnfid = vnflist[i]
+                vnf = VNF(vnfid)
+                vmid = vnf.get_VM_id(vnfid)
+                nodeid = VM(vmid).get_physicalNode_id()
+                for j in range(len(allNodeIdlist)):
+                    if(nodeid == allNodeIdlist[j][0]):
+                        # 若是显示False则说明此物理节点还没有被处理过，否则说明其上位于最不可靠的SFC上的vnf已经被添加过了
+                        if(allNodeIdlist[j][1] == False):
+                            if (nodeid in overloadedNodeIdList):
+                                # 将此VNF添加
+                                migVNFWithMinReliaList.append(vnfid)
+                                # 并将物理节点的处理标志设置为True
+                                allNodeIdlist[j][1] = True
+            # 至此，可靠性最低的SFC上的、而且同时位于过载物理节点上的所有的VNF已经被添加到migVNFWithMinReliaList中了
 
-        # 5.在每个物理节点上选择一个流经流量最大的VNF，加入到migVNFWithMaxFlowList中
-        migVNFWithMaxFlowList = []
-        # 网络中所有的VNF
-        vnfListSingelton = VNFList()
-        allVnfList = vnfListSingelton.getActiveVNFList()
-        for j in range(len(overloadedNodeIdList)):
-            maxFlow = 0
-            maxFlowVNF = None
-            for i in range(len(allVnfList)):
-                vnf = VNF(allVnfList[i])
-                vmid = vnf.get_VM_id(allVnfList[i])
-                nodeid = VM.get_physicalNode_id(vmid)
-                if(nodeid == overloadedNodeIdList[j]):
-                    # 都是位于相同物理机上的,从中挑选流量最大的一个VNF
-                    if((vnf.getVNF_request_CPU() + vnf.getVNF_request_Memory()) > maxFlow):
-                        maxFlow = vnf.getVNF_request_CPU() + vnf.getVNF_request_Memory()
-                        maxFlowVNF = allVnfList[i]
-            # 至此，maxFlowVNF中存放的就是此物理节点上流量需求最大的VNF，将其添加到migVNFWithMaxFlowList中
-            if(maxFlowVNF not in migVNFWithMinReliaList):
-                migVNFWithMaxFlowList.append(maxFlowVNF)
-        # 至此，所有过载节点上的流量最大的VNF都已经被添加到migVNFWithMaxFlowList中了
+            # 5.在每个物理节点上选择一个流经流量最大的VNF，加入到migVNFWithMaxFlowList中
 
-        # 6.当网络中没有节点过载时，选择sortedSFClist中的每条SFC上可靠性最低的SFC，加入到migVNFWithMaxFlowList和migVNFWithMinReliaList中
+            # 网络中所有的VNF
+            vnfListSingelton = VNFList()
+            allVnfList = vnfListSingelton.getActiveVNFList()
+            for j in range(len(overloadedNodeIdList)):
+                maxFlow = 0
+                maxFlowVNF = None
+                for i in range(len(allVnfList)):
+                    vnf = VNF(allVnfList[i])
+                    vmid = vnf.get_VM_id(allVnfList[i])
+                    nodeid = VM.get_physicalNode_id(vmid)
+                    if(nodeid == overloadedNodeIdList[j]):
+                        # 都是位于相同物理机上的,从中挑选流量最大的一个VNF
+                        if((vnf.getVNF_request_CPU() + vnf.getVNF_request_Memory()) > maxFlow):
+                            maxFlow = vnf.getVNF_request_CPU() + vnf.getVNF_request_Memory()
+                            maxFlowVNF = allVnfList[i]
+                # 至此，maxFlowVNF中存放的就是此物理节点上流量需求最大的VNF，将其添加到migVNFWithMaxFlowList中
+                if(maxFlowVNF not in migVNFWithMinReliaList):
+                    migVNFWithMaxFlowList.append(maxFlowVNF)
+            # 至此，所有过载节点上的流量最大的VNF都已经被添加到migVNFWithMaxFlowList中了
+
+        # 6.当网络中没有节点过载时，选择sortedSFClist中的每条SFC上可靠性最低的SFC，
+        # 加入到migVNFWithMaxFlowList和migVNFWithMinReliaList中
+        elif(overloadedNodeIdList == None):
+            # 没有节点过载
+            for sfcid in sortedSFClist:
+                sfcInstance = SFC(sfcid)
+                vnfList = sfcInstance.getVNFList()
+                maxReliability = 0
+                maxVNFId = -1
+                for vnfid in vnfList:
+                    vnfInstance = VNF(vnfid)
+                    vnfReliability = vnfInstance.getVNFRliability(vnfid)
+                    if(vnfReliability > maxReliability):
+                        maxVNFId = vnfid
+                migVNFWithMinReliaList.append(maxVNFId)
+                migVNFWithMaxFlowList.append(maxVNFId)
+
+        # 7. 分别为migVNFWithMinReliaList和migVNFWithMaxFlowList中的所有VNF计算可迁移的目的地
+
         """未完待续"""
         return None
 
