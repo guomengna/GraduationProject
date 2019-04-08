@@ -1,7 +1,9 @@
-from entity import PhysicalNode
+from entity.PhysicalNode import PhysicalNode
 
 
 class VM():
+    # 存储放在此VM上的VNF的ID
+    vnfid = -1
     """虚拟机类，一个虚拟机上只有一个VNF"""
     def __init__(self, VM_id, VM_request_CPU, VM_request_Memory, physicalNode_id, VM_reliability):
         # VM的编号
@@ -23,8 +25,16 @@ class VM():
     # 根据ID获取VM的可靠性
     def getVMReliability(self, VMId):
         if(VMId == self.VM_id):
-            physicalNode = PhysicalNode()
+            physicalNode = PhysicalNode(self.get_physicalNode_id(VMId))
             return physicalNode.get_reliability(self.physicalNode_id)
 
     def setPhysicalNodeId(self, physicalNodeId):
         self.physicalNode_id = physicalNodeId
+
+    # 设置VM上的VNF id
+    def setVNFId(self, vnfid):
+        self.vnfid = vnfid
+
+    # 返回VM上的VNF id
+    def getVNFId(self):
+        return self.vnfid

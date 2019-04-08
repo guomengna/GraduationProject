@@ -164,3 +164,7 @@ class PhysicalNode():
     def deleteAvailable_Memory(self, physicalNodeId, memory_resource):
         if (physicalNodeId == self.physicalNode_id):
             self.available_Memory -= memory_resource
+
+    # 返回物理节点的VM列表
+    def getVMList(self):
+        return self.VM_list
