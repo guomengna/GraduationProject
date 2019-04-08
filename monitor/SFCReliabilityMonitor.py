@@ -5,6 +5,7 @@ from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
 from entity.VNF import VNF
 from entity.VNFList import VNFList, vnfListSingelton
+from migration.VNFMigration import VNFMigration
 from monitor.JudgeMigrationTime import JudgeMigrationTime
 
 
@@ -74,11 +75,16 @@ class SFCReliabilityMonitor():
                     if(judgeMigrationTimeInstance.migrationOneOrMore() == True):
                         # 迁移某一条SFC
                         """调用迁移一条SFC的方法，迁移可靠性低于阈值的SFC列表中的第一条SFC，调用方法处"""
+                        VNFMigration_instance = VNFMigration()
+                        VNFMigration_instance.migrateVNFsofOneSFC()
 
                     else:
                         judgeMigrationTimeInstance = JudgeMigrationTime()
                         neededMigrationSFCList = judgeMigrationTimeInstance.getNeededMigrationSFCList()
                         """调用迁移多条SFC的方法，方法调用处"""
+                        VNFMigration_instance = VNFMigration()
+                        VNFMigration_instance.migrateVNFsofMultiSFCIterator()
+
 
             # 睡眠相应的时间间隔之后才再一次去测量
             time.sleep(sleepTime)
