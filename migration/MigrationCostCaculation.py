@@ -10,15 +10,17 @@ from entity.VNF import VNF
 class MigrationCostCaculation():
     """迁移一条SFC Si上的VNFs所需要的代价计算"""
     def getCostOfMigratingVNFsOnOneSFC(self, migrated_SFC_id, SFCDelayBeforMigration,
-                                       SFCRequestedResourceBefore, needMigratedVNFList, destinationPhysicalNodeList):
+                                       SFCRequestedResourceBefore, needMigratedVNFList,
+                                       destinationPhysicalNodeList):
         # 由5部分组成：迁移Si上VNF所需要的时间、迁移后Si的时延增量、
         # 迁移后消耗的资源的增量、迁移过程中造成的Si的服务质量下降程度、迁移Si上的VNF造成的额外代价
-        migrationTime = self.getMigrationTime(self, migrated_SFC_id, needMigratedVNFList, destinationPhysicalNodeList)
+        migrationTime = self.getMigrationTime(migrated_SFC_id, needMigratedVNFList, destinationPhysicalNodeList)
         delayIncreationOfSFC = self.getDelayIncreationOfSFC(migrated_SFC_id, SFCDelayBeforMigration)
-        resourceIncreationOfSFC = self.getResourceIncreationOfSFC(self, migrated_SFC_id, SFCRequestedResourceBefore)
-        QoSDecreationOfSFC = self.getQoSDecreationOfSFC(self, migrated_SFC_id,
+        resourceIncreationOfSFC = self.getResourceIncreationOfSFC(migrated_SFC_id, SFCRequestedResourceBefore)
+        QoSDecreationOfSFC = self.getQoSDecreationOfSFC(migrated_SFC_id,
                                                         needMigratedVNFList, destinationPhysicalNodeList)
-        costOfMigratingVNFsOnOneSFC = migrationTime + delayIncreationOfSFC + resourceIncreationOfSFC + QoSDecreationOfSFC
+        costOfMigratingVNFsOnOneSFC = migrationTime + delayIncreationOfSFC \
+                                      + resourceIncreationOfSFC + QoSDecreationOfSFC
         return costOfMigratingVNFsOnOneSFC
 
     # 迁移Si上的VNF所需要消耗的时间

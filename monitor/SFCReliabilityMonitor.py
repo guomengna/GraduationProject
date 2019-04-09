@@ -71,8 +71,8 @@ class SFCReliabilityMonitor():
                 ifNeedMigration = judgeMigrationTimeInstance.ifNeedMigration(unreliableSFCList)
                 # 调用JudgeMigrationTime类中的ifNeedMigration方法，判断此时是否需要进行迁移                                                         unreliableSFCReliabilityList)
                 if(ifNeedMigration == True):
-                    # 判断是迁移一条还是多条SFC,migrationOneOrMore()方法调用缺少参数
-                    if(judgeMigrationTimeInstance.migrationOneOrMore() == True):
+                    # 判断是迁移一条还是多条SFC,migrationOneOrMore()方法
+                    if(judgeMigrationTimeInstance.migrationOneOrMore(unreliableSFCList, unreliableSFCReliabilityList) == True):
                         # 迁移某一条SFC
                         """调用迁移一条SFC的方法，迁移可靠性低于阈值的SFC列表中的第一条SFC，调用方法处"""
                         VNFMigration_instance = VNFMigration()
