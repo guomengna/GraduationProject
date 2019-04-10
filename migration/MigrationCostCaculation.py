@@ -19,8 +19,9 @@ class MigrationCostCaculation():
         resourceIncreationOfSFC = self.getResourceIncreationOfSFC(migrated_SFC_id, SFCRequestedResourceBefore)
         QoSDecreationOfSFC = self.getQoSDecreationOfSFC(migrated_SFC_id,
                                                         needMigratedVNFList, destinationPhysicalNodeList)
+        additionnalCost = self.getAdditonalCostOfSFC(migrated_SFC_id, needMigratedVNFList, destinationPhysicalNodeList)
         costOfMigratingVNFsOnOneSFC = migrationTime + delayIncreationOfSFC \
-                                      + resourceIncreationOfSFC + QoSDecreationOfSFC
+                                      + resourceIncreationOfSFC + QoSDecreationOfSFC + additionnalCost
         return costOfMigratingVNFsOnOneSFC
 
     # 迁移Si上的VNF所需要消耗的时间
