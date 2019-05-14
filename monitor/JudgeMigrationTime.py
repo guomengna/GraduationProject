@@ -1,11 +1,11 @@
 """迁移时机判断"""
 from entity.SFC import SFC
-from entity.SFCList import sfcListSingleton
-from monitor import SFCReliabilityMonitor
+
 #总体可靠性下降程度阈值
 THRESHOLD_DEGREE = 0.1
 
 class JudgeMigrationTime():
+    print("this is JudgeMigrationTime class")
     # 需要迁移的SFC列表
     neededMigrationSFCList = []
     totalReliabilityBelowDegree = 0

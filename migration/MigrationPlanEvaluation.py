@@ -4,6 +4,7 @@ from entity.SFCList import sfcListSingleton
 from migration.MigrationCostCaculation import MigrationCostCaculation
 
 class MigrationPlanEvaluation():
+    print("this is MigrationPlanEvaluation class")
     """迁移方案评价方法"""
     def __init__(self, migrated_SFC_id, SFCDelayBeforMigration,
                  SFCRequestedResourceBefore, needMigratedVNFList, destinationPhysicalNodeList):

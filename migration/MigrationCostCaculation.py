@@ -8,6 +8,7 @@ from entity.VNF import VNF
 
 
 class MigrationCostCaculation():
+    print("this is MigrationCostCaculation class")
     """迁移一条SFC Si上的VNFs所需要的代价计算"""
     def getCostOfMigratingVNFsOnOneSFC(self, migrated_SFC_id, SFCDelayBeforMigration,
                                        SFCRequestedResourceBefore, needMigratedVNFList,

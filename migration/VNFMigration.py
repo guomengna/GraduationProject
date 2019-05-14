@@ -12,6 +12,7 @@ from migration.MigrationPlanEvaluation import MigrationPlanEvaluation
 
 
 class VNFMigration():
+    print("this is VNFMigration class")
     # 迁移一条SFC
     def migrateVNFsofOneSFC(self):
         # 每次迁移的这一条SFC应该是当前网络中可靠性最低的一条

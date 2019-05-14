@@ -30,7 +30,7 @@ for i in range(nrows):
     rightPhysicalNodelist.append(rightPhysicalNode)
     delay = list[8]
     delaylist.append(delay)
-
+print("this is the SFC.class")
 for j in range(len(leftPhysicalNodelist)):
     print(leftPhysicalNodelist[j], rightPhysicalNodelist[j], delaylist[j])
     # print(totalList[j])

@@ -8,6 +8,7 @@ from entity.VM import VM
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
 class SFCInitialFormat():
+    print("this is SFCInitialFormed class")
     K = 6
     # 存放找出来的前K个SFC
     foundSFCList = None
@@ -22,7 +23,8 @@ class SFCInitialFormat():
         maxScore = 0  # 最高评分
         maxScoreSFCId = None  # 拥有最高评分的SFC的id
         # 挨个分析每一条SFC
-        for i in self.K:
+        i = 0
+        while(i < self.K):
             analysisSFC = self.foundSFCList[i]
             # 但是由于挑选VNF的时候已经确定了VNF能够提供足够多的资源，所以挑选出来的SFC都不会过载？
             # 可以选择将VNF的资源需求值上升一个随机（比如说增加从0到0.1之间的任意数倍）的倍数，防止运行中需求的资源会上升。
@@ -35,6 +37,7 @@ class SFCInitialFormat():
             if maxScore < self.SFC_placement_plan_scoring(analysisSFC.getSFCId()):
                 maxScore = self.SFC_placement_plan_scoring(analysisSFC.getSFCId())
                 maxScoreSFCId = analysisSFC.getSFCId()
+            i += 1
         # 将拥有最高可靠性的SFC加入到SFCList单例中
         sfcListSingleton.addSFC(maxScoreSFCId)
         # 返回拥有最高得分的SFC，作为最初的SFC部署方案
@@ -88,7 +91,7 @@ class SFCInitialFormat():
         allVNFList = vnfListSingelton.getAllVNFList()
         # 同类型中已经被选过的VNF列表
         VNFHadPicked = None
-        for i in len(allVNFList):
+        for i in range(len(allVNFList)):
             VNFinstance = VNF()
             if(VNFinstance.getVNFType(allVNFList[i]) == VNFtype and allVNFList[i] not in VNFHadPicked):
                 VNFHadPicked.append(allVNFList[i])

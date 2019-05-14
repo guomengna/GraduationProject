@@ -11,6 +11,7 @@ from monitor.JudgeMigrationTime import JudgeMigrationTime
 
 class SFCReliabilityMonitor():
     """SFC可靠性监测类"""
+    print("this is SFCReliabilityMonitor class")
     # 本方法被调用的次数
     callCount = 0
 
@@ -84,7 +85,6 @@ class SFCReliabilityMonitor():
                         """调用迁移多条SFC的方法，方法调用处"""
                         VNFMigration_instance = VNFMigration()
                         VNFMigration_instance.migrateVNFsofMultiSFCIterator()
-
 
             # 睡眠相应的时间间隔之后才再一次去测量
             time.sleep(sleepTime)
