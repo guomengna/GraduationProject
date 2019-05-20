@@ -39,16 +39,33 @@ class SFCReliabilityMonitor():
     # 存储可靠性低于阈值的SFC
     unreliableSFCList = []
     unreliableSFCReliabilityList = []
+    count = 0
+    starttime = time.perf_counter()
+    print("开始时间：%d" % starttime)
     # 可靠性监测方法,按照计算出的当前时间间隔，在当前时钟的基础上加上此时间间隔，计算整个网络中SFC的可靠性
     # 由此，我认为我的时间间隔设置初始值可能太小了，因为计算SFC的可靠性需要一定的时间，此时间应当比时间间隔小很多才好
     def reliability_monitor(self):
+        print("可靠性监测方法主体")
         # 如何能间隔不同的时间间隔调用相同的方法？
         # 隔上一个时间间隔就要重新调用SFC_reliability_caculating()方法，计算网络中的SFC可靠性如何实现呢？
         # 定义一个时间间隔变量，用于存储每次算出的时间间隔
         timeIntervalVariable = self.reliability_monitor_timeInterval()
+        print("timeIntervalVariable = %d" %timeIntervalVariable)
+        # 睡眠时间
+        sleepTime = timeIntervalVariable
+        print("sleeptime = %d" % sleepTime)
+
         while(True):
+            endtime = time.perf_counter()
+            print("结束时间：%d" % endtime)
+            self.count += 1
+            print("count = %d" % self.count)
+            print("%d" % int(endtime - self.starttime))
+            if (int(endtime - self.starttime) >= 3):
+                break
             # 睡眠时间
             sleepTime = timeIntervalVariable
+            print("sleeptime = %d" % sleepTime)
             # 每次都要更新
             timeIntervalVariable = self.reliability_monitor_timeInterval()
             self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
@@ -111,6 +128,7 @@ class SFCReliabilityMonitor():
         self.callCount += 1
         # 调用获取此刻网络流量需求的方法（现在的流量需求）
         flowNeeds = self.flow_monitor()
+        print("call count = %d" % self.callCount)
         # 用于判断是否是第一次调用本方法，即是否是首次监测SFC可靠性。
         if self.callCount == 1:
             # 首次调用该监测方法，时间间隔设置为初始值，而初始值的确定与流量多少有关
@@ -120,12 +138,13 @@ class SFCReliabilityMonitor():
         else:
             # 并非首次调用，即存在上一次的时间间隔
             # interval = self.baseLastTime-self.baseInterval*self.w1 #此处的计算应该使用流量增多或是减少对应的时间间隔
-            interval = self.caculate_new_interval(flowNeeds , self.lastFlowNeeds, self.baseLastTime)
+            interval = self.caculate_new_interval(flowNeeds, self.lastFlowNeeds, self.baseLastTime)
 
         # 更新上一次时间间隔的值，本次计算的结果应该是下一次的baseLastTime
         self.baseLastTime = interval
         # 每次都要更新新的流量需求
         self.lastFlowNeeds = flowNeeds
+        print("可靠性测量的时间间隔的确定:%d" % interval)
         return interval
 
     # 监测此时网络中流量的多少（网络中的流量应该怎么在这里表示呢？？是否可以用网络中所有VNF总共所需要的资源来表示呢）
@@ -146,12 +165,15 @@ class SFCReliabilityMonitor():
 
     # 根据网络中流量的多少来确定初始时间间隔baseInterval
     def set_inital_interval(self, flowNeeds):
+        print("流量需求为：%d" %flowNeeds)
         baseTimeInterval = 0
         # 设定2个流量阈值
         # 1.less值，即流量小于等于此值时，将初始时间间隔设置为lessInterval
         lessThrethold = self.LESS
         # 2.high值，即流量大于此值时，将初始时间间隔设置为highInterval
         highThrethold = self.HIGH
+        print("lessThrethold = %d" % lessThrethold)
+        print("highThrethold = %d" % highThrethold)
         if(flowNeeds <= lessThrethold):
             baseTimeInterval = self.LESS_INTERVAL
         elif(flowNeeds > highThrethold):
@@ -162,6 +184,8 @@ class SFCReliabilityMonitor():
     # 判断流量增多还是减少，分别使用增多和减少时的公式来计算新的时间间隔
     # 输入参数为：当前的流量需求，上一次的流量需求，上一次的时间间隔
     def caculate_new_interval(self, currentFlowNeeds, lastFlowNeeds, lastTimeInterval):
+        print("上次流量需求：%d" %lastFlowNeeds)
+        print("本次流量需求：%d" % currentFlowNeeds)
         # 暂时设置的阈值
         a1 = 2
         a2 = 3
