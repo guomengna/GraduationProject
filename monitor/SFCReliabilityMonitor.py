@@ -150,15 +150,34 @@ class SFCReliabilityMonitor():
     # 监测此时网络中流量的多少（网络中的流量应该怎么在这里表示呢？？是否可以用网络中所有VNF总共所需要的资源来表示呢）
     def flow_monitor(self):
         # 用当前网络中VNF所需要的资源(CPU)的总量来代表流量
-        VNFListIntance = VNFList()
+        # VNFListIntance = VNFList()
         # 当前网络中活动的VNF列表,使用单例调用
         current_active_VNF_list = vnfListSingelton.getActiveVNFList()
+        dict_VNFListType = vnfListSingelton.get_dict_VNFListType()
+        dict_VNFRequestCPU = vnfListSingelton.get_dict_VNFRequestCPU()
+        dict_VNFRequestMemory = vnfListSingelton.get_dict_VNFRequestMemory()
+        dict_locatedVMID = vnfListSingelton.get_dict_locatedVMID()
+        dict_locatedSFCIDList = vnfListSingelton.get_dict_locatedSFCIDList()
+        dict_numbersOnSFCList = vnfListSingelton.get_dict_numbersOnSFCList()
+        dict_VNFReliability = vnfListSingelton.get_dict_VNFReliability()
+
         # current_active_VNF_list = VNFListIntance.getActiveVNFList()
         # 总的资源需求值,初始为0
         totalNeededResource = 0
         # 根据活动VNF列表获取列表中每个VNF此刻的资源需求值
         for i in range(len(current_active_VNF_list)):
+            # 根据VNF的ID，去文件中获取此VNF的所有数据，用于初始化VNF实例
+            VNFID = current_active_VNF_list[i]
             currentVNF = VNF(current_active_VNF_list[i])
+            VNFType = dict_VNFListType[VNFID]
+            print("VNF Type = %d" % VNFType)
+            VNFRequestCPU = dict_VNFRequestCPU[VNFID]
+            print("VNF需要的CPU资源是：%d" % VNFRequestCPU)
+            VNFRequestMemory = dict_VNFRequestMemory[VNFID]
+            print("VNF所需要的内存资源：%d" % VNFRequestMemory)
+            locatedVMID = dict_locatedVMID[VNFID]
+            print("VNF所在的VM的ID：%d" % dict_locatedVMID)
+
             totalNeededResource += currentVNF.VNF_request_CPU
         # 返回所需的资源（CPU）总量
         return totalNeededResource
