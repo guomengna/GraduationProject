@@ -15,11 +15,13 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # # 定时调度
 # timer = threading.Timer(2, mytimer)
 # timer.start()
-# # 50秒后停止定时器
+# 50秒后停止定时器
 # time.sleep(10)
 # timer.cancel()
+
 # count = 0
 # starttime = time.perf_counter()
+# sleepTime = 2
 # while(True):
 #     print("hello")
 #     count += 1
@@ -29,8 +31,10 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 #     # if(count == 3):
 #     #     print(endtime - starttime)
 #     #     break
-#     print(int(endtime - starttime))
-#     if (int(endtime - starttime) >= 3):
+#     time.sleep(sleepTime)
+#     print("睡眠时长为： %d" % sleepTime)
+#     print("已经运行的时长为： %d" % int(endtime - starttime))
+#     if (int(endtime - starttime) >= 30):
 #         break
 
 SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
