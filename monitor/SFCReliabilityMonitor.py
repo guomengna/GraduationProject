@@ -56,25 +56,21 @@ class SFCReliabilityMonitor():
         print("sleeptime = %d" % sleepTime)
 
         while(True):
-            endtime = time.perf_counter()
-            print("结束时间：%d" % endtime)
-            self.count += 1
-            print("count = %d" % self.count)
-            print("%d" % int(endtime - self.starttime))
-            if (int(endtime - self.starttime) >= 3):
-                break
-            # 睡眠时间
-            sleepTime = timeIntervalVariable
-            print("sleeptime = %d" % sleepTime)
-            # 每次都要更新
-            timeIntervalVariable = self.reliability_monitor_timeInterval()
-            self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
+            # # 睡眠时间
+            # sleepTime = timeIntervalVariable
+            # print("sleeptime = %d" % sleepTime)
+            # # 每次都要更新
+            # timeIntervalVariable = self.reliability_monitor_timeInterval()
+            # self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
+
             # 清空列表
             unreliableSFCList = []
             unreliableSFCReliabilityList = []
             SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
             # 存储全网中所有SFC的可靠性
-            SFCReliabilityList = SFCReliabilityMonitorInstance.reliability_monitor()
+            """此处是死循环的出现地点，下边的代码不会执行"""
+            # SFCReliabilityList = SFCReliabilityMonitorInstance.reliability_monitor() 怀疑这一句是调用错了，调用的应该是下边的方法
+            SFCReliabilityList = SFCReliabilityMonitorInstance.SFC_reliability_caculating
             # 全网中所有SFC的ID列表
             ALLSFCList = sfcListSingleton.getSFCList()
             # 判断每条SFC的可靠性是否低于阈值
@@ -105,6 +101,19 @@ class SFCReliabilityMonitor():
 
             # 睡眠相应的时间间隔之后才再一次去测量
             time.sleep(sleepTime)
+            # 睡眠时间
+            sleepTime = timeIntervalVariable
+            print("sleeptime = %d" % sleepTime)
+            # 每次都要更新
+            timeIntervalVariable = self.reliability_monitor_timeInterval()
+            self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
+            endtime = time.perf_counter()
+            print("结束时间：%d" % endtime)
+            self.count += 1
+            print("count = %d" % self.count)
+            # print("%d" % int(endtime - self.starttime))
+            if (int(endtime - self.starttime) >= 3):
+                break
 
     # 全网中所有SFC的可靠性计算方法
     def SFC_reliability_caculating(self):
@@ -160,7 +169,7 @@ class SFCReliabilityMonitor():
         dict_locatedSFCIDList = vnfListSingelton.get_dict_locatedSFCIDList()
         dict_numbersOnSFCList = vnfListSingelton.get_dict_numbersOnSFCList()
         dict_VNFReliability = vnfListSingelton.get_dict_VNFReliability()
-
+        # print(dict_VNFReliability)
         # current_active_VNF_list = VNFListIntance.getActiveVNFList()
         # 总的资源需求值,初始为0
         totalNeededResource = 0
@@ -168,7 +177,7 @@ class SFCReliabilityMonitor():
         for i in range(len(current_active_VNF_list)):
             # 根据VNF的ID，去文件中获取此VNF的所有数据，用于初始化VNF实例
             VNFID = current_active_VNF_list[i]
-            currentVNF = VNF(current_active_VNF_list[i])
+
             VNFType = dict_VNFListType[VNFID]
             print("VNF Type = %d" % VNFType)
             VNFRequestCPU = dict_VNFRequestCPU[VNFID]
@@ -176,8 +185,17 @@ class SFCReliabilityMonitor():
             VNFRequestMemory = dict_VNFRequestMemory[VNFID]
             print("VNF所需要的内存资源：%d" % VNFRequestMemory)
             locatedVMID = dict_locatedVMID[VNFID]
-            print("VNF所在的VM的ID：%d" % dict_locatedVMID)
-
+            print("VNF所在的VM的ID：%d" % locatedVMID)
+            locatedSFCIDList = dict_locatedSFCIDList[VNFID]
+            print("VNF所处的SFC的ID列表： %d" % locatedSFCIDList)
+            numbersOnSFCList = dict_numbersOnSFCList[VNFID]
+            print("VNF在所处的SFC上的序号列表： %d" % numbersOnSFCList)
+            VNFReliability = dict_VNFReliability[VNFID]
+            print("VNF的可靠性：%d" % VNFReliability)
+            currentVNF = VNF(current_active_VNF_list[i], VNFType,
+                             VNFRequestCPU, VNFRequestMemory, locatedVMID,
+                             locatedSFCIDList, numbersOnSFCList,
+                             VNFReliability)
             totalNeededResource += currentVNF.VNF_request_CPU
         # 返回所需的资源（CPU）总量
         return totalNeededResource
