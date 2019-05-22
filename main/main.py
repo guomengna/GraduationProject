@@ -37,8 +37,11 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 #     if (int(endtime - starttime) >= 30):
 #         break
 
+# 方法调用：可靠性监测模块中的可靠性监测方法
+"""SFCList为空，先去试试SFC初次形成模块，生成SFC,存入到文件中，作为系统的输入//或者直接将SFCList生成，作为输入参数读入到系统中"""
 SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
 SFCReliabilityMonitorInstance.reliability_monitor()
+
 
 # ALLSFCList = sfcListSingleton.getSFCList()
 # print("列表长度为：%d" % len(ALLSFCList))

@@ -2,6 +2,8 @@
 from entity.SFC import SFC
 
 #总体可靠性下降程度阈值
+from entity.SFCList import sfcListSingleton
+
 THRESHOLD_DEGREE = 0.1
 
 class JudgeMigrationTime():
@@ -26,7 +28,13 @@ class JudgeMigrationTime():
         self.reliabilityBelowDegreeList = []
 
         for i in range(len(unreliableSFCList)):
-            SFCInstance = SFC(unreliableSFCList[i])
+            print("unreliableSFCList[i] = %d" %unreliableSFCList[i])
+            SFCInstance = SFC(unreliableSFCList[i],
+                              sfcListSingleton.dict_maxDelay[unreliableSFCList[i]],
+                              sfcListSingleton.dict_minReliability[unreliableSFCList[i]],
+                              sfcListSingleton.dict_VNFList[unreliableSFCList[i]],
+                              sfcListSingleton.dict_createdtime[unreliableSFCList[i]]
+                              )
             requiredReliability = SFCInstance.getRequestMinReliability()
             reliabilityBelowDegree = (requiredReliability - unreliableSFCReliabilityList[i])/requiredReliability
             self.totalReliabilityBelowDegree += reliabilityBelowDegree

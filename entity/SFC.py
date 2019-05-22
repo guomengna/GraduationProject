@@ -5,7 +5,10 @@ import xlrd
 from numpy.core.tests.test_mem_overlap import xrange
 
 from entity.VM import VM
+from entity.VMList import vmListSingelton
 from entity.VNF import VNF
+from entity.VNFList import vnfListSingelton
+
 excelFile = xlrd.open_workbook('D:/pycharm workspace'
                                '/GraduationProject/topo/'
                                'cernet2_added.xlsx', 'r')
@@ -38,6 +41,7 @@ for j in range(len(leftPhysicalNodelist)):
 class SFC():
     """SFC类"""
     currentDelay = 0
+    delay_list = []
     # 此方法应该在SFC的初次形成模块调用，但是现在还没有被调用过
     def __init__(self, SFC_id, SFC_request_max_delay, SFC_request_min_reliability, VNF_list, create_time):
         # SFC的编号
@@ -62,7 +66,15 @@ class SFC():
         requestedMemory = 0
         VNF_list = self.getVNFList()
         for vnfInstanceId in VNF_list:
-            vnfInstance = VNF(vnfInstanceId)
+            vnfInstance = VNF(vnfInstanceId,
+                              vnfListSingelton.dict_VNFListType[vnfInstanceId],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfInstanceId],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfInstanceId],
+                              vnfListSingelton.dict_locatedVMID[vnfInstanceId],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfInstanceId],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfInstanceId],
+                              vnfListSingelton.dict_VNFReliability[vnfInstanceId]
+                              )
             requestedCPU += vnfInstance.getVNF_request_CPU()
             requestedMemory += vnfInstance.getVNF_request_Memory()
         return requestedCPU + requestedMemory
@@ -101,35 +113,71 @@ class SFC():
 
     # SFC可靠性计算方法，VNF_list中存储的是SFC上所有VNF的id。
     def get_SFC_relialibility(self, VNF_list):
-        VNFInstance = VNF()
-        SFCReliability = 0
-        for VNFId in VNF_list:
-            SFCReliability *= VNFInstance.getVNFRliability(VNFId)
+        SFCReliability = 1
+        for i in range(len(VNF_list)):
+            vnfid = VNF_list[i]
+            VNFInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid])
+            print("VNF的可靠性为： %f" %VNFInstance.getVNFRliability(vnfid))
+            SFCReliability *= VNFInstance.getVNFRliability(vnfid)
+        print("SFC的新的可靠性为：%f" % SFCReliability)
         return SFCReliability
 
     # 获取SFC的时延,时延为SFC上各个VNF之间的时延的加和。
     def get_SFC_delay(self, VNF_list):
         SFCDelay = 0
         index = 0
-        for index in len(VNF_list-1):
+        for index in range(len(VNF_list) - 1):
             VNFIdLeft = VNF_list[index]
             VNFIdRight = VNF_list[index+1]
             delay = self.delayBetweenVNFs(VNFIdLeft, VNFIdRight)
             self.delay_list.append(delay)
-        for delay in self.delay_list:
-            SFCDelay += delay
+        for i in range(len(self.delay_list)):
+            SFCDelay += self.delay_list[i]
         return SFCDelay
 
     # 根据VNF id获取两个VNF之间的时延。
     # 首先要获得VNF所在的VM，再获取VM所在的物理节点，
     # 然后根据拓扑得到两个物理节点之间的时延
     def delayBetweenVNFs(self, VNFIdLeft, VNFRight):
-        vmInstance = VM()
+
         delay = 1000000
-        VNFInstanceLeft = VNF(VNFIdLeft)
-        VNFInstanceRight = VNF(VNFRight)
-        LeftphysicalNodeId = vmInstance.get_physicalNode_id(VNFInstanceLeft.get_VM_id())
-        RightphysicalNodeId = vmInstance.get_physicalNode_id(VNFInstanceRight.get_VM_id())
+        VNFInstanceLeft = VNF(VNFIdLeft,
+                              vnfListSingelton.dict_VNFListType[VNFIdLeft],
+                              vnfListSingelton.dict_VNFRequestCPU[VNFIdLeft],
+                              vnfListSingelton.dict_VNFRequestMemory[VNFIdLeft],
+                              vnfListSingelton.dict_locatedVMID[VNFIdLeft],
+                              vnfListSingelton.dict_locatedSFCIDList[VNFIdLeft],
+                              vnfListSingelton.dict_numbersOnSFCList[VNFIdLeft],
+                              vnfListSingelton.dict_VNFReliability[VNFIdLeft]
+                              )
+        VNFInstanceRight = VNF(VNFRight,
+                               vnfListSingelton.dict_VNFListType[VNFRight],
+                               vnfListSingelton.dict_VNFRequestCPU[VNFRight],
+                               vnfListSingelton.dict_VNFRequestMemory[VNFRight],
+                               vnfListSingelton.dict_locatedVMID[VNFRight],
+                               vnfListSingelton.dict_locatedSFCIDList[VNFRight],
+                               vnfListSingelton.dict_numbersOnSFCList[VNFRight],
+                               vnfListSingelton.dict_VNFReliability[VNFRight]
+                               )
+        vmIdleft = VNFInstanceLeft.get_VM_id(VNFIdLeft)
+        vmIdRight = VNFInstanceRight.get_VM_id(VNFRight)
+        vmInstanceleft = VM(vmIdleft, vmListSingelton.dict_VMRequestCPU[vmIdleft],
+                            vmListSingelton.dict_VMRequestMemory[vmIdleft],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[vmIdleft],
+                            vmListSingelton.dict_VMReliability[vmIdleft])
+        vmInstanceright = VM(vmIdRight, vmListSingelton.dict_VMRequestCPU[vmIdRight],
+                            vmListSingelton.dict_VMRequestMemory[vmIdRight],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[vmIdRight],
+                            vmListSingelton.dict_VMReliability[vmIdRight])
+        LeftphysicalNodeId = vmInstanceleft.get_physicalNode_id(vmIdleft)
+        RightphysicalNodeId = vmInstanceright.get_physicalNode_id(vmIdRight)
         # 由拓扑结构获取到左右两个物理节点之间的时延
         for i in range(len(leftPhysicalNodelist)):
             if LeftphysicalNodeId == leftPhysicalNodelist[i]:

@@ -32,8 +32,9 @@ class VNF():
     # 根据VNF id获取VNF的可靠性
     def getVNFRliability(self, VNFId):
         if VNFId == self.VNF_id:
-            vm = VM()
-            return vm.getVMReliability(self.VM_id)
+            return self.VNF_reliability
+            # vm = VM()
+            # return vm.getVMReliability(self.VM_id)
 
     # 根据VNF_id获取VNF的类型
     def getVNFType(self, VNFId):

@@ -7,3 +7,5 @@ class PhysicalNodeList(object):
 
     def getNodeList(self):
         return self.nodeList
+
+nodeListSingelton = PhysicalNodeList()

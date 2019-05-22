@@ -148,3 +148,14 @@ class VNFList(object):
         return self.dict_VNFReliability
 
 vnfListSingelton = VNFList()
+"""VNF创建实例的格式如下：
+VNFInstance = VNF(VNFid,
+               vnfListSingelton.dict_VNFListType[VNFid],
+               vnfListSingelton.dict_VNFRequestCPU[VNFid],
+               vnfListSingelton.dict_VNFRequestMemory[VNFid],
+               vnfListSingelton.dict_locatedVMID[VNFid],
+               vnfListSingelton.dict_locatedSFCIDList[VNFid],
+               vnfListSingelton.dict_numbersOnSFCList[VNFid],
+               vnfListSingelton.dict_VNFReliability[VNFid]
+               )
+"""

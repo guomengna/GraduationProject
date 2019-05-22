@@ -35,7 +35,7 @@ class SFCReliabilityMonitor():
 
     # 流量增减幅度的阈值
     FLOW_ADD_OR_DELETE_Threthold = 0.1
-    cunrrentSFCReliabilityList = []
+    cunrrentSFCReliabilityList = {}
     # 存储可靠性低于阈值的SFC
     unreliableSFCList = []
     unreliableSFCReliabilityList = []
@@ -54,7 +54,7 @@ class SFCReliabilityMonitor():
         # 睡眠时间
         sleepTime = timeIntervalVariable
         print("sleeptime = %d" % sleepTime)
-
+        self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
         while(True):
             # # 睡眠时间
             # sleepTime = timeIntervalVariable
@@ -69,18 +69,32 @@ class SFCReliabilityMonitor():
             SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
             # 存储全网中所有SFC的可靠性
             """此处是死循环的出现地点，下边的代码不会执行"""
-            # SFCReliabilityList = SFCReliabilityMonitorInstance.reliability_monitor() 怀疑这一句是调用错了，调用的应该是下边的方法
-            SFCReliabilityList = SFCReliabilityMonitorInstance.SFC_reliability_caculating
+            # SFCReliabilityList = SFCReliabilityMonitorInstance.reliability_monitor() #怀疑这一句是调用错了，调用的应该是下边的方法
+            # SFCReliabilityList = SFCReliabilityMonitorInstance.SFC_reliability_caculating()
             # 全网中所有SFC的ID列表
             ALLSFCList = sfcListSingleton.getSFCList()
+            # 存储的是网络中SFC的最小可靠性需求值
+            SFCReliabilityResqeustList = []
+            for i in range(len(ALLSFCList)):
+                print("SFC的ID是： %d" %ALLSFCList[i])
+                print("sfcListSingleton.dict_minReliability[ALLSFCList[i]] is: %f" %sfcListSingleton.dict_minReliability[ALLSFCList[i]])
+                SFCReliabilityResqeustList.append(sfcListSingleton.dict_minReliability[ALLSFCList[i]])
+            print("SFCReliabilityResqeustList is :")
+            print(SFCReliabilityResqeustList)
+
             # 判断每条SFC的可靠性是否低于阈值
             for i in range(len(ALLSFCList)):
-                SFCInstance = SFC(ALLSFCList[i])
+                SFCInstance = SFC(ALLSFCList[i], sfcListSingleton.dict_maxDelay[ALLSFCList[i]],
+                                  sfcListSingleton.dict_minReliability[ALLSFCList[i]],
+                                  sfcListSingleton.dict_VNFList[ALLSFCList[i]],
+                                  sfcListSingleton.dict_createdtime[ALLSFCList[i]])
                 SFCRequestMinReliability = SFCInstance.getRequestMinReliability()
-                if(self.cunrrentSFCReliabilityList[i].values < SFCReliabilityList[i]):#可靠性小于需求值
+                print(self.cunrrentSFCReliabilityList[ALLSFCList[i]])
+                print(SFCReliabilityResqeustList[i])
+                if(self.cunrrentSFCReliabilityList[ALLSFCList[i]] < sfcListSingleton.dict_minReliability[ALLSFCList[i]]):#可靠性小于需求值
                     # 将此SFC加入到不满足可靠性要求的SFC列表中
-                    unreliableSFCList.append(i)
-                    unreliableSFCReliabilityList.append(self.cunrrentSFCReliabilityList[i].values)
+                    unreliableSFCList.append(ALLSFCList[i])
+                    unreliableSFCReliabilityList.append(self.cunrrentSFCReliabilityList[ALLSFCList[i]])
                 judgeMigrationTimeInstance = JudgeMigrationTime()
                 ifNeedMigration = judgeMigrationTimeInstance.ifNeedMigration(unreliableSFCList)
                 # 调用JudgeMigrationTime类中的ifNeedMigration方法，判断此时是否需要进行迁移                                                         unreliableSFCReliabilityList)
@@ -106,6 +120,7 @@ class SFCReliabilityMonitor():
             print("sleeptime = %d" % sleepTime)
             # 每次都要更新
             timeIntervalVariable = self.reliability_monitor_timeInterval()
+            # 存储的是当前网络中SFC的可靠性
             self.cunrrentSFCReliabilityList = self.SFC_reliability_caculating()
             endtime = time.perf_counter()
             print("结束时间：%d" % endtime)
@@ -121,16 +136,24 @@ class SFCReliabilityMonitor():
         SFCReliabilityList = []
         # 获取到网络中所有的SFC的列表
         ALLSFCList = sfcListSingleton.getSFCList()
+        SFCReliabilityDict = {}
         for i in range(len(ALLSFCList)):
-            SFCInstance = SFC(ALLSFCList[i])
+            print("SFC的ID为： %d" %ALLSFCList[i])
+            SFCInstance = SFC(ALLSFCList[i],
+                              sfcListSingleton.dict_maxDelay[ALLSFCList[i]],
+                              sfcListSingleton.dict_minReliability[ALLSFCList[i]],
+                              sfcListSingleton.dict_VNFList[ALLSFCList[i]],
+                              sfcListSingleton.dict_createdtime[ALLSFCList[i]]
+                              )
             SFCreliability = SFCInstance.getSFCReliabilityAtFirst()
             # 字典,存放每个SFC的ID和可靠性
-            SFCReliabilityDict = {}
-            SFCReliabilityDict['SFCID'] = ALLSFCList[i]
-            SFCReliabilityDict['reliability'] = SFCreliability
+            SFCReliabilityDict[ALLSFCList[i]] = SFCreliability
+            # SFCReliabilityDict['SFCID'] = ALLSFCList[i]
+            # SFCReliabilityDict['reliability'] = SFCreliability
             # 列表里放的是所有的字典（不知道编译会不会通过）
-            SFCReliabilityList.append(SFCReliabilityDict)
-        return SFCReliabilityList
+            # SFCReliabilityList.append(SFCReliabilityDict)
+        print(SFCReliabilityDict)
+        return SFCReliabilityDict
 
     # 可靠性测量的时间间隔的确定
     def reliability_monitor_timeInterval(self):
