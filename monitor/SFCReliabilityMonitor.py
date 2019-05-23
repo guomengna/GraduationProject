@@ -103,6 +103,7 @@ class SFCReliabilityMonitor():
                     if(judgeMigrationTimeInstance.migrationOneOrMore(unreliableSFCList, unreliableSFCReliabilityList) == True):
                         # 迁移某一条SFC
                         """调用迁移一条SFC的方法，迁移可靠性低于阈值的SFC列表中的第一条SFC，调用方法处"""
+                        print("*****************迁移一条SFC*************************")
                         VNFMigration_instance = VNFMigration()
                         VNFMigration_instance.migrateVNFsofOneSFC()
 
@@ -110,6 +111,7 @@ class SFCReliabilityMonitor():
                         judgeMigrationTimeInstance = JudgeMigrationTime()
                         neededMigrationSFCList = judgeMigrationTimeInstance.getNeededMigrationSFCList()
                         """调用迁移多条SFC的方法，方法调用处"""
+                        print("*****************迁移多条SFC*************************")
                         VNFMigration_instance = VNFMigration()
                         VNFMigration_instance.migrateVNFsofMultiSFCIterator()
 
@@ -127,7 +129,7 @@ class SFCReliabilityMonitor():
             self.count += 1
             print("count = %d" % self.count)
             # print("%d" % int(endtime - self.starttime))
-            if (int(endtime - self.starttime) >= 3):
+            if (int(endtime - self.starttime) >= 30):
                 break
 
     # 全网中所有SFC的可靠性计算方法

@@ -2,7 +2,7 @@
 import math
 
 from entity.PhysicalNode import PhysicalNode
-from entity.PhysicalNodeList import PhysicalNodeList
+from entity.PhysicalNodeList import PhysicalNodeList, nodeListSingelton
 from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton, SFCList
 from entity.VM import VM
@@ -516,7 +516,11 @@ class VNFMigration():
             # 获取到此VNF所在的物理节点
             nodeId = vmInstance.get_physicalNode_id(vnfInstance.get_VM_id(vnfId))
             # 判断此节点是否过载
-            nodeInstance = PhysicalNode(nodeId)
+            nodeInstance = PhysicalNode(nodeId,
+                                        nodeListSingelton.dict_capacity_CPU[nodeId],
+                                        nodeListSingelton.dict_capacity_Memory[nodeId],
+                                        nodeListSingelton.dict_capacity_Memory[nodeId]
+                                        )
             overloadeState = nodeInstance.overloadeState
             if (overloadeState == True):
                 VNFonoverNodeListId.append(vnfId)
@@ -528,7 +532,7 @@ class VNFMigration():
         # 存储所有可能的物理节点的id
         allsatidfiedNodeList = []
         # 满足约束条件的都可作为VNF迁移的目的地
-        nodeIdList = PhysicalNodeList.getNodeList()
+        nodeIdList = nodeListSingelton.getNodeList()
         for nodeId in nodeIdList:
             if(self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId) == True):
                 allsatidfiedNodeList.append(nodeId)
@@ -563,11 +567,23 @@ class VNFMigration():
     # 判断第一个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain1(self, vnfId, nodeId, migratedSFCId):
         # 约束1.1 迁移后的节点可靠性大于迁移前VNF所在节点的可靠性
-        VNFInstance = VNF(vnfId)
+        VNFInstance = VNF(vnfId,
+                          vnfListSingelton.dict_VNFListType[vnfId],
+                          vnfListSingelton.dict_VNFRequestCPU[vnfId],
+                          vnfListSingelton.dict_VNFRequestMemory[vnfId],
+                          vnfListSingelton.dict_locatedVMID[vnfId],
+                          vnfListSingelton.dict_locatedSFCIDList[vnfId],
+                          vnfListSingelton.dict_numbersOnSFCList[vnfId],
+                          vnfListSingelton.dict_VNFReliability[vnfId]
+                          )
         # 迁移之前/当前的可靠性（VNF的可靠性也就是物理节点的可靠性）
         currentReliability = VNFInstance.getVNFRliability(vnfId)
         # 若是迁移到nodeId,那么迁移之后的可靠性
-        nodeInstance = PhysicalNode(nodeId)
+        nodeInstance = PhysicalNode(nodeId,
+                                    nodeListSingelton.dict_capacity_CPU[nodeId],
+                                    nodeListSingelton.dict_capacity_Memory[nodeId],
+                                    nodeListSingelton.dict_capacity_Memory[nodeId]
+                                    )
         afterReliability = nodeInstance.get_reliability(nodeId)
         # 判断是否可靠性增大，即满足第一个约束条件
         if (afterReliability > currentReliability):
@@ -669,9 +685,13 @@ class VNFMigration():
         requestCPU = VNFInstance.getVNF_request_CPU()
         requestMemory = VNFInstance.getVNF_request_Memory()
         # 新的物理节点可以提供的资源
-        nodeInstance = PhysicalNode(nodeId)
-        availableCPU = nodeInstance.getAvailable_CPU()
-        availableMemory = nodeInstance.getAvailable_Memory()
+        nodeInstance = PhysicalNode(nodeId,
+                                    nodeListSingelton.dict_capacity_CPU[nodeId],
+                                    nodeListSingelton.dict_capacity_Memory[nodeId],
+                                    nodeListSingelton.dict_capacity_Memory[nodeId]
+                                    )
+        availableCPU = nodeInstance.getAvailable_CPU(nodeId)
+        availableMemory = nodeInstance.getAvailable_Memory(nodeId)
         # 注意啦！！！不能在这里减去物理节点的CPU和内存资源，因为此时并没有真的迁移到这个物理节点上来。
         # 判断资源是否满足要求
         if(requestCPU < availableCPU and requestMemory < availableMemory):
@@ -701,7 +721,11 @@ class VNFMigration():
                         vmListSingelton.dict_VMReliability[vmId]
                         )
         nodeBeforeId = VMInstance.get_physicalNode_id(vmId)
-        nodeBefore = PhysicalNode(nodeBeforeId)
+        nodeBefore = PhysicalNode(nodeBeforeId,
+                                  nodeListSingelton.dict_capacity_CPU[nodeBeforeId],
+                                  nodeListSingelton.dict_capacity_Memory[nodeBeforeId],
+                                  nodeListSingelton.dict_capacity_Memory[nodeBeforeId]
+                                  )
         # 迁移之前VNF所在的物理机
         nodeBeforeCopy = nodeBefore
         # 迁移的VNF所占用的资源
@@ -714,7 +738,11 @@ class VNFMigration():
         (cpu_rate_before, memory_rate_before) = nodeBeforeCopy.occupancy_rate_resource()
         resource_rate_before = (cpu_rate_before + memory_rate_before)/2
         # 迁移之后的物理机减去此资源
-        nodeAfter = PhysicalNode(nodeId)
+        nodeAfter = PhysicalNode(nodeId,
+                                 nodeListSingelton.dict_capacity_CPU[nodeId],
+                                 nodeListSingelton.dict_capacity_Memory[nodeId],
+                                 nodeListSingelton.dict_capacity_Memory[nodeId]
+                                 )
         nodeAfterCopy = nodeAfter
         nodeAfterCopy.deleteAvailable_CPU(nodeId, cpuResource)
         nodeAfterCopy.deleteAvailable_Memory(nodeId, memoryResource)
@@ -722,7 +750,7 @@ class VNFMigration():
         resource_rate_after = (cpu_rate_after + memory_rate_after)/2
 
         # 2.获取到网络中迁移状态之后的所有节点及它们的负载程度（用资源利用率来衡量）
-        allNodeList = PhysicalNodeList.getNodeList()
+        allNodeList = nodeListSingelton.getNodeList()
         # 存储网络中所有的物理节点的负载
         loadList = []
         for i in range(len(allNodeList)):
@@ -732,7 +760,11 @@ class VNFMigration():
             elif(nodeid == nodeBeforeId):
                 loadList[i] = resource_rate_before
             else:
-                node = PhysicalNode(nodeid)
+                node = PhysicalNode(nodeid,
+                                    nodeListSingelton.dict_capacity_CPU[nodeid],
+                                    nodeListSingelton.dict_capacity_Memory[nodeid],
+                                    nodeListSingelton.dict_capacity_Memory[nodeid]
+                                    )
                 (cpu_rate, memo_rate) = node.occupancy_rate_resource()
                 loadList[i] = (cpu_rate + memo_rate)/2
 
@@ -757,8 +789,10 @@ class VNFMigration():
         loadDeviationDegree = math.sqrt(temp)/len(loadList)
 
         if(loadDeviationDegree <= η):
+            print("满足迁移条件，返回true")
             return True
         else:
+            print("不满足迁移条件，返回false")
             return False
 
         """未完待续"""
