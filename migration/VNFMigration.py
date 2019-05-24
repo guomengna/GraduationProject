@@ -16,6 +16,7 @@ class VNFMigration():
     print("this is VNFMigration class")
     # 迁移一条SFC
     def migrateVNFsofOneSFC(self):
+        print("-----------------这是迁移一条SFC的方法本体---------------------")
         # 每次迁移的这一条SFC应该是当前网络中可靠性最低的一条
         migratedsfcId = self.findSFCWithMinReliability()
         print("migratedsfcId = %d" %migratedsfcId)
@@ -31,8 +32,11 @@ class VNFMigration():
         requestedResourceBefore = SfcInstance.getSFCRequestedResource()
         # 判断此SFC上所有的VNF所处的节点是否过载
         (overloadNodeListId, migratedVNFList) = self.judgingIfNodeOverload(migratedsfcId)
+        print("这是迁移一条SFC方法内，过载情况：overloadNodeListId = ")
+        print(overloadNodeListId)
+        print("len(overloadNodeListId) = %d " % len(overloadNodeListId))
         # 若是有物理节点过载
-        if(overloadNodeListId != None):
+        if(len(overloadNodeListId) != 0):
             # 为每个migratedVNFList中的VNF计算其目的地
             # 存放所有位于migratedVNFList中的VNF的可以迁移的目的地列表，其存储的顺序以及大小与migratedVNFList一样，只是里边存储的为list
             destinationsForVNFList = []
@@ -101,35 +105,48 @@ class VNFMigration():
             return (maxPlanEvaluation, bestPlan, bestDes)
         else:
             """没有节点过载"""
+            print("没有节点过载，进入else语句中")
             maxPlanEvaluation = -9999  # 当前的最高评分
             bestPlan = []  # 存放该方案中需要迁移的VNF列表
             bestDes = []  # 存放最佳迁移方案中VNF所对应的目的地ID
             # 保留三个拥有最大可靠性的VNF,vnfid1最大，vnfid2第二大，vnfid3第三大
             vnfListOnThisSFC = SfcInstance.getVNFList()
+            print("这是迁移一条SFC方法中的else语句中，vnfListOnThisSFC = ")
+            print(vnfListOnThisSFC)
             vnfid1 = vnfListOnThisSFC[0]
-            vnfid2 = vnfListOnThisSFC[0]
-            vnfid3 = vnfListOnThisSFC[0]
-            for i in range(len(vnfListOnThisSFC)):
+            vnfid2 = vnfListOnThisSFC[1]
+            vnfid3 = vnfListOnThisSFC[2]
+            i = 0
+            while(i < len(vnfListOnThisSFC)):
+                print("进入WHILE循环，i = %d " %i)
                 VNF_id = vnfListOnThisSFC[i]
-                vnfInstance = VNF(VNF_id)
-                reliability = vnfInstance.getVNFRliability(VNF_id)
-                vnfInstance1 = VNF(vnfid1)
-                vnfInstance2 = VNF(vnfid2)
-                vnfInstance3 = VNF(vnfid2)
-                if(reliability > vnfInstance1.getVNFRliability(vnfid1)):
-                    vnfid3 = vnfid2
-                    vnfid2 = vnfid1
-                    vnfid1 = i
-                elif(reliability > vnfInstance2.getVNFRliability(vnfid2)):
-                    vnfid3 = vnfid2
-                    vnfid2 = i
-                elif(reliability > vnfInstance3.getVNFRliability(vnfid3)):
-                    vnfid3 = i
+                print("vnfListOnThisSFC[i] = %d" %vnfListOnThisSFC[i])
+                j = i
+                while(j < len(vnfListOnThisSFC)):
+                    vnf_id = vnfListOnThisSFC[j]
+                    print("vnfListOnThisSFC[j] = %d" % vnfListOnThisSFC[j])
+                    if(vnfListSingelton.dict_VNFReliability[VNF_id] <
+                            vnfListSingelton.dict_VNFReliability[vnf_id]):
+                        temp = vnfListOnThisSFC[i]
+                        vnfListOnThisSFC[i] = vnfListOnThisSFC[j]
+                        vnfListOnThisSFC[j] = temp
+                    j += 1
+                i += 1
+            print("这是迁移一条SFC方法中的else语句中，vnfListOnThisSFC = ")
+            print(vnfListOnThisSFC)
+            vnfid1 = vnfListOnThisSFC[0]
+            vnfid2 = vnfListOnThisSFC[1]
+            vnfid3 = vnfListOnThisSFC[2]
+            print("vnfid1 = %d " % vnfid1)
+            print("vnfid1 = %d " % vnfid2)
+            print("vnfid1 = %d " % vnfid3)
             # 可以选择迁移vnfid1或者vnfid1和vnfid2或者vnfid1和vnfid2和vnfid3
 
             # 选择迁移vnfid1
                 # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
             desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            print("vnfid1的所有的目的地节点:")
+            print(desNodeList)
             vnf_list = [vnfid1]
             for i in range(len(desNodeList)):
                 des_list1 = [desNodeList[i]]
@@ -169,6 +186,7 @@ class VNFMigration():
 
     # 迁移多条SFC（迭代操作），调用一次操作的方法
     def migrateVNFsofMultiSFCIterator(self):
+        print("---------------------这是迁移多条SFC的方法本体---------------------")
         sfcListSingleton = SFCList()
         sfclist = sfcListSingleton.getSFCList()
         # 1.存放SFC(可靠性低于需求值的SFC)及其可靠性
@@ -211,7 +229,7 @@ class VNFMigration():
         # 存储所有的过载的节点
         overloadNodeidList = []
         # 在开始之前，需要用到一个list，用于存储所有的节点是否被判断过载过（放置重复加入）
-        nodeInstance = PhysicalNodeList()
+        nodeInstance = nodeListSingelton
         allNodeIdlist = nodeInstance.getNodeList()
         # 存放的是（物理节点id,是否被判断过了），起初的状态都是没有被判断过的，当判断之后需要改成True
         ifjudgeList = []
@@ -519,28 +537,40 @@ class VNFMigration():
             nodeInstance = PhysicalNode(nodeId,
                                         nodeListSingelton.dict_capacity_CPU[nodeId],
                                         nodeListSingelton.dict_capacity_Memory[nodeId],
-                                        nodeListSingelton.dict_capacity_Memory[nodeId]
+                                        nodeListSingelton.dict_provided_reliablity[nodeId]
                                         )
             overloadeState = nodeInstance.overloadeState
             if (overloadeState == True):
                 VNFonoverNodeListId.append(vnfId)
                 overloadNodeListId.append(nodeId)
+        print("这是判断节点过载类，overloadNodeListId is : ")
+        print(overloadNodeListId)
+        print("此SFC上所有位于过载物理节点上的VNF:")
+        print(VNFonoverNodeListId)
         return (overloadNodeListId, VNFonoverNodeListId)
 
     # 为VNF计算迁移目的地列表
     def findDestinationForVNF(self, vnfId, migratedSFCId):
+        print("这是为VNF计算迁移目的地的方法本体：")
         # 存储所有可能的物理节点的id
         allsatidfiedNodeList = []
         # 满足约束条件的都可作为VNF迁移的目的地
         nodeIdList = nodeListSingelton.getNodeList()
+        print("nodeIdList = ")
+        print(nodeIdList)
         for nodeId in nodeIdList:
+            print("nodeid = %d" %nodeId)
+            print(self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId))
             if(self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId) == True):
                 allsatidfiedNodeList.append(nodeId)
+        print("这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = ")
+        print(allsatidfiedNodeList)
         return allsatidfiedNodeList
 
     # 判断某个物理节点是否是某个VNF迁移的目的地
     # 输入参数为vnf id（需要迁移的VNF的id） 与node id(待选的物理节点的id)，返回布尔值
     def judgeIfIsDestination(self, vnfId, nodeId, migratedSFCId):
+        print("判断某个物理节点是否是某个VNF迁移的目的地方法本体")
         """根据约束条件判断"""
         # 第一个约束条件判断的结果存储在constrain1中
         constrain1 = self.judgeConstrain1(vnfId, nodeId, migratedSFCId)
@@ -566,6 +596,7 @@ class VNFMigration():
 
     # 判断第一个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain1(self, vnfId, nodeId, migratedSFCId):
+        print("判断约束条件1是是否满足方法本体")
         # 约束1.1 迁移后的节点可靠性大于迁移前VNF所在节点的可靠性
         VNFInstance = VNF(vnfId,
                           vnfListSingelton.dict_VNFListType[vnfId],
@@ -576,15 +607,20 @@ class VNFMigration():
                           vnfListSingelton.dict_numbersOnSFCList[vnfId],
                           vnfListSingelton.dict_VNFReliability[vnfId]
                           )
+        print("vnfid = %d" %vnfId)
+        print("vnfListSingelton.dict_VNFReliability[5] = %f" %vnfListSingelton.dict_VNFReliability[vnfId])
+        print(vnfListSingelton.dict_VNFReliability[5])
         # 迁移之前/当前的可靠性（VNF的可靠性也就是物理节点的可靠性）
         currentReliability = VNFInstance.getVNFRliability(vnfId)
+        print("迁移之前此VNF的可靠性 %f" % currentReliability)
         # 若是迁移到nodeId,那么迁移之后的可靠性
         nodeInstance = PhysicalNode(nodeId,
                                     nodeListSingelton.dict_capacity_CPU[nodeId],
                                     nodeListSingelton.dict_capacity_Memory[nodeId],
-                                    nodeListSingelton.dict_capacity_Memory[nodeId]
+                                    nodeListSingelton.dict_provided_reliablity[nodeId]
                                     )
         afterReliability = nodeInstance.get_reliability(nodeId)
+        print("迁移之后的可靠性：%f" %afterReliability)
         # 判断是否可靠性增大，即满足第一个约束条件
         if (afterReliability > currentReliability):
             # 满足约束条件1.1
@@ -688,7 +724,7 @@ class VNFMigration():
         nodeInstance = PhysicalNode(nodeId,
                                     nodeListSingelton.dict_capacity_CPU[nodeId],
                                     nodeListSingelton.dict_capacity_Memory[nodeId],
-                                    nodeListSingelton.dict_capacity_Memory[nodeId]
+                                    nodeListSingelton.dict_provided_reliablity[nodeId]
                                     )
         availableCPU = nodeInstance.getAvailable_CPU(nodeId)
         availableMemory = nodeInstance.getAvailable_Memory(nodeId)
@@ -724,7 +760,7 @@ class VNFMigration():
         nodeBefore = PhysicalNode(nodeBeforeId,
                                   nodeListSingelton.dict_capacity_CPU[nodeBeforeId],
                                   nodeListSingelton.dict_capacity_Memory[nodeBeforeId],
-                                  nodeListSingelton.dict_capacity_Memory[nodeBeforeId]
+                                  nodeListSingelton.dict_provided_reliablity[nodeBeforeId]
                                   )
         # 迁移之前VNF所在的物理机
         nodeBeforeCopy = nodeBefore
@@ -741,7 +777,7 @@ class VNFMigration():
         nodeAfter = PhysicalNode(nodeId,
                                  nodeListSingelton.dict_capacity_CPU[nodeId],
                                  nodeListSingelton.dict_capacity_Memory[nodeId],
-                                 nodeListSingelton.dict_capacity_Memory[nodeId]
+                                 nodeListSingelton.dict_provided_reliablity[nodeId]
                                  )
         nodeAfterCopy = nodeAfter
         nodeAfterCopy.deleteAvailable_CPU(nodeId, cpuResource)
@@ -763,7 +799,7 @@ class VNFMigration():
                 node = PhysicalNode(nodeid,
                                     nodeListSingelton.dict_capacity_CPU[nodeid],
                                     nodeListSingelton.dict_capacity_Memory[nodeid],
-                                    nodeListSingelton.dict_capacity_Memory[nodeid]
+                                    nodeListSingelton.dict_provided_reliablity[nodeid]
                                     )
                 (cpu_rate, memo_rate) = node.occupancy_rate_resource()
                 loadList[i] = (cpu_rate + memo_rate)/2

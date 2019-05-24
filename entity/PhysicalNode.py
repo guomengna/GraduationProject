@@ -4,6 +4,9 @@ import threading
 
 from threading import Timer
 
+from entity.PhysicalNodeList import nodeListSingelton
+
+
 class PhysicalNode():
     """物理节点类"""
     # 其上所承载的VM列表
@@ -31,6 +34,8 @@ class PhysicalNode():
         self.capacity_CPU = capacity_CPU
         # 可提供的内存资源的总数
         self.capacity_Memory = capacity_Memory
+        # 物理节点所能提供的可靠性
+        self.provided_reliablity = provided_reliablity
         # 物理节点上的可用CPU资源数
         self.available_CPU = capacity_CPU
         # 物理节点上可用内存资源数
@@ -39,8 +44,7 @@ class PhysicalNode():
         self.occupied_CPU = 0
         #当前占用的内存资源总数
         self.occupied_Memoty = 0
-        #物理节点所能提供的可靠性
-        self.provided_reliablity = provided_reliablity
+
         #物理节点过载持续时间段
         self.overloadPeriod = 0
         # 物理节点的过载状态
@@ -99,36 +103,67 @@ class PhysicalNode():
 
     # 物理节点是否进入了过载状态,返回过载程度与过载时间
     def if_overloadState(self):
+        print("判断物理节点是否过载方法本体")
         # t = Timer(self.time_interval, self.if_overload)
-        t = Timer(self.time_interval, self.if_overloadState)
-        t.start()
+        # t = Timer(self.time_interval, self.if_overloadState)
+        # t.start()
         resourceOverload = self.if_overload()
-        while True:
-            if(resourceOverload == True):
-                self.overloadPeriod += self.time_interval
-            else:
-                self.overloadPeriod = 0
-            if self.overloadPeriod >= self.OP:
-                self.overloadState = True
-                overloadeDegree1 = (self.occupancy_rate_CPU - self.UCPU) / self.UCPU
-                overloadeDegree2 = (self.occupancy_rate_Memory - self.UMEMORY) / self.UMEMORY
-                self.overloadeDegree = (overloadeDegree1 + overloadeDegree2) / 2
-                #停止Timer
-                t.cancel()
-            else:
-                self.overloadState = False
-                t.sleep(15)  # 15秒后停止定时器
-                t.cancel()
+        print("resourceOverload = ")
+        print(resourceOverload)
+        if(resourceOverload == True):
+            self.overloadPeriod += self.time_interval
+        else:
+            self.overloadPeriod = 0
+        if self.overloadPeriod >= self.OP:
+            self.overloadState = True
+            overloadeDegree1 = (self.occupancy_rate_CPU - self.UCPU) / self.UCPU
+            overloadeDegree2 = (self.occupancy_rate_Memory - self.UMEMORY) / self.UMEMORY
+            self.overloadeDegree = (overloadeDegree1 + overloadeDegree2) / 2
+            #停止Timer
+            # t.cancel()
+        else:
+            self.overloadState = False
+            self.overloadPeriod = 0
+            self.overloadeDegree = 0
+        # 返回过载状态，过载时长和过载程度
+        return self.overloadState, self.overloadPeriod, self.overloadeDegree
+
+        # while True:
+        #     if(resourceOverload == True):
+        #         self.overloadPeriod += self.time_interval
+        #     else:
+        #         self.overloadPeriod = 0
+        #     if self.overloadPeriod >= self.OP:
+        #         self.overloadState = True
+        #         overloadeDegree1 = (self.occupancy_rate_CPU - self.UCPU) / self.UCPU
+        #         overloadeDegree2 = (self.occupancy_rate_Memory - self.UMEMORY) / self.UMEMORY
+        #         self.overloadeDegree = (overloadeDegree1 + overloadeDegree2) / 2
+        #         #停止Timer
+        #         t.cancel()
+        #     else:
+        #         self.overloadState = False
+        #         # 15秒后停止定时器
+        #         time.sleep(15)
+        #         t.cancel()
+
 
 
     #获取物理节点可靠性方法，返回可靠性
     def get_reliability(self, NodeId):
-        reliability = None
+        print("获取物理节点可靠性的方法本体")
+        reliability = 0
         if NodeId == self.physicalNode_id:
-            overloadeState = self.if_overloadState()
+            print("NodeId = %d" %NodeId)
+            print("nodeListSingelton.dict_provided_reliablity[NodeId] = ")
+            print(nodeListSingelton.dict_provided_reliablity[NodeId])
+            (overloadeState, overloadPeriod, overloadDegree) = self.if_overloadState()
+            print("这是物理节点类159行，overloadeState = ")
+            print(overloadeState)
             #若物理节点不过载，则直接返回它可提供的可靠性
             if overloadeState == False:
                 reliability = self.provided_reliablity
+                print("不过载，物理节点的可靠性为：")
+                print(reliability)
             #若物理节点过载，则根据过载程度和过载时间段计算过载后物理节点的可靠性
             elif overloadeState == True:
                 reliability = self.overloadDegree_contribution * self.overloadeDegree \

@@ -115,6 +115,8 @@ class VNFList(object):
         dict_numbersOnSFCList[int(list[0])] = int(list[6])
         VNFReliability.append(list[7])
         dict_VNFReliability[int(list[0])] = list[7]
+    # print("dict_VNFReliability = ")
+    # print(dict_VNFReliability)
     # for i in range(len(activeVNFList)):
     #     print("%d %d %d %d %d %d %d %f" %(activeVNFList[i], VNFListType[i], VNFRequestCPU[i], VNFRequestMemory[i]
     #                            , locatedVMID[i], locatedSFCIDList[i], numbersOnSFCList[i], VNFReliability[i]))

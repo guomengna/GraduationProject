@@ -1,5 +1,11 @@
-from entity import VM, PhysicalNode
+
 import random
+
+from entity.PhysicalNode import PhysicalNode
+from entity.PhysicalNodeList import nodeListSingelton
+from entity.VM import VM
+from entity.VMList import vmListSingelton
+
 
 class VNF():
     """VNF类"""
@@ -32,9 +38,23 @@ class VNF():
     # 根据VNF id获取VNF的可靠性
     def getVNFRliability(self, VNFId):
         if VNFId == self.VNF_id:
+            print("nfvid = %d" %VNFId)
+            print("self.VNF_reliability = %d" %self.VNF_reliability)
             return self.VNF_reliability
-            # vm = VM()
-            # return vm.getVMReliability(self.VM_id)
+            # vmid = self.VM_id
+            # vm = VM(vmid, vmListSingelton.dict_VMRequestCPU[vmid],
+            #         vmListSingelton.dict_VMRequestMemory[vmid],
+            #         vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+            #         vmListSingelton.dict_VMReliability[vmid])
+            # nodeid = vm.get_physicalNode_id(vmid)
+            # nodeinstance = PhysicalNode(nodeid,
+            #                             nodeListSingelton.dict_capacity_CPU[nodeid],
+            #                             nodeListSingelton.dict_capacity_Memory[nodeid],
+            #                             nodeListSingelton.dict_capacity_Memory[nodeid]
+            #                             )
+            # reliability = nodeinstance.get_reliability(nodeid)
+            # print("VNF的可靠性为：%d" %reliability)
+            # return reliability
 
     # 根据VNF_id获取VNF的类型
     def getVNFType(self, VNFId):

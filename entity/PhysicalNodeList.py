@@ -29,7 +29,9 @@ class PhysicalNodeList(object):
     print(nodeList)
     print(dict_capacity_CPU)
     print(dict_capacity_Memory)
+    print("dict_provided_reliablity = ")
     print(dict_provided_reliablity)
+
     """缺少对nodeList的赋值操作"""
     def setNodeList(self):
         """给nodeList赋值方法体"""
@@ -40,7 +42,7 @@ class PhysicalNodeList(object):
 nodeListSingelton = PhysicalNodeList()
 
 """物理节点创建实例的格式如下：
-nodeInstance = PhysicalNodeList(nodeId, nodeListSingelton.dict_capacity_CPU[nodeId],
+nodeInstance = PhysicalNode(nodeId, nodeListSingelton.dict_capacity_CPU[nodeId],
                     nodeListSingelton.dict_capacity_Memory[nodeId],
-                    nodeListSingelton.dict_capacity_Memory[nodeId])
+                    nodeListSingelton.dict_provided_reliablity[nodeId])
 """
