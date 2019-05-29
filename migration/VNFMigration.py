@@ -59,7 +59,7 @@ class VNFMigration():
                                                                               requestedResourceBefore,
                                                                               vnfList, destinationList)
                     # 方案评分
-                    planEvaluation = MigrationPlanEvaluation.evaluation()
+                    planEvaluation = MigrationPlanEvaluationInstance.evaluation()
                     if (planEvaluation < maxPlanEvaluation):
                         # 更新最高评分
                         maxPlanEvaluation = planEvaluation
@@ -221,7 +221,6 @@ class VNFMigration():
 
             # 对原数组进行排序(现在temp中存储的数据是按照SFC可靠性来排列的，最小的排在最前边)
             sortedSFClist.sort(key=self.takeSecond, reverse=False)
-
 
     # 迁移多条SFC（一次操作）
     def migrateVNFsofMultiSFC(self, sortedSFClist):
@@ -441,7 +440,6 @@ class VNFMigration():
         # 返回 迁移到的物理节点列表、最终的迁移VNF列表、所在SFC列表
         return outPutPlan, finalMigVNFs, finalMigVNFsSFC
 
-
     # 根据待迁移VNF列表，待迁移VNF所处SFC列表，待迁移VNF的目的地列表进行迁移组合
     # 返回的是每个VNF迁移目的地的list
     def getMigrationPlan(self, vnfList, sfcList, desList):
@@ -479,7 +477,6 @@ class VNFMigration():
         # 此时将迁移队列中的此VNF去掉，即为最简便的处理方案），因此，添加上边的else语句，设置没有迁移目的地的VNF的迁移目的地为自己
         # 返回
         return finalNodeIdList
-
 
     # 寻找当前网络中可靠性最低的SFC,返回此SFC的ID
     def findSFCWithMinReliability(self):
