@@ -147,7 +147,7 @@ class SFC():
     # 然后根据拓扑得到两个物理节点之间的时延
     def delayBetweenVNFs(self, VNFIdLeft, VNFRight):
 
-        delay = 1000000
+        delay = 100000000
         VNFInstanceLeft = VNF(VNFIdLeft,
                               vnfListSingelton.dict_VNFListType[VNFIdLeft],
                               vnfListSingelton.dict_VNFRequestCPU[VNFIdLeft],

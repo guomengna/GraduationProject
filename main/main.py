@@ -2,6 +2,7 @@ import threading
 import time
 
 from entity.SFCList import sfcListSingleton
+from monitor.SFCInitialFormed import SFCInitialFormed
 from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 
 """系统入口"""
@@ -39,9 +40,16 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 
 # 方法调用：可靠性监测模块中的可靠性监测方法
 """SFCList为空，先去试试SFC初次形成模块，生成SFC,存入到文件中，作为系统的输入//或者直接将SFCList生成，作为输入参数读入到系统中"""
-SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
-SFCReliabilityMonitorInstance.reliability_monitor()
-
-
+# SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
+# SFCReliabilityMonitorInstance.reliability_monitor()
+# vnftypelist = [1, 2, 3]
+vnftypelist = [3, 4]
+relibilty = 0.5
+cpulist = [60, 60, 60]
+memorylist = [60, 60, 60]
+delay = 200
+# 括号不能少！！
+SFCInitialFormed().SFC_initial_formed(delay, relibilty, vnftypelist, cpulist, memorylist)
+# SFCInitialFormed().delaymin()
 # ALLSFCList = sfcListSingleton.getSFCList()
 # print("列表长度为：%d" % len(ALLSFCList))

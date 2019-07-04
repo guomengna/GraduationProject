@@ -48,6 +48,8 @@ class SFCList(object):
     print("总共有SFC：%d" % SFCCount)
 
     def getSFCCount(self):
+        sfclist = self.getSFCList()
+        self.SFCCount = len(sfclist)
         return self.SFCCount
     def getSFCList(self):
         return self.AllSFCList
