@@ -43,13 +43,15 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
 # SFCReliabilityMonitorInstance.reliability_monitor()
 # vnftypelist = [1, 2, 3]
-vnftypelist = [3, 4]
+# vnftypelist = [3, 4]
+vnftypelist = [2, 3, 4]
 relibilty = 0.5
 cpulist = [60, 60, 60]
 memorylist = [60, 60, 60]
 delay = 200
 # 括号不能少！！
-SFCInitialFormed().SFC_initial_formed(delay, relibilty, vnftypelist, cpulist, memorylist)
+# SFCInitialFormed().SFC_initial_formed(delay, relibilty, vnftypelist, cpulist, memorylist)
+SFCInitialFormed().SFC_score(delay, len(vnftypelist))
 # SFCInitialFormed().delaymin()
 # ALLSFCList = sfcListSingleton.getSFCList()
 # print("列表长度为：%d" % len(ALLSFCList))

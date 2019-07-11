@@ -1,6 +1,7 @@
 """SFC初始形成"""
 #SFC初始形成方法
 # VNF_list里边包含VNF id、需求的资源、类型
+import csv
 import datetime
 
 from entity.PhysicalNode import PhysicalNode
@@ -143,6 +144,52 @@ class SFCInitialFormed():
         print("评分方法结束, score = %f" % score)
         return score
 
+    # 评分函数，综合可靠性与时延
+    def SFC_score(self, maxdelay, leng):
+        maxscore = 0
+        resdelay = 0
+        resreli = 0
+        RESVNFLlist = []
+        with open('D:/pycharm workspace/GraduationProject/res/res.csv', 'r', encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                temp = 0.0
+                str = row['VNFList']
+                str = str[2:-2]
+                print(str)
+                vnflist = str.strip(', ').split(', ')
+                print(vnflist)
+                # image_list = image.strip(',').split(',')
+                if(len(vnflist) == leng):
+                    delay = float(row['delay'])
+                    reli = float(row['reliability'])
+                    print(delay)
+                    reli = reli
+                    print(reli)
+                    temp += reli * 10
+                    d = delay / maxdelay
+                    if(d <= 0.2):
+                        temp += 3
+                    elif d <= 0.5:
+                        temp += 2
+                    else:
+                        temp += 1
+                    print("temp = %f" %temp)
+                    if temp > maxscore:
+                        maxscore = temp
+                        RESVNFLlist = row['VNFList']
+                        resdelay = delay
+                        resreli = reli
+
+        print("结果为：")
+        print(RESVNFLlist)
+        print("时延为： %f" %resdelay)
+        print("可靠性为： %f" %resreli)
+
+
+
+
+
     # 寻找一条满足约束条件的SFC
     # 输入的参数：SFC所需要的最大时延、最低可靠性、VNF类型列表、VNF所需CPU资源的列表、VNF所需内存资源的列表
     def find_a_SFC(self, MaxSFCDelay, MinSFCReliablity, VNFTyprList, VNFRequestCPU, VNFRequestMemory):
@@ -214,8 +261,10 @@ class SFCInitialFormed():
         sfcInstance = SFC(sfcid, MaxSFCDelay, MinSFCReliablity, VNFList, datetime.datetime.now())
         # 接下来判断此SFC是否满足时延和可靠性的约束
         print("SFC的时延与可靠性分别为：")
-        print("SFC的时延为：%f" % (sfcInstance.get_SFC_delay(VNFList)))
-        print("SFC的可靠性为：%f" % (sfcInstance.get_SFC_relialibility(VNFList)))
+        delay = sfcInstance.get_SFC_delay(VNFList)
+        print("SFC的时延为：%f" % delay)
+        reli = sfcInstance.get_SFC_relialibility(VNFList)
+        print("SFC的可靠性为：%f" % reli)
 
         if (sfcInstance.get_SFC_delay(VNFList) < MaxSFCDelay):
             if (sfcInstance.get_SFC_relialibility(VNFList) > MinSFCReliablity):
@@ -229,8 +278,17 @@ class SFCInitialFormed():
                 print("基本数据--SFC的ID为： %d" % sfcInstance.getSFCId())
                 print("基本数据--SFC中的vnflist为：")
                 print(VNFList)
-                print("基本数据--SFC的时延为： %f" % sfcInstance.get_SFC_delay(VNFList))
-                print("基本数据--SFC的可靠性为： %f " % sfcInstance.get_SFC_relialibility(VNFList))
+                print("基本数据--SFC的时延为： %f" % delay)
+                print("基本数据--SFC的可靠性为： %f " %reli)
+
+                with open('D:/pycharm workspace/GraduationProject/res/res.csv', 'a+', newline='' ) as csvfile:
+                    writer = csv.writer(csvfile)
+                    # 先写入columns_name
+                    writer.writerow(["VNFlist", "delay", "reliability"])
+                    data = [[[VNFList], delay, reli]]
+                    print(data)
+                    # 写入多行用writerows
+                    writer.writerows(data)
                 print("发现一条SFC方法结束")
                 return sfcInstance
             else:
