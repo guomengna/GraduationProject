@@ -1,7 +1,11 @@
 import threading
 import time
 
+from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
+from entity.VNF import VNF
+from entity.VNFList import vnfListSingelton
+from migration.VNFMigration import VNFMigration
 from monitor.SFCInitialFormed import SFCInitialFormed
 from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 
@@ -42,17 +46,47 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 """SFCList为空，先去试试SFC初次形成模块，生成SFC,存入到文件中，作为系统的输入//或者直接将SFCList生成，作为输入参数读入到系统中"""
 # SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
 # SFCReliabilityMonitorInstance.reliability_monitor()
+migration = VNFMigration()
+
+def get_SFC_relialibility(VNF_list):
+    SFCReliability = 1
+    for i in range(len(VNF_list)):
+        vnfid = VNF_list[i]
+        VNFInstance = VNF(vnfid,
+                          vnfListSingelton.dict_VNFListType[vnfid],
+                          vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                          vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                          vnfListSingelton.dict_locatedVMID[vnfid],
+                          vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                          vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                          vnfListSingelton.dict_VNFReliability[vnfid])
+        print("VNF的可靠性为： %f" % VNFInstance.getVNFRliability(vnfid))
+        SFCReliability *= VNFInstance.getVNFRliability(vnfid)
+    print("SFC的新的可靠性为：%f" % SFCReliability)
+    return SFCReliability
+
+get_SFC_relialibility([7,8,9])
+
+"""测试通过"""
+# migration.judgingIfNodeOverload(1)
+# migration.migrateVNFsofOneSFC()
+"""测试通过"""
+"""5代表vnf,1代表位于SFC1上"""
+# migration.findDestinationForVNF(5, 1)
+"""测试通过"""
+# migration.findSFCWithMinReliability()
+# 调用初始化形成模块
 # vnftypelist = [1, 2, 3]
 # vnftypelist = [3, 4]
 # vnftypelist = [2, 3, 4]
-vnftypelist = [1,2,3,4,5]
-relibilty = 0.5
-cpulist = [60, 60, 60, 60, 60]
-memorylist = [60, 60, 60, 60, 60]
-delay = 200
+# vnftypelist = [1,2,3,4,5]
+# relibilty = 0.5
+# cpulist = [60, 60, 60, 60, 60]
+# memorylist = [60, 60, 60, 60, 60]
+# delay = 200
 # 括号不能少！！
 # SFCInitialFormed().SFC_initial_formed(delay, relibilty, vnftypelist, cpulist, memorylist)
-SFCInitialFormed().SFC_score(delay, len(vnftypelist))
+# SFCInitialFormed().SFC_score(delay, len(vnftypelist))
 # SFCInitialFormed().delaymin()
 # ALLSFCList = sfcListSingleton.getSFCList()
 # print("列表长度为：%d" % len(ALLSFCList))

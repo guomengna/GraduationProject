@@ -19,7 +19,7 @@ class VNFMigration():
         print("-----------------这是迁移一条SFC的方法本体---------------------")
         # 每次迁移的这一条SFC应该是当前网络中可靠性最低的一条
         migratedsfcId = self.findSFCWithMinReliability()
-        print("migratedsfcId = %d" %migratedsfcId)
+        print("//////////////migratedsfcId = %d" % migratedsfcId)
         SfcInstance = SFC(migratedsfcId,
                           sfcListSingleton.dict_maxDelay[migratedsfcId],
                           sfcListSingleton.dict_minReliability[migratedsfcId],
@@ -28,8 +28,10 @@ class VNFMigration():
                           )
         # 迁移前此SFC的时延
         delayBefore = SfcInstance.get_SFC_delay(SfcInstance.getVNFList())
+        print("//////////////////迁移前此SFC的时延为：%f" % delayBefore)
         # 迁移之前此SFC需要的资源（CPU+memory）
         requestedResourceBefore = SfcInstance.getSFCRequestedResource()
+        print("//////////////////迁移前此SFC的需要资源为：%f" % requestedResourceBefore)
         # 判断此SFC上所有的VNF所处的节点是否过载
         (overloadNodeListId, migratedVNFList) = self.judgingIfNodeOverload(migratedsfcId)
         print("这是迁移一条SFC方法内，过载情况：overloadNodeListId = ")
@@ -138,12 +140,12 @@ class VNFMigration():
             vnfid2 = vnfListOnThisSFC[1]
             vnfid3 = vnfListOnThisSFC[2]
             print("vnfid1 = %d " % vnfid1)
-            print("vnfid1 = %d " % vnfid2)
-            print("vnfid1 = %d " % vnfid3)
+            print("vnfid2 = %d " % vnfid2)
+            print("vnfid3 = %d " % vnfid3)
             # 可以选择迁移vnfid1或者vnfid1和vnfid2或者vnfid1和vnfid2和vnfid3
 
             # 选择迁移vnfid1
-                # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
+            # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
             desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
             print("vnfid1的所有的目的地节点:")
             print(desNodeList)
@@ -478,33 +480,41 @@ class VNFMigration():
         # 返回
         return finalNodeIdList
 
+    """通过测试的方法"""
     # 寻找当前网络中可靠性最低的SFC,返回此SFC的ID
     def findSFCWithMinReliability(self):
+        print("寻找当前网络中可靠性最低的SFC")
         minReliability  = 100
         SFCIDwithMINRelibility = -1
         # 获取到网络中所有的SFC的ID的列表
         SFCList = sfcListSingleton.AllSFCList
+        print(SFCList)
         for sfcId in SFCList:
+            print("/////////////////when sfcid = %d" %sfcId)
             sfcInstance = SFC(sfcId,
                               sfcListSingleton.dict_maxDelay[sfcId],
                               sfcListSingleton.dict_minReliability[sfcId],
                               sfcListSingleton.dict_VNFList[sfcId],
                               sfcListSingleton.dict_createdtime[sfcId]
                               )
+            print(sfcInstance.getVNFList())
             sfcReliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
             if (sfcReliability < minReliability):
                 minReliability = sfcReliability
                 SFCIDwithMINRelibility = sfcId
         print("SFCIDwithMINRelibility = %d " % SFCIDwithMINRelibility)
+        print("寻找可靠性最低的SFC的方法结束///////////////////////")
         return SFCIDwithMINRelibility
 
+    """测试通过"""
     # 判断一条SFC上VNF们所在的物理节点们谁过载了，返回过载物理节点的list
     def judgingIfNodeOverload(self, sfcId):
+        print("判断一条SFC上VNF们所在的物理节点们谁过载了，返回过载物理节点的list")
         # 存放此SFC所经过的所有的过载的物理节点
         overloadNodeListId = []
         # 存放此SFC上所有位于过载物理节点上的VNF
         VNFonoverNodeListId = []
-
+        print("要判断的sfcid = ///////////////%d " % sfcId)
         sfcInstance = SFC(sfcId,
                           sfcListSingleton.dict_maxDelay[sfcId],
                           sfcListSingleton.dict_minReliability[sfcId],
@@ -512,6 +522,7 @@ class VNFMigration():
                           sfcListSingleton.dict_createdtime[sfcId]
                           )
         vnfList = sfcInstance.getVNFList()
+        print(vnfList)
         for vnfId in vnfList:
             vnfInstance = VNF(vnfId,
                               vnfListSingelton.dict_VNFListType[vnfId],
@@ -546,6 +557,7 @@ class VNFMigration():
         print(VNFonoverNodeListId)
         return (overloadNodeListId, VNFonoverNodeListId)
 
+    """测试通过"""
     # 为VNF计算迁移目的地列表
     def findDestinationForVNF(self, vnfId, migratedSFCId):
         print("这是为VNF计算迁移目的地的方法本体：")
@@ -557,13 +569,16 @@ class VNFMigration():
         print(nodeIdList)
         for nodeId in nodeIdList:
             print("nodeid = %d" %nodeId)
-            print(self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId))
-            if(self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId) == True):
+            judge_res = self.judgeIfIsDestination(vnfId, nodeId, migratedSFCId)
+            print(judge_res)
+            if(judge_res == True):
+                print("node 将被加入此VNF的迁移目的地中 %d" % nodeId)
                 allsatidfiedNodeList.append(nodeId)
-        print("这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = ")
+        print("////////////////////////////这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = ")
         print(allsatidfiedNodeList)
         return allsatidfiedNodeList
 
+    """测试通过"""
     # 判断某个物理节点是否是某个VNF迁移的目的地
     # 输入参数为vnf id（需要迁移的VNF的id） 与node id(待选的物理节点的id)，返回布尔值
     def judgeIfIsDestination(self, vnfId, nodeId, migratedSFCId):
@@ -572,15 +587,19 @@ class VNFMigration():
         # 第一个约束条件判断的结果存储在constrain1中
         constrain1 = self.judgeConstrain1(vnfId, nodeId, migratedSFCId)
         if(constrain1 == True):
+            print("约束1满足")
             # 进行第二个约束条件的判断，将其存放在constrain2中
             constrain2 = self.judgeConstrain2(vnfId, nodeId, migratedSFCId)
             if(constrain2 == True):
+                print("约束2满足")
                 # 进行第三个约束条件的判断
                 constrain3 = self.judgeConstrain3(vnfId, nodeId, migratedSFCId)
                 if(constrain3 == True):
+                    print("约束3满足")
                     # 进行第四个约束条件的判断
                     constrain4 = self.judgeConstrain4(vnfId, nodeId, migratedSFCId)
                     if(constrain4 == True):
+                        print("约束4满足")
                         return True
                     else:
                         return False
@@ -591,6 +610,7 @@ class VNFMigration():
         else:
             return False
 
+    """测试通过"""
     # 判断第一个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain1(self, vnfId, nodeId, migratedSFCId):
         print("判断约束条件1是是否满足方法本体")
@@ -606,7 +626,7 @@ class VNFMigration():
                           )
         print("vnfid = %d" %vnfId)
         print("vnfListSingelton.dict_VNFReliability[5] = %f" %vnfListSingelton.dict_VNFReliability[vnfId])
-        print(vnfListSingelton.dict_VNFReliability[5])
+        # print(vnfListSingelton.dict_VNFReliability[5])
         # 迁移之前/当前的可靠性（VNF的可靠性也就是物理节点的可靠性）
         currentReliability = VNFInstance.getVNFRliability(vnfId)
         print("迁移之前此VNF的可靠性 %f" % currentReliability)
@@ -620,6 +640,7 @@ class VNFMigration():
         print("迁移之后的可靠性：%f" %afterReliability)
         # 判断是否可靠性增大，即满足第一个约束条件
         if (afterReliability > currentReliability):
+            print("满足约束1.1， 开始判断约束1.2")
             # 满足约束条件1.1
             # 判断迁移条件1.2 迁移后整条SFC的可靠性是否大于需求值
             SFCInstance = SFC(migratedSFCId,
@@ -652,14 +673,18 @@ class VNFMigration():
                                     )
                     # 此时vnfListCopy中的VNF已经更新完了
                     VMInstance.setPhysicalNodeId(nodeId)
+            print(vnfListCopy)
             # 使用更新完的vnfListCopy，放入到新的迁移完的SFC中，计算迁移之后的SFC的可靠性
-            currentSFCReliability = SFCInstance.get_SFC_relialibility(vnfListCopy)
+            currentSFCReliability = SFCInstance.get_SFC_relialibility1(vnfListCopy, vnfId, nodeId)
             if(currentSFCReliability > requestSFCReliability):
+                print("约束1满足")
                 return True
         else:
             # 不满足约束1
+            print("约束1不满足")
             return False
 
+    """测试通过"""
     # 判断第二个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain2(self, vnfId, nodeId, migratedSFCId):
         # 约束2 迁移之后SFC的时延增加不可超过一个σ（参数设置，以毫秒记）
@@ -698,10 +723,13 @@ class VNFMigration():
         # 使用更新完的VNFList来计算新的SFC的时延
         afterDelay = SFCInstance.get_SFC_delay(vnfListCopy)
         if(afterDelay - currentDelay <= delayIncreace):
+            print("约束2满足")
             return True
         else:
+            print("约束2不满足")
             return False
 
+    """测试通过"""
     # 判断第三个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain3(self, vnfId, nodeId, migratedSFCId):
         # 约束3 资源约束，即待迁移VNF迁移到新的物理节点上时，所需要的资源小于当前物理节点可提供的资源
@@ -728,10 +756,13 @@ class VNFMigration():
         # 注意啦！！！不能在这里减去物理节点的CPU和内存资源，因为此时并没有真的迁移到这个物理节点上来。
         # 判断资源是否满足要求
         if(requestCPU < availableCPU and requestMemory < availableMemory):
+            print("约束3满足")
             return True
         else:
+            print("约束3不满足")
             return False
 
+    """测试通过"""
     # 判断第四个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain4(self, vnfId, nodeId, migratedSFCId):
         # 约束4 网络中所有节点的负载偏差程度小于η，即负载均衡条件
@@ -786,6 +817,8 @@ class VNFMigration():
         allNodeList = nodeListSingelton.getNodeList()
         # 存储网络中所有的物理节点的负载
         loadList = []
+        for i in range(len(allNodeList)):
+            loadList.append(0)
         for i in range(len(allNodeList)):
             nodeid = allNodeList[i]
             if(nodeid == nodeId):
