@@ -75,6 +75,8 @@ get_SFC_relialibility([7,8,9])
 # migration.findDestinationForVNF(5, 1)
 """测试通过"""
 # migration.findSFCWithMinReliability()
+
+"""形成模块测试完成"""
 # 调用初始化形成模块
 # vnftypelist = [1, 2, 3]
 # vnftypelist = [3, 4]

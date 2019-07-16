@@ -77,6 +77,8 @@ class SFCInitialFormed():
         print("maxScoreSFCId = %d" % maxScoreSFCId)
 
         return maxScoreSFCId
+
+    # 两个VNF之间的时延
     def delayBetweenVNFs(self, VNFIdLeft, VNFRight):
 
         delay = 1000000
@@ -119,6 +121,8 @@ class SFCInitialFormed():
                 if RightphysicalNodeId == leftPhysicalNodelist[i]:
                     delay = delaylist[i]
         return delay
+
+    # SFC的时延
     def get_SFC_delay(self, VNF_list):
         SFCDelay = 0
         index = 0
@@ -130,6 +134,7 @@ class SFCInitialFormed():
         for i in range(len(self.delay_list)):
             SFCDelay += self.delay_list[i]
         return SFCDelay
+
     # SFC部署方案的评分方法
     def SFC_placement_plan_scoring(self, SFC_id, vnflist):
         print("评分方法开始")
@@ -185,10 +190,6 @@ class SFCInitialFormed():
         print(RESVNFLlist)
         print("时延为： %f" %resdelay)
         print("可靠性为： %f" %resreli)
-
-
-
-
 
     # 寻找一条满足约束条件的SFC
     # 输入的参数：SFC所需要的最大时延、最低可靠性、VNF类型列表、VNF所需CPU资源的列表、VNF所需内存资源的列表
