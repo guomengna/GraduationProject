@@ -1,8 +1,11 @@
 import threading
 import time
 
+from entity.PhysicalNodeList import nodeListSingelton
 from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
+from entity.VM import VM
+from entity.VMList import vmListSingelton
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
 from migration.VNFMigration import VNFMigration
@@ -47,36 +50,69 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
 # SFCReliabilityMonitorInstance.reliability_monitor()
 migration = VNFMigration()
+migration.migrateVNFsofOneSFC()
+"""测试获取SFC可靠性方法"""
+# def get_SFC_relialibility(VNF_list):
+#     SFCReliability = 1
+#     for i in range(len(VNF_list)):
+#         vnfid = VNF_list[i]
+#         VNFInstance = VNF(vnfid,
+#                           vnfListSingelton.dict_VNFListType[vnfid],
+#                           vnfListSingelton.dict_VNFRequestCPU[vnfid],
+#                           vnfListSingelton.dict_VNFRequestMemory[vnfid],
+#                           vnfListSingelton.dict_locatedVMID[vnfid],
+#                           vnfListSingelton.dict_locatedSFCIDList[vnfid],
+#                           vnfListSingelton.dict_numbersOnSFCList[vnfid],
+#                           vnfListSingelton.dict_VNFReliability[vnfid])
+#         # print("VNF的可靠性为： %f" % VNFInstance.getVNFRliability(vnfid))
+#         SFCReliability *= VNFInstance.getVNFRliability(vnfid)
+#     print("原始方法，SFC的可靠性为：%f" % SFCReliability)
+#     return SFCReliability
+# get_SFC_relialibility([7,8,9])
 
-def get_SFC_relialibility(VNF_list):
-    SFCReliability = 1
-    for i in range(len(VNF_list)):
-        vnfid = VNF_list[i]
-        VNFInstance = VNF(vnfid,
-                          vnfListSingelton.dict_VNFListType[vnfid],
-                          vnfListSingelton.dict_VNFRequestCPU[vnfid],
-                          vnfListSingelton.dict_VNFRequestMemory[vnfid],
-                          vnfListSingelton.dict_locatedVMID[vnfid],
-                          vnfListSingelton.dict_locatedSFCIDList[vnfid],
-                          vnfListSingelton.dict_numbersOnSFCList[vnfid],
-                          vnfListSingelton.dict_VNFReliability[vnfid])
-        print("VNF的可靠性为： %f" % VNFInstance.getVNFRliability(vnfid))
-        SFCReliability *= VNFInstance.getVNFRliability(vnfid)
-    print("SFC的新的可靠性为：%f" % SFCReliability)
-    return SFCReliability
+"""更新获取SFC可靠性的方法，不通过直接读取VNF文件，而是通过读取所在物理节点的可靠性计算"""
+"""将更新的VNF的id和新的物理节点的id传入"""
+# def get_SFC_relialibility1(vnflist, updatevnfid, nodeid):
+#     SFCReliability = 1
+#     for i in range(len(vnflist)):
+#         vnfid = vnflist[i]
+#         if vnfid == updatevnfid:
+#             nodeid = nodeid
+#             SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+#         else:
+#             VNFInstance = VNF(vnfid,
+#                               vnfListSingelton.dict_VNFListType[vnfid],
+#                               vnfListSingelton.dict_VNFRequestCPU[vnfid],
+#                               vnfListSingelton.dict_VNFRequestMemory[vnfid],
+#                               vnfListSingelton.dict_locatedVMID[vnfid],
+#                               vnfListSingelton.dict_locatedSFCIDList[vnfid],
+#                               vnfListSingelton.dict_numbersOnSFCList[vnfid],
+#                               vnfListSingelton.dict_VNFReliability[vnfid])
+#             # 读取所在的VM
+#             vmid = VNFInstance.get_VM_id(vnfid)
+#             vmInstance = VM(vmid, vmListSingelton.dict_VMRequestCPU[vmid],
+#                             vmListSingelton.dict_VMRequestMemory[vmid],
+#                             vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+#                             vmListSingelton.dict_VMReliability[vmid])
+#             nodeid = vmInstance.get_physicalNode_id(vmid)
+#             SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+#         print("更新的方法，SFC的可靠性为：%f" % SFCReliability)
+#         return SFCReliability
+# get_SFC_relialibility1([7,8,9], 0, 0)
 
-get_SFC_relialibility([7,8,9])
+# migration.migrateVNFsofOneSFC()
 
 """测试通过"""
 # migration.judgingIfNodeOverload(1)
-# migration.migrateVNFsofOneSFC()
+
 """测试通过"""
 """5代表vnf,1代表位于SFC1上"""
 # migration.findDestinationForVNF(5, 1)
+
 """测试通过"""
 # migration.findSFCWithMinReliability()
 
-"""形成模块测试完成"""
+"""SFC初始形成模块测试完成"""
 # 调用初始化形成模块
 # vnftypelist = [1, 2, 3]
 # vnftypelist = [3, 4]
