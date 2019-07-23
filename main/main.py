@@ -8,6 +8,7 @@ from entity.VM import VM
 from entity.VMList import vmListSingelton
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
+from migration.MigrationPlanEvaluation import MigrationPlanEvaluation
 from migration.VNFMigration import VNFMigration
 from monitor.SFCInitialFormed import SFCInitialFormed
 from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
@@ -108,7 +109,7 @@ migration.migrateVNFsofOneSFC()
 """测试通过"""
 """5代表vnf,1代表位于SFC1上"""
 # migration.findDestinationForVNF(5, 1)
-
+# migration.judgeConstrain2(5, 6, 1)
 """测试通过"""
 # migration.findSFCWithMinReliability()
 

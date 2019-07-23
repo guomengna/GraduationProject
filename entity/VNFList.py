@@ -9,9 +9,11 @@ class VNFList(object):
     # 存放网络中总共拥有的VNF的数量
     allVNFCount = 0
 
-    excelFile = xlrd.open_workbook('D:/pycharm workspace'
-                                   '/GraduationProject/topo/'
-                                   'allVNFList_copy.xlsx', 'r')
+    # excelFile = xlrd.open_workbook('D:/pycharm workspace'
+    #                                '/GraduationProject/topo/'
+    #                                'allVNFList_copy.xlsx', 'r')
+    excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/allVNFList_copy.xlsx', 'r')
+
     nums = len(excelFile.sheets())
     for i in range(nums):
         # 根据sheet顺序打开sheet
@@ -33,9 +35,11 @@ class VNFList(object):
     activeVNFList = []
     # 网络中所有激活的VNF的数量
     activeVNFCount = 0
-    excelFile = xlrd.open_workbook('D:/pycharm workspace'
-                                   '/GraduationProject/topo/'
-                                   'activeVNFList.xlsx', 'r')
+    # excelFile = xlrd.open_workbook('D:/pycharm workspace'
+    #                                '/GraduationProject/topo/'
+    #                                'activeVNFList.xlsx', 'r')
+    excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/activeVNFList.xlsx', 'r')
+
     nums = len(excelFile.sheets())
     for i in range(nums):
         # 根据sheet顺序打开sheet

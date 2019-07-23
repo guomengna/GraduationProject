@@ -4,7 +4,9 @@ import time
 from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
 from entity.VM import VM
+from entity.VMList import vmListSingelton
 from entity.VNF import VNF
+from entity.VNFList import vnfListSingelton
 
 
 class MigrationCostCaculation():
@@ -13,14 +15,23 @@ class MigrationCostCaculation():
     def getCostOfMigratingVNFsOnOneSFC(self, migrated_SFC_id, SFCDelayBeforMigration,
                                        SFCRequestedResourceBefore, needMigratedVNFList,
                                        destinationPhysicalNodeList):
+        print("needMigratedVNFList = ")
+        print(needMigratedVNFList)
+        print("destinationPhysicalNodeList = ")
+        print(destinationPhysicalNodeList)
         # 由5部分组成：迁移Si上VNF所需要的时间、迁移后Si的时延增量、
         # 迁移后消耗的资源的增量、迁移过程中造成的Si的服务质量下降程度、迁移Si上的VNF造成的额外代价
         migrationTime = self.getMigrationTime(migrated_SFC_id, needMigratedVNFList, destinationPhysicalNodeList)
+        print("migrationTime = %f" % migrationTime)
         delayIncreationOfSFC = self.getDelayIncreationOfSFC(migrated_SFC_id, SFCDelayBeforMigration)
+        print("delayIncreationOfSFC = %f" %delayIncreationOfSFC)
         resourceIncreationOfSFC = self.getResourceIncreationOfSFC(migrated_SFC_id, SFCRequestedResourceBefore)
+        print("resourceIncreationOfSFC = %f" %resourceIncreationOfSFC)
         QoSDecreationOfSFC = self.getQoSDecreationOfSFC(migrated_SFC_id,
                                                         needMigratedVNFList, destinationPhysicalNodeList)
+        print("QoSDecreationOfSFC = %f" %QoSDecreationOfSFC)
         additionnalCost = self.getAdditonalCostOfSFC(migrated_SFC_id, needMigratedVNFList, destinationPhysicalNodeList)
+        print("additionnalCost = %f" %additionnalCost)
         costOfMigratingVNFsOnOneSFC = migrationTime + delayIncreationOfSFC \
                                       + resourceIncreationOfSFC + QoSDecreationOfSFC + additionnalCost
         return costOfMigratingVNFsOnOneSFC
@@ -30,7 +41,12 @@ class MigrationCostCaculation():
         # 存放此SFC上需要迁移的VNF们的迁移所需要的时间
         VNFsMigrationTimeList = []
         # 由SFC的ID得到此条SFC上所有的VNF
-        SFCInstance = SFC(migrated_SFC_id)
+        SFCInstance = SFC(migrated_SFC_id,
+                          sfcListSingleton.dict_maxDelay[migrated_SFC_id],
+                          sfcListSingleton.dict_minReliability[migrated_SFC_id],
+                          sfcListSingleton.dict_VNFList[migrated_SFC_id],
+                          sfcListSingleton.dict_createdtime[migrated_SFC_id]
+                          )
         VNFList = SFCInstance.getVNFList
         total_time = 0
         # 寻找此SFC上应当进行迁移的VNF(s),根据不同的迁移情形分别获取，在本项目中的其他位置实现此方法
@@ -38,9 +54,23 @@ class MigrationCostCaculation():
         # 系统开始运行之前随机给每个VNF赋一个迁移时间的系数，当迁移发生时，此系数乘以源至目的地的距离，作为相对迁移时间。
         # 也就是说还需要一个迁移目的地列表，此处同样作为输入参数传入,源到目的地之间的距离直接用拓扑中的时延来代替
         for i in range(len(needMigratedVNFList)):
-            VNFInstance = VNF(needMigratedVNFList)
+            vnfid = needMigratedVNFList[i]
+            VNFInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid]
+                              )
             VMId = VNFInstance.get_VM_id(needMigratedVNFList[i])
-            VMInstance = VM(VMId)
+            VMInstance = VM(VMId,
+                            vmListSingelton.dict_VMRequestCPU[VMId],
+                            vmListSingelton.dict_VMRequestMemory[VMId],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[VMId],
+                            vmListSingelton.dict_VMReliability[VMId]
+                            )
             physicalNodeId = VMInstance.get_physicalNode_id(VMId)
             # physicalNodeId与destinationPhysicalNodeList[i]两个物理节点之间的时延
             delayBetweenSandDNodes = SFCInstance.getDelayBetweenPhysicalNode(physicalNodeId,
@@ -52,14 +82,25 @@ class MigrationCostCaculation():
 
     # 迁移后Si时延的增量
     def getDelayIncreationOfSFC(self, migrated_SFC_id, SFCDelayBeforMigration):
-        SFCInstance = SFC(migrated_SFC_id)
-        VNFList = SFCInstance.getVNFList
+        SFCInstance = SFC(migrated_SFC_id,
+                          sfcListSingleton.dict_maxDelay[migrated_SFC_id],
+                          sfcListSingleton.dict_minReliability[migrated_SFC_id],
+                          sfcListSingleton.dict_VNFList[migrated_SFC_id],
+                          sfcListSingleton.dict_createdtime[migrated_SFC_id]
+                          )
+        VNFList = SFCInstance.getVNFList()
         SFCDelayAfterMigration = SFCInstance.get_SFC_delay(VNFList)
+        print("SFCDelayBeforMigration = %f" %SFCDelayBeforMigration)
         return SFCDelayAfterMigration - SFCDelayBeforMigration
 
     # 迁移后此SFC消耗资源的增量
     def getResourceIncreationOfSFC(self, migrated_SFC_id, SFCRequestedResourceBefore):
-        sfcInstance = SFC(migrated_SFC_id)
+        sfcInstance = SFC(migrated_SFC_id,
+                          sfcListSingleton.dict_maxDelay[migrated_SFC_id],
+                          sfcListSingleton.dict_minReliability[migrated_SFC_id],
+                          sfcListSingleton.dict_VNFList[migrated_SFC_id],
+                          sfcListSingleton.dict_createdtime[migrated_SFC_id]
+                          )
         SFCRequestedResourceAfter = sfcInstance.getSFCRequestedResource()
         return SFCRequestedResourceAfter - SFCRequestedResourceBefore
 
@@ -71,11 +112,21 @@ class MigrationCostCaculation():
         servicePauseTime = self.getMigrationTime(migrated_SFC_id, needMigratedVNFList,
                                                  destinationPhysicalNodeList)
         allSFCsImportance = 0
-        for sfcInstanceId in sfcListSingleton:
-            sfcInstance = SFC(sfcInstanceId)
+        for sfcInstanceId in sfcListSingleton.getSFCList():
+            sfcInstance = SFC(sfcInstanceId,
+                              sfcListSingleton.dict_maxDelay[sfcInstanceId],
+                              sfcListSingleton.dict_minReliability[sfcInstanceId],
+                              sfcListSingleton.dict_VNFList[sfcInstanceId],
+                              sfcListSingleton.dict_createdtime[sfcInstanceId]
+                              )
             allSFCsImportance += sfcInstance.importance
-        QoSDecreationOfSFC = beta1 * (SFC(migrated_SFC_id).importance/allSFCsImportance)
-        + beta2 * (servicePauseTime/(time.time() - SFC(migrated_SFC_id).create_time))
+        QoSDecreationOfSFC = beta1 * (SFC(migrated_SFC_id, sfcListSingleton.dict_maxDelay[migrated_SFC_id],
+                              sfcListSingleton.dict_minReliability[migrated_SFC_id],
+                              sfcListSingleton.dict_VNFList[migrated_SFC_id], sfcListSingleton.dict_createdtime[migrated_SFC_id],).importance/allSFCsImportance)
+        + beta2 * (servicePauseTime/(time.time() - SFC(migrated_SFC_id, sfcListSingleton.dict_maxDelay[migrated_SFC_id],
+                              sfcListSingleton.dict_minReliability[migrated_SFC_id],
+                              sfcListSingleton.dict_VNFList[migrated_SFC_id],
+                              sfcListSingleton.dict_createdtime[migrated_SFC_id]).create_time))
         return QoSDecreationOfSFC
 
     # 迁移Si上的VNF造成的额外代价
@@ -84,20 +135,36 @@ class MigrationCostCaculation():
         # 考虑每个需要迁移的VNF
         for i in range(len(needMigratedVNFList)):
             vnfInstanceId = needMigratedVNFList[i]
-            vnfInstance = VNF(vnfInstanceId)
-            SFCIdListOfThisVNF = vnfInstance.SFC_id_list
+            vnfInstance = VNF(vnfInstanceId, vnfListSingelton.dict_VNFListType[vnfInstanceId],
+               vnfListSingelton.dict_VNFRequestCPU[vnfInstanceId],
+               vnfListSingelton.dict_VNFRequestMemory[vnfInstanceId],
+               vnfListSingelton.dict_locatedVMID[vnfInstanceId],
+               vnfListSingelton.dict_locatedSFCIDList[vnfInstanceId],
+               vnfListSingelton.dict_numbersOnSFCList[vnfInstanceId],
+               vnfListSingelton.dict_VNFReliability[vnfInstanceId])
+            SFCIdListOfThisVNF = vnfInstance.get_SFC_id_list()
             # 考虑此VNF经过的每一个SFC
-            for sfcId in SFCIdListOfThisVNF:
-                if(sfcId != migrated_SFC_id):
-                    # VNF位于除此条SFC之外的其他SFC上
-                    SFCInstance = SFC(sfcId)
-                    delayBefore = SFCInstance.getDelay()
-                    # 更新SFC中的VNFList
-                    VNFList = SFCInstance.getVNFList()
-                    VMInstance = VM(vnfInstance.get_VM_id(vnfInstanceId))
-                    VMInstance.setPhysicalNodeId(destinationPhysicalNodeList[i])
-                    SFCInstance.setVNFList(VNFList)
-                    # 更新SFC的VNFList之后重新计算SFC的时延
-                    delayAfter = SFCInstance.get_SFC_delay(VNFList)
-                    additionDelay += delayAfter - delayBefore
+            # for sfcId in SFCIdListOfThisVNF:
+            #     if(sfcId != migrated_SFC_id):
+            #         # VNF位于除此条SFC之外的其他SFC上
+            #         SFCInstance = SFC(sfcId,
+            #                           sfcListSingleton.dict_maxDelay[sfcId],
+            #                           sfcListSingleton.dict_minReliability[sfcId],
+            #                           sfcListSingleton.dict_VNFList[sfcId],
+            #                           sfcListSingleton.dict_createdtime[sfcId]
+            #                           )
+            #         delayBefore = SFCInstance.getDelay()
+            #         # 更新SFC中的VNFList
+            #         VNFList = SFCInstance.getVNFList()
+                    # VMInstance = VM(vnfInstance.get_VM_id(vnfInstanceId),
+                    #                 vmListSingelton.dict_VMRequestCPU[vnfInstance.get_VM_id(vnfInstanceId)],
+                    #                 vmListSingelton.dict_VMRequestMemory[vnfInstance.get_VM_id(vnfInstanceId)],
+                    #                 vmListSingelton.dict_VMLocatedPhysicalnode[vnfInstance.get_VM_id(vnfInstanceId)],
+                    #                 vmListSingelton.dict_VMReliability[vnfInstance.get_VM_id(vnfInstanceId)]
+                    #                 )
+                    # VMInstance.setPhysicalNodeId(destinationPhysicalNodeList[i])
+                    # SFCInstance.setVNFList(VNFList)
+                    # # 更新SFC的VNFList之后重新计算SFC的时延
+                    # delayAfter = SFCInstance.get_SFC_delay(VNFList)
+                    # additionDelay += delayAfter - delayBefore
         return additionDelay

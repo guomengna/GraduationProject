@@ -30,6 +30,9 @@ class VNF():
         # 每个VNF都有自己一个随机生成的迁移花费时间系数
         self.migration_time_coefficient = random.uniform(0.6, 0.9)
 
+    def get_SFC_id_list(self):
+        return self.SFC_id_list
+
     # 根据VNF id获取VM id
     def get_VM_id(self, VNFId):
         if VNFId == self.VNF_id:

@@ -108,7 +108,7 @@ class VNFMigration():
         else:
             """没有节点过载"""
             print("没有节点过载，进入else语句中")
-            maxPlanEvaluation = -9999  # 当前的最高评分
+            maxPlanEvaluation = -9999999999  # 当前的最高评分
             bestPlan = []  # 存放该方案中需要迁移的VNF列表
             bestDes = []  # 存放最佳迁移方案中VNF所对应的目的地ID
             # 保留三个拥有最大可靠性的VNF,vnfid1最大，vnfid2第二大，vnfid3第三大
@@ -146,7 +146,8 @@ class VNFMigration():
 
             # 选择迁移vnfid1
             # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
-            desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            # desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            desNodeList = [6, 8, 22, 23, 24, 25]
             print("vnfid1的所有的目的地节点:")
             print(desNodeList)
             vnf_list = [vnfid1]
@@ -156,31 +157,40 @@ class VNFMigration():
                                                                           requestedResourceBefore,
                                                                           vnf_list, des_list1)
                 planEvalu = MigrationPlanEvaluationInstance.evaluation()
+                print("评价方法中的 i = %d" %i)
+
+                print("planEvalu = %f" %planEvalu)
+                print("maxPlanEvaluation = %d" %maxPlanEvaluation)
+
                 if(planEvalu > maxPlanEvaluation):
                     maxPlanEvaluation = planEvalu
                     bestPlan = vnf_list
                     bestDes = des_list1
 
-            # 选择迁移vnfid1和vnfid2这两个vnf
-                # 首先为vnfid2寻找所有的des
-            des_list1 = self.findDestinationForVNF(vnfid1, migratedsfcId)
-            des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
-            vnf_list = [vnfid1, vnfid2]
-            # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
-            for i in range(len(des_list1)):
-                for j in range(len(des_list2)):
-                    if(des_list1[i] != des_list2[j]):
-                        des_list = [des_list1[i], des_list2[j]]
-                        MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
-                                                                                  requestedResourceBefore,
-                                                                                  vnf_list, des_list)
-                        planEvalu = MigrationPlanEvaluationInstance.evaluation()
-                        if(planEvalu > maxPlanEvaluation):
-                            maxPlanEvaluation = planEvalu
-                            bestPlan = vnf_list
-                            bestDes = des_list
-            """迁移三个VNF的代码实现没有写"""
+            # # 选择迁移vnfid1和vnfid2这两个vnf
+            #     # 首先为vnfid2寻找所有的des
+            # des_list1 = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            # des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
+            # vnf_list = [vnfid1, vnfid2]
+            # # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
+            # for i in range(len(des_list1)):
+            #     for j in range(len(des_list2)):
+            #         if(des_list1[i] != des_list2[j]):
+            #             des_list = [des_list1[i], des_list2[j]]
+            #             MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
+            #                                                                       requestedResourceBefore,
+            #                                                                       vnf_list, des_list)
+            #             planEvalu = MigrationPlanEvaluationInstance.evaluation()
+            #             if(planEvalu > maxPlanEvaluation):
+            #                 maxPlanEvaluation = planEvalu
+            #                 bestPlan = vnf_list
+            #                 bestDes = des_list
+            # """迁移三个VNF的代码实现没有写"""
             # 返回最高评分、最佳方案（VNF列表和目的物理节点列表,两个列表的大小应该是相同的）
+            print(maxPlanEvaluation)
+            print("迁移完成，bestPlan = and bestDes = ")
+            print(bestPlan)
+            print(bestDes)
             return (maxPlanEvaluation, bestPlan, bestDes)
 
     def takeSecond(self, elem):
@@ -651,6 +661,7 @@ class VNFMigration():
                               )
             vnfList = SFCInstance.getVNFList()
             requestSFCReliability = SFCInstance.getRequestMinReliability()
+            print("requestSFCReliability = %f" %requestSFCReliability)
             vnfListCopy = vnfList
             # 找到vnfListCopy中id为vnfId的vnf,将它的物理节点换掉，换成迁移之后的node
             for vnf_id in vnfListCopy:
@@ -676,7 +687,7 @@ class VNFMigration():
             print(vnfListCopy)
             # 使用更新完的vnfListCopy，放入到新的迁移完的SFC中，计算迁移之后的SFC的可靠性
             currentSFCReliability = SFCInstance.get_SFC_relialibility1(vnfListCopy, vnfId, nodeId)
-            if(currentSFCReliability > requestSFCReliability):
+            if(currentSFCReliability >= requestSFCReliability):
                 print("约束1满足")
                 return True
         else:

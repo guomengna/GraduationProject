@@ -16,8 +16,10 @@ class SFCList(object):
     # SFC创建时间
     dict_createdtime = {}
 
-    excelFile = xlrd.open_workbook('D:/pycharm workspace'
-                                   '/GraduationProject/topo/'
+    # excelFile = xlrd.open_workbook('D:/pycharm workspace'
+    #                                '/GraduationProject/topo/'
+    #                                'allSFCList.xlsx', 'r')
+    excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/'
                                    'allSFCList.xlsx', 'r')
     nums = len(excelFile.sheets())
     for i in range(nums):

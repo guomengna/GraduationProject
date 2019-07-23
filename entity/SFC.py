@@ -11,8 +11,10 @@ from entity.VMList import vmListSingelton
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
 
-excelFile = xlrd.open_workbook('D:/pycharm workspace'
-                               '/GraduationProject/topo/'
+# excelFile = xlrd.open_workbook('D:/pycharm workspace'
+#                                '/GraduationProject/topo/'
+#                                'cernet2_added.xlsx', 'r')
+excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/'
                                'cernet2_added.xlsx', 'r')
 nums = len(excelFile.sheets())
 leftPhysicalNodelist = []

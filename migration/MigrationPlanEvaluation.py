@@ -16,12 +16,18 @@ class MigrationPlanEvaluation():
 
     def evaluation(self):
         totalRelibility = 0
-        for SFCId in sfcListSingleton:
-            SFCInstance = SFC(SFCId)
+        for SFCId in sfcListSingleton.getSFCList():
+            SFCInstance = SFC(SFCId,
+                              sfcListSingleton.dict_maxDelay[SFCId],
+                              sfcListSingleton.dict_minReliability[SFCId],
+                              sfcListSingleton.dict_VNFList[SFCId],
+                              sfcListSingleton.dict_createdtime[SFCId]
+                              )
             totalRelibility += SFCInstance.get_SFC_relialibility(SFCInstance.getVNFList())
 
         costInstance = MigrationCostCaculation()
         cost = costInstance.getCostOfMigratingVNFsOnOneSFC(self.migrated_SFC_id, self.SFCDelayBeforMigration,
                                                     self.SFCRequestedResourceBefore, self.needMigratedVNFList,
                                                     self.destinationPhysicalNodeList)
+        print("cost = %f" %cost)
         return 100 + totalRelibility - cost
