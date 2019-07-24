@@ -1,4 +1,5 @@
 """VNF迁移"""
+import csv
 import math
 
 from entity.PhysicalNode import PhysicalNode
@@ -48,7 +49,7 @@ class VNFMigration():
                 destinationsForVNFList[i] = self.findDestinationForVNF(vnfId, migratedsfcId)
             """迁移方案为：选择migratedVNFList中的一个或者两个VNF进行迁移。将所有的迁移单个VNF和所有的迁移两个VNF的方案进行比较"""
             # 先计算所有迁移一个VNF的方案的代价,字典中存放的是迁移方案及其对应的代价
-            maxPlanEvaluation = -9999
+            maxPlanEvaluation = -99999999999
             bestPlan = [] # 存放该方案中需要迁移的VNF列表
             bestDes = [] # 存放最佳迁移方案中VNF所对应的目的地ID
             """所有只迁移一个VNF的方案"""
@@ -108,7 +109,7 @@ class VNFMigration():
         else:
             """没有节点过载"""
             print("没有节点过载，进入else语句中")
-            maxPlanEvaluation = -9999999999  # 当前的最高评分
+            maxPlanEvaluation = -99999999999  # 当前的最高评分
             bestPlan = []  # 存放该方案中需要迁移的VNF列表
             bestDes = []  # 存放最佳迁移方案中VNF所对应的目的地ID
             # 保留三个拥有最大可靠性的VNF,vnfid1最大，vnfid2第二大，vnfid3第三大
@@ -167,30 +168,40 @@ class VNFMigration():
                     bestPlan = vnf_list
                     bestDes = des_list1
 
-            # # 选择迁移vnfid1和vnfid2这两个vnf
-            #     # 首先为vnfid2寻找所有的des
-            # des_list1 = self.findDestinationForVNF(vnfid1, migratedsfcId)
-            # des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
-            # vnf_list = [vnfid1, vnfid2]
-            # # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
-            # for i in range(len(des_list1)):
-            #     for j in range(len(des_list2)):
-            #         if(des_list1[i] != des_list2[j]):
-            #             des_list = [des_list1[i], des_list2[j]]
-            #             MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
-            #                                                                       requestedResourceBefore,
-            #                                                                       vnf_list, des_list)
-            #             planEvalu = MigrationPlanEvaluationInstance.evaluation()
-            #             if(planEvalu > maxPlanEvaluation):
-            #                 maxPlanEvaluation = planEvalu
-            #                 bestPlan = vnf_list
-            #                 bestDes = des_list
-            # """迁移三个VNF的代码实现没有写"""
+            # 选择迁移vnfid1和vnfid2这两个vnf
+                # 首先为vnfid2寻找所有的des
+            des_list1 = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            des_list2 = self.findDestinationForVNF(vnfid2, migratedsfcId)
+            vnf_list = [vnfid1, vnfid2]
+            # 找出所有的组合迁移方案(des_list1与des_list2中各选择一个，要不相同)
+            for i in range(len(des_list1)):
+                for j in range(len(des_list2)):
+                    if(des_list1[i] != des_list2[j]):
+                        des_list = [des_list1[i], des_list2[j]]
+                        MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
+                                                                                  requestedResourceBefore,
+                                                                                  vnf_list, des_list)
+                        planEvalu = MigrationPlanEvaluationInstance.evaluation()
+                        if(planEvalu > maxPlanEvaluation):
+                            maxPlanEvaluation = planEvalu
+                            bestPlan = vnf_list
+                            bestDes = des_list
+            """迁移三个VNF的代码实现没有写"""
             # 返回最高评分、最佳方案（VNF列表和目的物理节点列表,两个列表的大小应该是相同的）
             print(maxPlanEvaluation)
             print("迁移完成，bestPlan = and bestDes = ")
             print(bestPlan)
             print(bestDes)
+            print("迁移的SFC为： %d" % migratedsfcId)
+            with open('E:/pycharm workspace/GraduationProject/res/mig.csv', 'a+', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                # 先写入columns_name
+                writer.writerow(["SFCID", "VNFlistToMigrat", "DesNodeIDList"])
+                data = [[migratedsfcId, bestPlan, bestDes]]
+                print(data)
+                # 写入多行用writerows
+                writer.writerows(data)
+            print("迁移一条SFC上的VNF方法结束")
             return (maxPlanEvaluation, bestPlan, bestDes)
 
     def takeSecond(self, elem):

@@ -8,6 +8,7 @@ from entity.VM import VM
 from entity.VMList import vmListSingelton
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
+from migration.MigrationCostCaculation import MigrationCostCaculation
 from migration.MigrationPlanEvaluation import MigrationPlanEvaluation
 from migration.VNFMigration import VNFMigration
 from monitor.SFCInitialFormed import SFCInitialFormed
@@ -52,6 +53,18 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # SFCReliabilityMonitorInstance.reliability_monitor()
 migration = VNFMigration()
 migration.migrateVNFsofOneSFC()
+
+# MigrationCostCaculation().getDelayIncreationOfSFC(1, 16)
+# delay = SFC(1,sfcListSingleton.dict_maxDelay[1],
+#                   sfcListSingleton.dict_minReliability[1],
+#                   sfcListSingleton.dict_VNFList[1],
+#                   sfcListSingleton.dict_createdtime[1]).getDelayBetweenPhysicalNode(5,6)
+# print("delay 增量为： %f" %delay)
+# beforelist = [5]
+# afterlist = [6]
+# MigrationCostCaculation().getDelayIncreationOfSFC1(1, beforelist, afterlist)
+
+
 """测试获取SFC可靠性方法"""
 # def get_SFC_relialibility(VNF_list):
 #     SFCReliability = 1
