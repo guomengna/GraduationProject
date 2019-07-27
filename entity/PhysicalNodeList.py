@@ -11,7 +11,8 @@ class PhysicalNodeList(object):
     dict_capacity_Memory = {}
     # 存放物理节点可以提供的可靠性
     dict_provided_reliablity = {}
-    excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/NodeList_copy.xlsx', 'r')
+    excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy.xlsx', 'r')
+    # excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/NodeList_copy.xlsx', 'r')
     nums = len(excelFile.sheets())
     for i in range(nums):
         # 根据sheet顺序打开sheet

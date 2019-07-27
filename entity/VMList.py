@@ -16,10 +16,10 @@ class VMList(object):
     # 存储VM的可靠性
     dict_VMReliability = {}
 
-    # excelFile = xlrd.open_workbook('D:/pycharm workspace'
-    #                                '/GraduationProject/topo/'
-    #                                'allVMList.xlsx', 'r')
-    excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/allVMList.xlsx', 'r')
+    excelFile = xlrd.open_workbook('D:/pycharm workspace'
+                                   '/GraduationProject/topo/'
+                                   'allVMList.xlsx', 'r')
+    # excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/allVMList.xlsx', 'r')
 
     nums = len(excelFile.sheets())
     for i in range(nums):

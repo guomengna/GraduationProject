@@ -11,11 +11,11 @@ from entity.VMList import vmListSingelton
 from entity.VNF import VNF
 from entity.VNFList import vnfListSingelton
 
-# excelFile = xlrd.open_workbook('D:/pycharm workspace'
-#                                '/GraduationProject/topo/'
-#                                'cernet2_added.xlsx', 'r')
-excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/'
+excelFile = xlrd.open_workbook('D:/pycharm workspace'
+                               '/GraduationProject/topo/'
                                'cernet2_added.xlsx', 'r')
+# excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/'
+#                                'cernet2_added.xlsx', 'r')
 nums = len(excelFile.sheets())
 leftPhysicalNodelist = []
 rightPhysicalNodelist = []
@@ -237,4 +237,13 @@ class SFC():
             elif leftNodeId == rightPhysicalNodelist[i]:
                 if rightNodeId == leftPhysicalNodelist[i]:
                     delay = delaylist[i]
+        return delay
+
+    # 通过node id的列表来获取SFC的时延
+    def getDelayByNodeList(self, nodelist):
+        delay = 0
+        for i in range(len(nodelist)-1):
+            nodeleft = nodelist[i]
+            noderight = nodelist[i+1]
+            delay += self.getDelayBetweenPhysicalNode(nodeleft, noderight)
         return delay

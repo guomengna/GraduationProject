@@ -193,7 +193,7 @@ class VNFMigration():
             print(bestPlan)
             print(bestDes)
             print("迁移的SFC为： %d" % migratedsfcId)
-            with open('E:/pycharm workspace/GraduationProject/res/mig.csv', 'a+', newline='') as csvfile:
+            with open('D:/pycharm workspace/GraduationProject/res/mig.csv', 'a+', newline='') as csvfile:
                 writer = csv.writer(csvfile)
                 # 先写入columns_name
                 writer.writerow(["SFCID", "VNFlistToMigrat", "DesNodeIDList"])
@@ -635,6 +635,41 @@ class VNFMigration():
     # 判断第一个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain1(self, vnfId, nodeId, migratedSFCId):
         print("判断约束条件1是是否满足方法本体")
+        SFCinstance = SFC(migratedSFCId,
+                          sfcListSingleton.dict_maxDelay[migratedSFCId],
+                          sfcListSingleton.dict_minReliability[migratedSFCId],
+                          sfcListSingleton.dict_VNFList[migratedSFCId],
+                          sfcListSingleton.dict_createdtime[migratedSFCId]
+                          )
+        vnflist = SFCinstance.getVNFList()
+        print("待迁移SFC上的VNF列表为：")
+        print(vnflist)
+        nodelist = []
+        for vnfid in vnflist:
+            VNFInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid]
+                              )
+            vmid = VNFInstance.get_VM_id(vnfid)
+            vminstance = VM(vmid,
+                            vmListSingelton.dict_VMRequestCPU[vmid],
+                            vmListSingelton.dict_VMRequestMemory[vmid],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                            vmListSingelton.dict_VMReliability[vmid]
+                            )
+            nodeid = vminstance.get_physicalNode_id(vmid)
+            print("nodeid = %d" %nodeid)
+            nodelist.append(int(nodeid))
+        print("此SFC上的VNF所在的物理节点列表为：")
+        print(nodelist)
+        if nodeId in nodelist:
+            print("不能迁移到同意条SFC所在的物理节点上")
+            return False
         # 约束1.1 迁移后的节点可靠性大于迁移前VNF所在节点的可靠性
         VNFInstance = VNF(vnfId,
                           vnfListSingelton.dict_VNFListType[vnfId],
@@ -646,6 +681,17 @@ class VNFMigration():
                           vnfListSingelton.dict_VNFReliability[vnfId]
                           )
         print("vnfid = %d" %vnfId)
+        vmid = VNFInstance.get_VM_id(vnfId)
+        vminstance = VM(vmid,
+                        vmListSingelton.dict_VMRequestCPU[vmid],
+                        vmListSingelton.dict_VMRequestMemory[vmid],
+                        vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                        vmListSingelton.dict_VMReliability[vmid]
+                        )
+        nodeid = vminstance.get_physicalNode_id(vmid)
+        if(nodeid == nodeId):
+            print("迁移前后的物理节点不能相同")
+            return False
         print("vnfListSingelton.dict_VNFReliability[5] = %f" %vnfListSingelton.dict_VNFReliability[vnfId])
         # print(vnfListSingelton.dict_VNFReliability[5])
         # 迁移之前/当前的可靠性（VNF的可靠性也就是物理节点的可靠性）
@@ -710,7 +756,7 @@ class VNFMigration():
     # 判断第二个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain2(self, vnfId, nodeId, migratedSFCId):
         # 约束2 迁移之后SFC的时延增加不可超过一个σ（参数设置，以毫秒记）
-        delayIncreace = 20 # 设时延的最大增量为20ms
+        delayIncreace = 30 # 设时延的最大增量为20ms
         SFCInstance = SFC(migratedSFCId,
                           sfcListSingleton.dict_maxDelay[migratedSFCId],
                           sfcListSingleton.dict_minReliability[migratedSFCId],
@@ -720,9 +766,31 @@ class VNFMigration():
         vnfList = SFCInstance.getVNFList()
         # 迁移之前SFC的时延
         currentDelay = SFCInstance.get_SFC_delay(vnfList)
+        print("迁移之前的时延： %f" %currentDelay)
+        nodelist = []
+        for vnfid in vnfList:
+            VNFInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid]
+                              )
+            VMId = VNFInstance.get_VM_id(vnfid)
+            VMInstance = VM(VMId,
+                            vmListSingelton.dict_VMRequestCPU[VMId],
+                            vmListSingelton.dict_VMRequestMemory[VMId],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[VMId],
+                            vmListSingelton.dict_VMReliability[VMId]
+                            )
+            nodeid = VMInstance.get_physicalNode_id(VMId)
+            nodelist.append(int(nodeid))
         # 创建一个VNF副本，用于更新vnf
         vnfListCopy = vnfList
-        for vnf_id in vnfListCopy:
+        for i in range(len(vnfListCopy)):
+            vnf_id = vnfListCopy[i]
             if(vnf_id == vnfId):
                 VNFInstance = VNF(vnf_id,
                                   vnfListSingelton.dict_VNFListType[vnf_id],
@@ -742,8 +810,15 @@ class VNFMigration():
                                 )
                 # 此时vnfListCopy中的VNF已经更新完了
                 VMInstance.setPhysicalNodeId(nodeId)
+                nodelist[i] = nodeId
+                print("更新物理节点为：%d" %nodeId)
+        print("new nodelist = ")
+        print(nodelist)
         # 使用更新完的VNFList来计算新的SFC的时延
-        afterDelay = SFCInstance.get_SFC_delay(vnfListCopy)
+        # afterDelay = SFCInstance.get_SFC_delay(vnfListCopy)
+        # 使用新的获取SFC时延的方法
+        afterDelay = SFCInstance.getDelayByNodeList(nodelist)
+        print("迁移之后的时延为： %f" %afterDelay)
         if(afterDelay - currentDelay <= delayIncreace):
             print("约束2满足")
             return True

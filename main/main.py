@@ -52,7 +52,7 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # SFCReliabilityMonitorInstance = SFCReliabilityMonitor()
 # SFCReliabilityMonitorInstance.reliability_monitor()
 migration = VNFMigration()
-migration.migrateVNFsofOneSFC()
+# migration.migrateVNFsofOneSFC()
 
 # MigrationCostCaculation().getDelayIncreationOfSFC(1, 16)
 # delay = SFC(1,sfcListSingleton.dict_maxDelay[1],
@@ -121,8 +121,11 @@ migration.migrateVNFsofOneSFC()
 
 """测试通过"""
 """5代表vnf,1代表位于SFC1上"""
-# migration.findDestinationForVNF(5, 1)
-# migration.judgeConstrain2(5, 6, 1)
+migration.findDestinationForVNF(8, 2)
+# migration.judgeConstrain1(8, 10, 2)
+# migration.judgeConstrain2(8, 10, 2)
+# migration.judgeConstrain3(8, 10, 2)
+# migration.judgeConstrain4(8, 10, 2)
 """测试通过"""
 # migration.findSFCWithMinReliability()
 
