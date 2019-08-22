@@ -9,12 +9,13 @@ from entity.SFCList import sfcListSingleton, SFCList
 from entity.VM import VM
 from entity.VMList import vmListSingelton
 from entity.VNF import VNF
-from entity.VNFList import VNFList, vnfListSingelton
+from entity.VNFList import VNFList
 from migration.MigrationPlanEvaluation import MigrationPlanEvaluation
-
+from entity.VNFList import vnfListSingelton
 
 class VNFMigration():
     print("this is VNFMigration class")
+
     # 迁移一条SFC
     def migrateVNFsofOneSFC(self):
         print("-----------------这是迁移一条SFC的方法本体---------------------")
@@ -216,7 +217,10 @@ class VNFMigration():
         sortedSFClist = []
         for i in range(len(sfclist)):
             sfcid = sfclist[i]
-            sfcInstance = SFC(sfcid)
+            sfcInstance = SFC(sfcid, sfcListSingleton.dict_maxDelay[sfcid],
+                  sfcListSingleton.dict_minReliability[sfcid],
+                  sfcListSingleton.dict_VNFList[sfcid],
+                  sfcListSingleton.dict_createdtime[sfcid])
             reliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
             if (reliability < sfcInstance.getRequestMinReliability()):
                 sortedSFClist.append((sfcid, reliability))
@@ -237,7 +241,12 @@ class VNFMigration():
             sortedSFClist = []
             for i in range(len(sfclist)):
                 sfcid = sfclist[i]
-                sfcInstance = SFC(sfcid)
+                sfcInstance = SFC(sfcid,
+                                  sfcListSingleton.dict_maxDelay[sfcid],
+                                  sfcListSingleton.dict_minReliability[sfcid],
+                                  sfcListSingleton.dict_VNFList[sfcid],
+                                  sfcListSingleton.dict_createdtime[sfcid]
+                                  )
                 reliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
                 if (reliability < sfcInstance.getRequestMinReliability()):
                     sortedSFClist.append((sfcid, reliability))
@@ -247,6 +256,8 @@ class VNFMigration():
 
     # 迁移多条SFC（一次操作）
     def migrateVNFsofMultiSFC(self, sortedSFClist):
+        vnfListSingelton = VNFList()
+        sortedSFClist1 = []
         # 2.一次为每条SFC判断是否有节点过载
         # 存储所有的过载的节点
         overloadNodeidList = []
@@ -264,28 +275,69 @@ class VNFMigration():
         migVNFWithMaxFlowList = []
         migVNFWithMinReliaOnSFCIdList = [] #存储migVNFWithMinReliaList中VNF所在的对应的SFC
         migVNFWithMaxFlowOnSFCIdList = []
-        for sfcid in sortedSFClist:
-            sfc = SFC(sfcid)
+
+        for i in range(len(sortedSFClist)):
+            str = sortedSFClist[i].__str__()[1: -1]
+            s1 = str.split(',')
+            sortedSFClist1.append(s1)
+
+        for i in range(len(sortedSFClist1)):
+            sfcid = int(sortedSFClist1[i][0])
+            print("SFC的ID为：%d" %sfcid)
+            sfc = SFC(sfcid,
+                      sfcListSingleton.dict_maxDelay[sfcid],
+                      sfcListSingleton.dict_minReliability[sfcid],
+                      sfcListSingleton.dict_VNFList[sfcid],
+                      sfcListSingleton.dict_createdtime[sfcid]
+                      )
             vnfListOnThisSFC = sfc.getVNFList()
             for vnfid in vnfListOnThisSFC:
-                vnf = VNF(vnfid)
-                vmid = vnf.get_VM_id()
-                vm = VM(vmid)
+                vnf = VNF(vnfid,
+                          vnfListSingelton.dict_VNFListType[vnfid],
+                          vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                          vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                          vnfListSingelton.dict_locatedVMID[vnfid],
+                          vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                          vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                          vnfListSingelton.dict_VNFReliability[vnfid]
+                          )
+                vmid = vnf.get_VM_id(vnfid)
+                vm = VM(vmid,
+                        vmListSingelton.dict_VMRequestCPU[vmid],
+                        vmListSingelton.dict_VMRequestMemory[vmid],
+                        vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                        vmListSingelton.dict_VMReliability[vmid]
+                        )
                 nodeid = vm.get_physicalNode_id(vmid)
-                node = PhysicalNode(nodeid)
+                node = PhysicalNode(nodeid,
+                                    nodeListSingelton.dict_capacity_CPU[nodeid],
+                                    nodeListSingelton.dict_capacity_Memory[nodeid],
+                                    nodeListSingelton.dict_provided_reliablity[nodeid]
+                                    )
                 if(node.overloadeState):
                     overloadedNodeIdList.append(nodeid)
-        if(overloadedNodeIdList != None):
+        print("过载节点的集合有：")
+        print(overloadedNodeIdList)
+        if(len(overloadedNodeIdList) != 0):
             # 4.在每个过载节点上选择一个位于可靠性最低的SFC上的VNF，加入到migVNFWithMinReliaList中
             for overload_node_id in overloadedNodeIdList:
                 # 为每个过载的节点，优先选择一个位于一个可靠性最低的SFC上的VNF
                 # 4.1 获取到每个物理节点上的VM列表
-                overload_node = PhysicalNode(overload_node_id)
+                overload_node = PhysicalNode(overload_node_id,
+                                             nodeListSingelton.dict_capacity_CPU[overload_node_id],
+                                             nodeListSingelton.dict_capacity_Memory[overload_node_id],
+                                             nodeListSingelton.dict_provided_reliablity[overload_node_id]
+                                             )
                 vm_list = overload_node.getVMList()
                 # 4.2 获取到此节点上的VNF列表
                 vnf_list = []
                 for vmid in vm_list:
-                    vm_instance = VM(vmid)
+                    vm_instance = VM(vmid,
+                                     vmListSingelton.dict_VMRequestCPU[vmid],
+                                     vmListSingelton.dict_VMRequestMemory[vmid],
+                                     vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                                     vmListSingelton.dict_VMReliability[vmid]
+                                     )
                     vnfid = vm_instance.getVNFId()
                     vnf_list.append(vnfid)
                 # 4.3 从4.2中得到的vnf_list中选择出位于最不可靠SFC上的一个
@@ -293,12 +345,25 @@ class VNFMigration():
                 min_vnf_id = -1  # 记录此物理节点上找出来的位于最低可靠SFC上的VNF的id
                 min_vnf_on_sfcid = -1 # 随时记录可靠性最小的VNF出现在哪条SFC上
                 for vnfid in vnf_list:
-                    vnf_instance = VNF(vnfid)
+                    vnf_instance = VNF(vnfid,
+                                       vnfListSingelton.dict_VNFListType[vnfid],
+                                       vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                                       vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                                       vnfListSingelton.dict_locatedVMID[vnfid],
+                                       vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                                       vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                                       vnfListSingelton.dict_VNFReliability[vnfid]
+                                       )
                     sfc_id_list = vnf_instance.SFC_id_list # 每个VNF可能位于多条SFC上
                     min_reli_SFC_id = -1  # 记录一个VNF位于耳朵众多的SFC中的可靠性最低的那一条
                     min_SFC_reli = 1000
                     for sfcid in sfc_id_list:
-                        sfc_instance = SFC(sfcid)
+                        sfc_instance = SFC(sfcid,
+                                           sfcListSingleton.dict_maxDelay[sfcid],
+                                           sfcListSingleton.dict_minReliability[sfcid],
+                                           sfcListSingleton.dict_VNFList[sfcid],
+                                           sfcListSingleton.dict_createdtime[sfcid]
+                                           )
                         relia = sfc_instance.get_SFC_relialibility(sfc_instance.getVNFList())
                         if(relia < min_SFC_reli):
                             min_SFC_reli = relia
@@ -321,9 +386,23 @@ class VNFMigration():
                 maxFlow = 0
                 maxFlowVNF = None
                 for i in range(len(allVnfList)):
-                    vnf = VNF(allVnfList[i])
+                    vnf = VNF(allVnfList[i],
+                              vnfListSingelton.dict_VNFListType[allVnfList[i]],
+                              vnfListSingelton.dict_VNFRequestCPU[allVnfList[i]],
+                              vnfListSingelton.dict_VNFRequestMemory[allVnfList[i]],
+                              vnfListSingelton.dict_locatedVMID[allVnfList[i]],
+                              vnfListSingelton.dict_locatedSFCIDList[allVnfList[i]],
+                              vnfListSingelton.dict_numbersOnSFCList[allVnfList[i]],
+                              vnfListSingelton.dict_VNFReliability[allVnfList[i]]
+                              )
                     vmid = vnf.get_VM_id(allVnfList[i])
-                    nodeid = VM.get_physicalNode_id(vmid)
+                    vmInstance = VM(vmid,
+                                    vmListSingelton.dict_VMRequestCPU[vmid],
+                                    vmListSingelton.dict_VMRequestMemory[vmid],
+                                    vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                                    vmListSingelton.dict_VMReliability[vmid]
+                                    )
+                    nodeid = vmInstance.get_physicalNode_id(vmid)
                     if(nodeid == overloadedNodeIdList[j]):
                         # 都是位于相同物理机上的,从中挑选流量最大的一个VNF
                         if((vnf.getVNF_request_CPU() + vnf.getVNF_request_Memory()) > maxFlow):
@@ -332,12 +411,25 @@ class VNFMigration():
                 # 至此，maxFlowVNF中存放的就是此物理节点上流量需求最大的VNF，将其添加到migVNFWithMaxFlowList中
                 if(maxFlowVNF not in migVNFWithMinReliaList):
                     migVNFWithMaxFlowList.append(maxFlowVNF)
-                    vnf_instance = VNF(maxFlowVNF)
+                    vnf_instance = VNF(maxFlowVNF,
+                                       vnfListSingelton.dict_VNFListType[maxFlowVNF],
+                                       vnfListSingelton.dict_VNFRequestCPU[maxFlowVNF],
+                                       vnfListSingelton.dict_VNFRequestMemory[maxFlowVNF],
+                                       vnfListSingelton.dict_locatedVMID[maxFlowVNF],
+                                       vnfListSingelton.dict_locatedSFCIDList[maxFlowVNF],
+                                       vnfListSingelton.dict_numbersOnSFCList[maxFlowVNF],
+                                       vnfListSingelton.dict_VNFReliability[maxFlowVNF]
+                                       )
                     sfc_list = vnf_instance.SFC_id_list
                     min_relia = 1000
                     min_sfc_id = -1
                     for sfc_id in sfc_list:
-                        sfc_instance = SFC(sfc_id)
+                        sfc_instance = SFC(sfc_id,
+                                           sfcListSingleton.dict_maxDelay[sfc_id],
+                                           sfcListSingleton.dict_minReliability[sfc_id],
+                                           sfcListSingleton.dict_VNFList[sfc_id],
+                                           sfcListSingleton.dict_createdtime[sfc_id]
+                                           )
                         if(sfc_instance.get_SFC_relialibility(sfc_instance.getVNFList()) < min_relia):
                             min_relia = sfc_instance.get_SFC_relialibility(sfc_instance.getVNFList())
                             min_sfc_id = sfc_id
@@ -347,15 +439,30 @@ class VNFMigration():
 
         # 6.当网络中没有节点过载时，选择sortedSFClist中可靠性最低的SFC，
         # 加入到migVNFWithMaxFlowList和migVNFWithMinReliaList中
-        elif(overloadedNodeIdList == None):
+        elif(len(overloadedNodeIdList) == 0):
+            print("没有节点过载")
             # 没有节点过载
-            for sfcid in sortedSFClist:
-                sfcInstance = SFC(sfcid)
+            for i in range(len(sortedSFClist1)):
+                sfcid = int(sortedSFClist1[i][0])
+                sfcInstance = SFC(sfcid,
+                                  sfcListSingleton.dict_maxDelay[sfcid],
+                                  sfcListSingleton.dict_minReliability[sfcid],
+                                  sfcListSingleton.dict_VNFList[sfcid],
+                                  sfcListSingleton.dict_createdtime[sfcid]
+                                  )
                 vnfList = sfcInstance.getVNFList()
                 maxReliability = 0
                 maxVNFId = -1
                 for vnfid in vnfList:
-                    vnfInstance = VNF(vnfid)
+                    vnfInstance = VNF(vnfid,
+                                      vnfListSingelton.dict_VNFListType[vnfid],
+                                      vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                                      vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                                      vnfListSingelton.dict_locatedVMID[vnfid],
+                                      vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                                      vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                                      vnfListSingelton.dict_VNFReliability[vnfid]
+                                      )
                     vnfReliability = vnfInstance.getVNFRliability(vnfid)
                     if(vnfReliability > maxReliability):
                         maxVNFId = vnfid
@@ -367,97 +474,186 @@ class VNFMigration():
         # 7. 分别为migVNFWithMinReliaList和migVNFWithMaxFlowList中的所有VNF计算可迁移的目的地（其中的每一个VNF都要迁移）
         # 7.1 为migVNFWithMinReliaList中的所有VNF选择迁移目的地
         # 存储migVNFWithMinReliaList中所有vnf的目的地（列表中存储的还是列表）
+        print("第7.1步")
         VNFWithMinReliaDesList = []
         for i in range(len(migVNFWithMinReliaList)):
             vnfid = migVNFWithMinReliaList[i]
             sfcid = migVNFWithMinReliaOnSFCIdList[i]
-            vnfInstance = VNF(vnfid)
+            vnfInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid]
+                              )
             # vnfid所有可能的迁移目的地
             satidfiedNodeList = self.findDestinationForVNF(vnfid, sfcid)
             VNFWithMinReliaDesList.append(satidfiedNodeList)
         # 7.2 为migVNFWithMaxFlowList中的所有VNF寻找所有可能的迁移目的地
         # 存储migVNFWithMaxFlowList中所有vnf的目的地（列表中存储的还是列表）
+        print("第7.2步")
         VNFWithMaxFlowDesList = []
         for i in range(len(migVNFWithMaxFlowList)):
             vnfid = migVNFWithMaxFlowList[i]
             sfcid = migVNFWithMaxFlowOnSFCIdList[i]
-            vnfInstance = VNF(vnfid)
+            vnfInstance = VNF(vnfid,
+                              vnfListSingelton.dict_VNFListType[vnfid],
+                              vnfListSingelton.dict_VNFRequestCPU[vnfid],
+                              vnfListSingelton.dict_VNFRequestMemory[vnfid],
+                              vnfListSingelton.dict_locatedVMID[vnfid],
+                              vnfListSingelton.dict_locatedSFCIDList[vnfid],
+                              vnfListSingelton.dict_numbersOnSFCList[vnfid],
+                              vnfListSingelton.dict_VNFReliability[vnfid]
+                              )
             # vnfid所有可能的迁移目的地
             satidfiedNodeList = self.findDestinationForVNF(vnfid, sfcid)
             VNFWithMaxFlowDesList.append(satidfiedNodeList)
         # 7.3 形成迁移计划
+        print("第7.3步")
         # migVNFWithMinReliaList中的VNF迁移，形成的迁移计划存储在VNFWithMinReliaPlan中
         VNFWithMinReliaPlan = self.getMigrationPlan(migVNFWithMinReliaList,
                                                     migVNFWithMinReliaOnSFCIdList, VNFWithMinReliaDesList)
         # migVNFWithMaxFlowList中的VNF迁移，形成的迁移计划存储在VNFWithMaxFlowPlan
         VNFWithMaxFlowPlan = self.getMigrationPlan(migVNFWithMaxFlowList,
                                                    migVNFWithMaxFlowOnSFCIdList, VNFWithMaxFlowDesList)
+        print("VNFWithMinReliaPlan = ")
+        print(VNFWithMinReliaPlan)
+        print("VNFWithMaxFlowPlan = ")
+        print(VNFWithMaxFlowPlan)
+
         # 8 两组迁移计划进行评分
+        print("第8步")
+
         # VNFWithMinReliaPlan组
         # 存储此评价方案的评分
         VNFWithMinReliaPlanEvalu = 0
+        print("VNFWithMinReliaPlan = ")
+        print(VNFWithMinReliaPlan)
+        print("migVNFWithMinReliaList = ")
+        print(migVNFWithMinReliaList)
+        des_list = []
+        des_list1 = []
+        migVNFWithMinReliaList1 = []
         for i in range(len(VNFWithMinReliaPlan)):
+            print("i = %d" %i)
             migratedsfcId = migVNFWithMinReliaOnSFCIdList[i]
-            sfcInstance = SFC(migratedsfcId)
+            sfcInstance = SFC(migratedsfcId,
+                              sfcListSingleton.dict_maxDelay[migratedsfcId],
+                              sfcListSingleton.dict_minReliability[migratedsfcId],
+                              sfcListSingleton.dict_VNFList[migratedsfcId],
+                              sfcListSingleton.dict_createdtime[migratedsfcId]
+                              )
             delayBefore = sfcInstance.getDelay()
             requestedResourceBefore = sfcInstance.getRequestMinReliability()
             vnf_list = [migVNFWithMinReliaList[i]]
-            des_list = VNFWithMinReliaPlan[i]
-            MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
+            print("VNFWithMinReliaPlan[i] = %d" %VNFWithMinReliaPlan[i])
+            if(VNFWithMinReliaPlan[i] != -1):
+                print("!= 1")
+                des_list = [VNFWithMinReliaPlan[i]]
+                migVNFWithMinReliaList1.append(migVNFWithMinReliaList[i])
+            print("VNFWithMinReliaPlan组 des_list = ")
+            print(des_list)
+            if(des_list != -1):
+                MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
                                                                       requestedResourceBefore,
                                                                       vnf_list, des_list)
-            VNFWithMinReliaPlanEvalu += MigrationPlanEvaluationInstance.evaluation()
+                VNFWithMinReliaPlanEvalu += MigrationPlanEvaluationInstance.evaluation()
 
         # VNFWithMaxFlowPlan组
         # 存储此评价方案的评分
         VNFWithMaxFlowPlanEvalu = 0
+        print("migVNFWithMaxFlowList1 = ")
+        print(migVNFWithMaxFlowList)
+        print("VNFWithMaxFlowPlan = ")
+        print(VNFWithMaxFlowPlan)
+        migVNFWithMaxFlowList1 = []
         for i in range(len(migVNFWithMaxFlowList)):
             migratedsfcId = migVNFWithMaxFlowOnSFCIdList[i]
-            sfcInstance = SFC(migratedsfcId)
+            sfcInstance = SFC(migratedsfcId,
+                              sfcListSingleton.dict_maxDelay[migratedsfcId],
+                              sfcListSingleton.dict_minReliability[migratedsfcId],
+                              sfcListSingleton.dict_VNFList[migratedsfcId],
+                              sfcListSingleton.dict_createdtime[migratedsfcId]
+                              )
             delayBefore = sfcInstance.getDelay()
             requestedResourceBefore = sfcInstance.getRequestMinReliability()
             vnf_list = [migVNFWithMaxFlowList[i]]
-            des_list = VNFWithMaxFlowPlan[i]
+            if(VNFWithMaxFlowPlan[i] != -1):
+                des_list1 = [VNFWithMaxFlowPlan[i]]
+                migVNFWithMaxFlowList1.append(migVNFWithMaxFlowList[i])
+            print("VNFWithMaxFlowPlan[i] = %d" % VNFWithMaxFlowPlan[i])
+            print("VNFWithMaxFlowPlan组 554行，des_list1 = ")
+            print(des_list1)
             MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
-                                                                      requestedResourceBefore,
-                                                                      vnf_list, des_list)
+                                                                  requestedResourceBefore,
+                                                                  vnf_list, des_list1)
             VNFWithMaxFlowPlanEvalu += MigrationPlanEvaluationInstance.evaluation()
         # 两个的迁移计划已经评价完毕，现在比较评分高低，选出一个评分高的方案输出
         # 存储输出方案
-        outPutPlan = None
-        finalMigVNFs = None
-        finalMigVNFsSFC = None
-        if(VNFWithMinReliaPlanEvalu > VNFWithMaxFlowPlanEvalu):
-            outPutPlan = VNFWithMinReliaPlanEvalu
-            finalMigVNFs = migVNFWithMinReliaList
+        outPutPlan = [] # 存储迁移目的地
+        finalMigVNFs = [] #
+        finalMigVNFsSFC = []
+        if(VNFWithMinReliaPlanEvalu >= VNFWithMaxFlowPlanEvalu):
+            # outPutPlan = VNFWithMinReliaPlanEvalu
+            outPutPlan = des_list
+            finalMigVNFs = migVNFWithMinReliaList1
             finalMigVNFsSFC = migVNFWithMinReliaOnSFCIdList
         else:
-            outPutPlan = VNFWithMaxFlowPlanEvalu
-            finalMigVNFs = migVNFWithMaxFlowList
+            # outPutPlan = VNFWithMaxFlowPlanEvalu
+            outPutPlan = des_list1
+            finalMigVNFs = migVNFWithMaxFlowList1
             finalMigVNFsSFC = migVNFWithMaxFlowOnSFCIdList
+        print("迁移结束，迁移方案以及迁移的VNF为：")
+        print(outPutPlan)
+        print(finalMigVNFs)
+        print(finalMigVNFsSFC)
         # 8plus 选择出迁移方案之后，需要对迁移方案中涉及的物理机的资源做出调整：迁移之前的物理机资源增加，迁移之后的物理机资源减少
         # 另外，物理机上记录的VNF的id也得需要更新
+        print("8 plus")
         for i in range(len(finalMigVNFs)):
             # 此VNF迁移之后的物理机的id
             node_after_id = outPutPlan[i]
             vnf_id = finalMigVNFs[i]
-            vnf_instance = VNF(vnf_id)
+            vnf_instance = VNF(vnf_id,
+                               vnfListSingelton.dict_VNFListType[vnf_id],
+                               vnfListSingelton.dict_VNFRequestCPU[vnf_id],
+                               vnfListSingelton.dict_VNFRequestMemory[vnf_id],
+                               vnfListSingelton.dict_locatedVMID[vnf_id],
+                               vnfListSingelton.dict_locatedSFCIDList[vnf_id],
+                               vnfListSingelton.dict_numbersOnSFCList[vnf_id],
+                               vnfListSingelton.dict_VNFReliability[vnf_id]
+                               )
             # 此VNF占用的cpu
             cpu_occupied = vnf_instance.getVNF_request_CPU()
             # 此VNF占用的内存
             memo_occupied = vnf_instance.getVNF_request_Memory()
             # 求此VNF迁移之前所在的物理机的ID
             vm_id = vnf_instance.get_VM_id(vnf_id)
-            vm_instance = VM(vm_id)
+            vm_instance = VM(vm_id,
+                             vmListSingelton.dict_VMRequestCPU[vm_id],
+                             vmListSingelton.dict_VMRequestMemory[vm_id],
+                             vmListSingelton.dict_VMLocatedPhysicalnode[vm_id],
+                             vmListSingelton.dict_VMReliability[vm_id]
+                             )
             # 将VM所在的物理机设置成迁移之后的物理机
             vm_instance.setPhysicalNodeId(node_after_id)
             node_before_id = vm_instance.get_physicalNode_id(vm_id)
             # 设置迁移之前物理机的资源
-            node_before_instance = PhysicalNode(node_before_id)
+            node_before_instance = PhysicalNode(node_before_id,
+                                                nodeListSingelton.dict_capacity_CPU[node_before_id],
+                                                nodeListSingelton.dict_capacity_Memory[node_before_id],
+                                                nodeListSingelton.dict_provided_reliablity[node_before_id]
+                                                )
             node_before_instance.addAvailable_CPU(node_before_id, cpu_occupied)
             node_before_instance.addAvailable_Memory(node_before_id, memo_occupied)
             # 设置迁移之后的物理机的资源
-            node_after_instance = PhysicalNode(node_after_id)
+            node_after_instance = PhysicalNode(node_after_id,
+                                               nodeListSingelton.dict_capacity_CPU[node_after_id],
+                                               nodeListSingelton.dict_capacity_Memory[node_after_id],
+                                               nodeListSingelton.dict_provided_reliablity[node_after_id]
+                                               )
             node_after_instance.deleteAvailable_CPU(node_after_id, memo_occupied)
             node_after_instance.deleteAvailable_CPU(node_after_id, cpu_occupied)
         # 返回 迁移到的物理节点列表、最终的迁移VNF列表、所在SFC列表
@@ -469,22 +665,45 @@ class VNFMigration():
         # 两个VNF不能迁移到一个物理机，因此定义一个occupiedNodeIdList，用于存储已经被占用的物理机
         occupiedNodeIdList = []
         finalNodeIdList = []
+        print("这是getMigrationPlan方法，vnfList和desList分别为：")
+        print(vnfList)
+        print(desList)
         # 如何选择每个VNF的目的地呢？首选的是VNF从旧物理机到新物理机之间时延最低的一个
         for i in range(len(vnfList)):
             min_delay = 1000
             final_des = -1
             # 此VNF可以迁移的目的地列表
             vnfDesList = desList[i]
+            if(len(vnfDesList) == 0):
+                finalNodeIdList.append(-1)
             # 当前VNF所在的物理机
-            vnf_Instance = VNF(vnfList[i])
+            vnf_Instance = VNF(vnfList[i],
+                               vnfListSingelton.dict_VNFListType[vnfList[i]],
+                               vnfListSingelton.dict_VNFRequestCPU[vnfList[i]],
+                               vnfListSingelton.dict_VNFRequestMemory[vnfList[i]],
+                               vnfListSingelton.dict_locatedVMID[vnfList[i]],
+                               vnfListSingelton.dict_locatedSFCIDList[vnfList[i]],
+                               vnfListSingelton.dict_numbersOnSFCList[vnfList[i]],
+                               vnfListSingelton.dict_VNFReliability[vnfList[i]]
+                               )
             currentVMId = vnf_Instance.get_VM_id(vnfList[i])
-            vmInstance = VM(currentVMId)
+            vmInstance = VM(currentVMId,
+                            vmListSingelton.dict_VMRequestCPU[currentVMId],
+                            vmListSingelton.dict_VMRequestMemory[currentVMId],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[currentVMId],
+                            vmListSingelton.dict_VMReliability[currentVMId]
+                            )
             currentNodeId = vmInstance.get_physicalNode_id(currentVMId)
             # 计算从当前VNF所在的物理机到每一个物理机的时延
             for j in range(len(vnfDesList)):
                 VNFDesNodeId = vnfDesList[j]
                 # 获取两个物理机之间的时延
-                sfcInstance = SFC(sfcList[i])
+                sfcInstance = SFC(sfcList[i],
+                                  sfcListSingleton.dict_maxDelay[sfcList[i]],
+                                  sfcListSingleton.dict_minReliability[sfcList[i]],
+                                  sfcListSingleton.dict_VNFList[sfcList[i]],
+                                  sfcListSingleton.dict_createdtime[sfcList[i]]
+                                  )
                 if(VNFDesNodeId not in occupiedNodeIdList):
                     delay = sfcInstance.getDelayBetweenPhysicalNode(currentNodeId, VNFDesNodeId)
                     if(delay < min_delay):
@@ -495,10 +714,14 @@ class VNFMigration():
                     final_des = currentNodeId
             # 挑选出一个时延最短的VNF i的目的地，即final_des
             # 将其加入到finalNodeIdList中，即为最终的迁移方案
-            finalNodeIdList.append(final_des)
+            if(final_des != -1):
+                finalNodeIdList.append(final_des)
+
         # 至此，所有的待迁移VNF都已经选定了一个目的地（极特殊情况没有考虑：当有的VNF只能迁移到一个目的地，而此目的地又被占用了，
         # 此时将迁移队列中的此VNF去掉，即为最简便的处理方案），因此，添加上边的else语句，设置没有迁移目的地的VNF的迁移目的地为自己
         # 返回
+        print("finalNodeIdList = ")
+        print(finalNodeIdList)
         return finalNodeIdList
 
     """通过测试的方法"""
