@@ -1,6 +1,10 @@
 import threading
 import time
 
+import openpyxl
+import xlrd
+from xlutils.copy import copy
+
 from entity.PhysicalNodeList import nodeListSingelton
 from entity.SFC import SFC
 from entity.SFCList import sfcListSingleton
@@ -56,6 +60,44 @@ migration = VNFMigration()
 # migration.migrateVNFsofOneSFC()
 # 迁移多条SFC上的VNF
 migration.migrateVNFsofMultiSFCIterator()
+
+
+# excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy1.xls')
+# node_rows = -1
+# # 存放需要修改的物理节点的CPU
+# node_CPU = 0
+# # 存放需要修改的物理节点的内存资源
+# node_memo = 0
+# nums = len(excelFile.sheets())
+# sheet1 = excelFile.sheets()[0]
+# nrows = sheet1.nrows  # 行
+# ncols = sheet1.ncols  # 列
+# for i in range(nrows):
+#     print("读取文件第i行 %d " % i)
+#     list = sheet1.row_values(i)
+#     nodeid = int(list[0])
+#     if nodeid == 5:
+#         print("node id 所在的行为：%d" %i)
+#         node_rows = i
+#         node_CPU = list[1]
+#         node_memo = list[2]
+#         print("node_CPU = %d" %node_CPU)
+#         print("node_memo = %d" %node_memo)
+#         break
+# node_CPU += 46
+# node_memo += 49
+# print("node_CPU = %d" % node_CPU)
+# print("node_memo = %d" % node_memo)
+#
+# excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy1.xls')
+# wb = copy(excelFile)  # 利用xlutils.copy下的copy函数复制
+# ws = wb.get_sheet(0)  # 获取表单0
+# ws.write(node_rows, 1, node_CPU)  # 改变（node_rows,1）的值
+# ws.write(node_rows, 2, node_memo)  # 改变（node_rows,2）的值
+# wb.save('D:/pycharm workspace/GraduationProject/topo/NodeList_copy1.xls')
+# print("修改完成")
+"""excel文件必须为xls格式，否则将保存不成功"""
+
 
 # MigrationCostCaculation().getDelayIncreationOfSFC(1, 16)
 # delay = SFC(1,sfcListSingleton.dict_maxDelay[1],

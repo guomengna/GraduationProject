@@ -2,6 +2,10 @@
 import csv
 import math
 
+import openpyxl
+import xlrd
+import xlwt
+
 from entity.PhysicalNode import PhysicalNode
 from entity.PhysicalNodeList import PhysicalNodeList, nodeListSingelton
 from entity.SFC import SFC
@@ -12,6 +16,7 @@ from entity.VNF import VNF
 from entity.VNFList import VNFList
 from migration.MigrationPlanEvaluation import MigrationPlanEvaluation
 from entity.VNFList import vnfListSingelton
+from xlutils.copy import copy
 
 class VNFMigration():
     print("this is VNFMigration class")
@@ -593,25 +598,34 @@ class VNFMigration():
         # 两个的迁移计划已经评价完毕，现在比较评分高低，选出一个评分高的方案输出
         # 存储输出方案
         outPutPlan = [] # 存储迁移目的地
-        finalMigVNFs = [] #
-        finalMigVNFsSFC = []
+        finalMigVNFs = [] # 存储迁移的VNF
+        finalMigVNFsSFC = [] #
         if(VNFWithMinReliaPlanEvalu >= VNFWithMaxFlowPlanEvalu):
             # outPutPlan = VNFWithMinReliaPlanEvalu
             outPutPlan = des_list
             finalMigVNFs = migVNFWithMinReliaList1
             finalMigVNFsSFC = migVNFWithMinReliaOnSFCIdList
+            print("migVNFWithMinReliaOnSFCIdList = ")
+            print(migVNFWithMinReliaOnSFCIdList)
         else:
             # outPutPlan = VNFWithMaxFlowPlanEvalu
             outPutPlan = des_list1
             finalMigVNFs = migVNFWithMaxFlowList1
             finalMigVNFsSFC = migVNFWithMaxFlowOnSFCIdList
+            print("migVNFWithMaxFlowOnSFCIdList = ")
+            print(migVNFWithMaxFlowOnSFCIdList)
         print("迁移结束，迁移方案以及迁移的VNF为：")
         print(outPutPlan)
         print(finalMigVNFs)
-        print(finalMigVNFsSFC)
+        # print(finalMigVNFsSFC)
+        print("迁移的SFC为： %d" %migratedsfcId)
+
+
         # 8plus 选择出迁移方案之后，需要对迁移方案中涉及的物理机的资源做出调整：迁移之前的物理机资源增加，迁移之后的物理机资源减少
         # 另外，物理机上记录的VNF的id也得需要更新
         print("8 plus")
+        # 存储VNF迁移之前的物理节点
+        node_before_id_list = []
         for i in range(len(finalMigVNFs)):
             # 此VNF迁移之后的物理机的id
             node_after_id = outPutPlan[i]
@@ -627,8 +641,11 @@ class VNFMigration():
                                )
             # 此VNF占用的cpu
             cpu_occupied = vnf_instance.getVNF_request_CPU()
+            print("此VNF占用的CPU = %d" %cpu_occupied)
             # 此VNF占用的内存
             memo_occupied = vnf_instance.getVNF_request_Memory()
+            print("此VNF占用的内存 = %d" % memo_occupied)
+            print("vnf_id = %d" %vnf_id)
             # 求此VNF迁移之前所在的物理机的ID
             vm_id = vnf_instance.get_VM_id(vnf_id)
             vm_instance = VM(vm_id,
@@ -637,9 +654,12 @@ class VNFMigration():
                              vmListSingelton.dict_VMLocatedPhysicalnode[vm_id],
                              vmListSingelton.dict_VMReliability[vm_id]
                              )
+            node_before_id = vm_instance.get_physicalNode_id(vm_id)
+            print("此VNF迁移之前所在的物理节点为：%d" %node_before_id)
+            node_before_id_list.append(int(node_before_id))
             # 将VM所在的物理机设置成迁移之后的物理机
             vm_instance.setPhysicalNodeId(node_after_id)
-            node_before_id = vm_instance.get_physicalNode_id(vm_id)
+            print("此VNF迁移之后所在的物理节点为：%d" %node_after_id)
             # 设置迁移之前物理机的资源
             node_before_instance = PhysicalNode(node_before_id,
                                                 nodeListSingelton.dict_capacity_CPU[node_before_id],
@@ -648,6 +668,59 @@ class VNFMigration():
                                                 )
             node_before_instance.addAvailable_CPU(node_before_id, cpu_occupied)
             node_before_instance.addAvailable_Memory(node_before_id, memo_occupied)
+
+            # 读取到物理节点为node_before_id的那一行的第一列[1]，给其上的值+cpu_occupied
+            # 读取到物理节点为node_before_id的那一行的第一列[2]，给其上的值+memo_occupied
+            excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy.xls')
+            # 存放需要修改的物理节点的行数
+            node_rows_before = 0
+            node_rows_after = 0
+            # 存放需要修改的物理节点的CPU(迁移前的物理节点)
+            node_CPU_before = 0
+            # 存放需要修改的物理节点的内存资源(迁移前的物理节点)
+            node_memo_before = 0
+            node_CPU_after = 0
+            node_memo_after = 0
+            nums = len(excelFile.sheets())
+            for i in range(nums):
+                # 根据sheet顺序打开sheet
+                sheet1 = excelFile.sheets()[i]
+            nrows = sheet1.nrows  # 行
+            ncols = sheet1.ncols  # 列
+            for i in range(nrows):
+                print("读取文件第i行 %d " % i)
+                list = sheet1.row_values(i)
+                nodeid = int(list[0])
+                if nodeid == node_before_id:
+                    print("迁移前的node id 所在的行为：%d" %i)
+                    node_rows_before = i
+                    node_CPU_before = list[1]
+                    node_memo_before = list[2]
+                    print("node_CPU_before = %d" %node_CPU_before)
+                    print("node_memo_before = %d" %node_memo_before)
+
+                if nodeid == node_after_id:
+                    print("迁移后的物理节点所在的行为： %d" %i)
+                    node_rows_after = i
+                    node_CPU_after = list[1]
+                    node_memo_after = list[2]
+
+            node_CPU_before += cpu_occupied
+            node_memo_before += memo_occupied
+            print("node_CPU_before = %d" % node_CPU_before)
+            print("node_memo_before = %d" % node_memo_before)
+            node_CPU_after -= cpu_occupied
+            node_memo_after -= memo_occupied
+
+            wb = copy(excelFile)  # 利用xlutils.copy下的copy函数复制
+            ws = wb.get_sheet(0)  # 获取表单0
+            ws.write(node_rows_before, 1, node_CPU_before)  # 改变（node_rows_before,1）的值
+            ws.write(node_rows_before, 2, node_memo_before)  # 改变（node_rows_before,2）的值
+            ws.write(node_rows_after, 1, node_CPU_after)  # 改变（node_rows,1）的值
+            ws.write(node_rows_after, 2, node_memo_after)  # 改变（node_rows,2）的值
+            wb.save('D:/pycharm workspace/GraduationProject/topo/NodeList_copy.xls')
+            print("至此，VNF迁移导致的物理机的资源的修改已经完成")
+
             # 设置迁移之后的物理机的资源
             node_after_instance = PhysicalNode(node_after_id,
                                                nodeListSingelton.dict_capacity_CPU[node_after_id],
@@ -656,6 +729,17 @@ class VNFMigration():
                                                )
             node_after_instance.deleteAvailable_CPU(node_after_id, memo_occupied)
             node_after_instance.deleteAvailable_CPU(node_after_id, cpu_occupied)
+            print("迁移之后的物理节点为： %d" %node_after_id)
+
+        with open('D:/pycharm workspace/GraduationProject/res/migMulti.csv', 'a+', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            # 先写入columns_name
+            writer.writerow(["outPutPlan", "finalMigVNFs", "migratedsfcId", "node_before_id_list"])
+            data = [[outPutPlan, finalMigVNFs, migratedsfcId, node_before_id_list]]
+            print(data)
+            # 写入多行用writerows
+            writer.writerows(data)
+        print("迁移一条SFC上的VNF方法结束")
         # 返回 迁移到的物理节点列表、最终的迁移VNF列表、所在SFC列表
         return outPutPlan, finalMigVNFs, finalMigVNFsSFC
 
