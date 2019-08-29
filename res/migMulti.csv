@@ -1,4 +1,3 @@
-
 outPutPlan,finalMigVNFs,migratedsfcId,node_before_id_list
 [6],[5],3,[5]
 outPutPlan,finalMigVNFs,migratedsfcId,node_before_id_list
@@ -1043,3 +1042,6 @@ outPutPlan,finalMigVNFs,migratedsfcId,node_before_id_list
 [24],[15],6,[15]
 outPutPlan,finalMigVNFs,migratedsfcId,node_before_id_list
 [6],[5],3,[5]
+,,,
+[22],[18],7,[18]
+[15],[20],12,[20]

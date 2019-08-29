@@ -1282,4 +1282,3 @@ class VNFMigration():
             print("不满足迁移条件，返回false")
             return False
 
-        """未完待续"""
