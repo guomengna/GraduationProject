@@ -24,6 +24,7 @@ class MigrationPlanEvaluation():
                               sfcListSingleton.dict_createdtime[SFCId]
                               )
             totalRelibility += SFCInstance.get_SFC_relialibility(SFCInstance.getVNFList())
+            print("totalRelibility = %f" %totalRelibility)
 
         costInstance = MigrationCostCaculation()
         cost = costInstance.getCostOfMigratingVNFsOnOneSFC(self.migrated_SFC_id, self.SFCDelayBeforMigration,

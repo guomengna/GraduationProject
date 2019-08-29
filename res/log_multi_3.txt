@@ -1,0 +1,4370 @@
+使用的SFClist文件为：topo/allSFCList_3.xlsx
+
+C:\python3.7\python.exe "D:/pycharm workspace/GraduationProject/main/main.py"
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+{1: 85.0, 2: 72.0, 3: 88.0, 4: 73.0, 5: 88.0, 6: 87.0, 7: 90.0, 8: 77.0, 9: 66.0, 10: 73.0, 11: 93.0, 12: 72.0, 13: 91.0, 14: 65.0, 15: 93.0, 16: 86.0, 17: 72.0, 18: 73.0, 19: 73.0, 20: 93.0, 21: 83.0, 22: 68.0, 23: 84.0, 24: 100.0, 25: 85.0}
+{1: 85.0, 2: 72.0, 3: 88.0, 4: 73.0, 5: 88.0, 6: 87.0, 7: 90.0, 8: 77.0, 9: 66.0, 10: 73.0, 11: 93.0, 12: 72.0, 13: 91.0, 14: 65.0, 15: 93.0, 16: 86.0, 17: 72.0, 18: 73.0, 19: 73.0, 20: 93.0, 21: 83.0, 22: 68.0, 23: 84.0, 24: 100.0, 25: 85.0}
+dict_provided_reliablity = 
+{1: 0.92, 2: 0.94, 3: 0.92, 4: 0.9, 5: 0.9, 6: 0.99, 7: 0.94, 8: 0.99, 9: 0.92, 10: 0.95, 11: 0.9, 12: 0.95, 13: 0.94, 14: 0.92, 15: 0.93, 16: 0.92, 17: 0.92, 18: 0.95, 19: 0.93, 20: 0.95, 21: 0.95, 22: 0.96, 23: 0.99, 24: 0.99, 25: 0.99}
+This is VMList class.
+allVNFCount = 30
+activeVNFCount = 30
+this is the SFC.class
+1 2 1.0
+1 4 3.0
+1 5 12.0
+1 7 20.0
+1 19 29.0
+1 25 74.0
+2 1 1.0
+2 3 1.0
+3 2 1.0
+3 4 3.0
+4 3 3.0
+4 1 3.0
+5 1 12.0
+5 6 6.5
+6 5 6.5
+6 11 26.0
+7 1 20.0
+7 8 16.0
+7 10 38.0
+8 7 16.0
+8 9 29.0
+9 8 29.0
+10 7 38.0
+11 6 26.0
+11 12 110.0
+12 11 110.0
+12 13 36.0
+12 19 29.0
+13 12 36.0
+13 14 22.0
+13 15 2.0
+13 16 5.0
+14 13 22.0
+14 15 0.7
+15 13 2.0
+15 14 0.7
+16 13 5.0
+16 17 37.0
+17 16 37.0
+17 18 26.0
+18 17 26.0
+18 19 38.0
+19 18 38.0
+19 12 29.0
+19 1 29.0
+19 20 31.0
+19 21 77.0
+20 19 31.0
+21 19 77.0
+21 22 8.6
+22 21 8.6
+22 23 40.0
+23 22 40.0
+23 24 16.0
+23 25 51.0
+24 23 16.0
+25 1 74.0
+25 23 51.0
+1 3 2.0
+1 8 4.0
+1 9 16.0
+1 10 17.0
+1 11 9.0
+1 6 6.0
+2 5 12.0
+2 6 22.0
+2 7 12.0
+2 8 45.0
+3 9 23.0
+3 10 50.0
+3 11 41.0
+3 15 31.0
+3 20 9.0
+4 5 11.0
+4 6 10.0
+4 7 21.0
+4 8 34.0
+4 9 24.0
+5 10 24.0
+5 11 23.0
+5 12 34.0
+5 13 14.0
+5 14 7.0
+5 15 8.0
+5 16 42.0
+6 7 32.0
+6 8 16.0
+6 9 17.0
+6 10 21.0
+6 12 9.0
+6 13 10.0
+6 14 8.1
+7 11 9.0
+7 12 13.0
+7 13 16.8
+7 14 22.0
+7 15 13.0
+7 16 22.0
+8 20 2.0
+8 21 5.0
+8 22 38.0
+8 23 46.0
+8 24 43.0
+9 10 6.0
+9 11 35.0
+9 12 52.0
+9 13 2.0
+9 14 42.0
+9 15 45.0
+9 2 48.0
+10 13 10.0
+10 14 2.0
+10 15 29.0
+10 16 48.0
+10 17 41.0
+10 18 58.0
+11 7 56.0
+11 21 4.0
+11 22 10.0
+11 23 6.0
+11 24 47.0
+11 25 54.0
+14 16 52.0
+14 17 11.0
+14 18 42.0
+14 19 12.0
+14 20 56.0
+14 21 60.0
+14 22 44.0
+24 13 69.0
+24 14 17.0
+24 15 7.0
+24 16 20.0
+24 17 33.0
+24 18 53.0
+24 19 70.0
+24 20 52.0
+24 21 51.0
+17 19 52.0
+17 20 11.0
+17 21 42.0
+17 22 12.0
+17 23 56.0
+17 24 20.3
+18 20 58.0
+18 21 56.0
+18 22 4.0
+18 23 10.0
+18 24 6.0
+18 25 47.0
+3 1 2.0
+8 1 4.0
+9 1 16.0
+10 1 17.0
+11 1 9.0
+6 1 6.0
+5 2 12.0
+6 2 22.0
+7 2 12.0
+8 2 45.0
+9 3 23.0
+10 3 50.0
+11 3 41.0
+15 3 31.0
+20 3 9.0
+5 4 11.0
+6 4 10.0
+7 4 21.0
+8 4 34.0
+9 4 24.0
+10 5 24.0
+11 5 23.0
+12 5 34.0
+13 5 14.0
+14 5 7.0
+15 5 8.0
+16 5 42.0
+7 6 32.0
+8 6 16.0
+9 6 17.0
+10 6 21.0
+12 6 9.0
+13 6 10.0
+14 6 8.1
+11 7 9.0
+12 7 13.0
+13 7 16.8
+14 7 22.0
+15 7 13.0
+16 7 22.0
+20 8 2.0
+21 8 5.0
+22 8 38.0
+23 8 46.0
+24 8 43.0
+10 9 6.0
+11 9 35.0
+12 9 52.0
+13 9 2.0
+14 9 42.0
+15 9 45.0
+2 9 48.0
+13 10 10.0
+14 10 2.0
+15 10 29.0
+16 10 48.0
+17 10 41.0
+18 10 58.0
+7 11 56.0
+21 11 4.0
+22 11 10.0
+23 11 6.0
+24 11 47.0
+25 11 54.0
+16 14 52.0
+17 14 11.0
+18 14 42.0
+19 14 12.0
+20 14 56.0
+21 14 60.0
+22 14 44.0
+13 24 69.0
+14 24 17.0
+15 24 7.0
+16 24 20.0
+17 24 33.0
+18 24 53.0
+19 24 70.0
+20 24 52.0
+21 24 51.0
+19 17 52.0
+20 17 11.0
+21 17 42.0
+22 17 12.0
+23 17 56.0
+24 17 20.3
+20 18 58.0
+21 18 56.0
+22 18 4.0
+23 18 10.0
+24 18 6.0
+25 18 47.0
+this is SFCList
+网络中SFC的ID为： 
+[7, 8, 9]
+总共有SFC：3
+this is MigrationCostCaculation class
+this is MigrationPlanEvaluation class
+this is VNFMigration class
+SFC初始创建模块
+this is JudgeMigrationTime class
+this is SFCReliabilityMonitor class
+开始时间：0
+---------------------这是迁移多条SFC的方法本体---------------------
+sfclist = 
+[7, 8, 9]
+nfvid = 16
+self.VNF_reliability = 0
+VNF的可靠性为： 0.950000
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+VNF的可靠性为： 0.810000
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+VNF的可靠性为： 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.707940
+sfcid = 7
+nfvid = 22
+self.VNF_reliability = 0
+VNF的可靠性为： 0.880000
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+VNF的可靠性为： 0.930000
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+VNF的可靠性为： 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.703824
+sfcid = 8
+nfvid = 28
+self.VNF_reliability = 0
+VNF的可靠性为： 0.890000
+nfvid = 28
+self.VNF_reliability = 0
+nfvid = 29
+self.VNF_reliability = 0
+VNF的可靠性为： 0.960000
+nfvid = 29
+self.VNF_reliability = 0
+nfvid = 30
+self.VNF_reliability = 0
+VNF的可靠性为： 0.900000
+nfvid = 30
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.768960
+sortedSFClist = 
+[(8, 0.703824), (7, 0.70794)]
+SFC的ID为：8
+SFC的ID为：7
+过载节点的集合有：
+[]
+没有节点过载
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+第7.1步
+这是为VNF计算迁移目的地的方法本体：
+nodeIdList = 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+nodeid = 1
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 1
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 56.000000
+更新物理节点为：1
+new nodelist = 
+[22, 23, 1]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 2
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 2
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 112.000000
+更新物理节点为：2
+new nodelist = 
+[22, 23, 2]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 3
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 3
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 168.000000
+更新物理节点为：3
+new nodelist = 
+[22, 23, 3]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 4
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 4
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 224.000000
+更新物理节点为：4
+new nodelist = 
+[22, 23, 4]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 5
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 5
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 280.000000
+更新物理节点为：5
+new nodelist = 
+[22, 23, 5]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 6
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 6
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 336.000000
+更新物理节点为：6
+new nodelist = 
+[22, 23, 6]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 7
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 7
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 392.000000
+更新物理节点为：7
+new nodelist = 
+[22, 23, 7]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 8
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 8
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 448.000000
+更新物理节点为：8
+new nodelist = 
+[22, 23, 8]
+迁移之后的时延为： 86.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 8
+nodeid = 9
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 9
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 504.000000
+更新物理节点为：9
+new nodelist = 
+[22, 23, 9]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 10
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 10
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 560.000000
+更新物理节点为：10
+new nodelist = 
+[22, 23, 10]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 11
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 11
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 616.000000
+更新物理节点为：11
+new nodelist = 
+[22, 23, 11]
+迁移之后的时延为： 46.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 11
+nodeid = 12
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 12
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 672.000000
+更新物理节点为：12
+new nodelist = 
+[22, 23, 12]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 13
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 13
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 728.000000
+更新物理节点为：13
+new nodelist = 
+[22, 23, 13]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 14
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 14
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 784.000000
+更新物理节点为：14
+new nodelist = 
+[22, 23, 14]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 15
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 15
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 840.000000
+更新物理节点为：15
+new nodelist = 
+[22, 23, 15]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 16
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 16
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 896.000000
+更新物理节点为：16
+new nodelist = 
+[22, 23, 16]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 17
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 17
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 952.000000
+更新物理节点为：17
+new nodelist = 
+[22, 23, 17]
+迁移之后的时延为： 96.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 17
+nodeid = 18
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 18
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 1008.000000
+更新物理节点为：18
+new nodelist = 
+[22, 23, 18]
+迁移之后的时延为： 50.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 18
+nodeid = 19
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 19
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 1064.000000
+更新物理节点为：19
+new nodelist = 
+[22, 23, 19]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 20
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 20
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 1120.000000
+更新物理节点为：20
+new nodelist = 
+[22, 23, 20]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 21
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 21
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 1176.000000
+更新物理节点为：21
+new nodelist = 
+[22, 23, 21]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 22
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 23
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 24
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 25
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 25
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 1232.000000
+更新物理节点为：25
+new nodelist = 
+[22, 23, 25]
+迁移之后的时延为： 91.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 25
+////////////////////////////这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = 
+[8, 11, 17, 18, 25]
+这是为VNF计算迁移目的地的方法本体：
+nodeIdList = 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+nodeid = 1
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 1
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 2
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 2
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1295.000000
+更新物理节点为：2
+new nodelist = 
+[16, 17, 2]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 3
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 3
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 4
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 4
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 5
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 5
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 6
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 6
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1358.000000
+更新物理节点为：6
+new nodelist = 
+[16, 17, 6]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 7
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 7
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1421.000000
+更新物理节点为：7
+new nodelist = 
+[16, 17, 7]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 8
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 8
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1484.000000
+更新物理节点为：8
+new nodelist = 
+[16, 17, 8]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 9
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 9
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 10
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 10
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1547.000000
+更新物理节点为：10
+new nodelist = 
+[16, 17, 10]
+迁移之后的时延为： 78.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 10
+nodeid = 11
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 11
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 12
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 12
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1610.000000
+更新物理节点为：12
+new nodelist = 
+[16, 17, 12]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 13
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 13
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1673.000000
+更新物理节点为：13
+new nodelist = 
+[16, 17, 13]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 14
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 14
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 15
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 15
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1736.000000
+更新物理节点为：15
+new nodelist = 
+[16, 17, 15]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 16
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 17
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 18
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 19
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 19
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1799.000000
+更新物理节点为：19
+new nodelist = 
+[16, 17, 19]
+迁移之后的时延为： 89.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 19
+nodeid = 20
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 20
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1862.000000
+更新物理节点为：20
+new nodelist = 
+[16, 17, 20]
+迁移之后的时延为： 48.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 20
+nodeid = 21
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 21
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1925.000000
+更新物理节点为：21
+new nodelist = 
+[16, 17, 21]
+迁移之后的时延为： 79.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 21
+nodeid = 22
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 22
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.96
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.96
+迁移之后的可靠性：0.960000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 1988.000000
+更新物理节点为：22
+new nodelist = 
+[16, 17, 22]
+迁移之后的时延为： 49.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 22
+nodeid = 23
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 23
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 2051.000000
+更新物理节点为：23
+new nodelist = 
+[16, 17, 23]
+迁移之后的时延为： 93.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 23
+nodeid = 24
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 24
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 2114.000000
+更新物理节点为：24
+new nodelist = 
+[16, 17, 24]
+迁移之后的时延为： 57.300000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 24
+nodeid = 25
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 25
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 2177.000000
+更新物理节点为：25
+new nodelist = 
+[16, 17, 25]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+////////////////////////////这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = 
+[10, 19, 20, 21, 22, 23, 24]
+第7.2步
+这是为VNF计算迁移目的地的方法本体：
+nodeIdList = 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+nodeid = 1
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 1
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2233.000000
+更新物理节点为：1
+new nodelist = 
+[22, 23, 1]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 2
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 2
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2289.000000
+更新物理节点为：2
+new nodelist = 
+[22, 23, 2]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 3
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 3
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2345.000000
+更新物理节点为：3
+new nodelist = 
+[22, 23, 3]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 4
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 4
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2401.000000
+更新物理节点为：4
+new nodelist = 
+[22, 23, 4]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 5
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 5
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2457.000000
+更新物理节点为：5
+new nodelist = 
+[22, 23, 5]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 6
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 6
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2513.000000
+更新物理节点为：6
+new nodelist = 
+[22, 23, 6]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 7
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 7
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2569.000000
+更新物理节点为：7
+new nodelist = 
+[22, 23, 7]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 8
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 8
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2625.000000
+更新物理节点为：8
+new nodelist = 
+[22, 23, 8]
+迁移之后的时延为： 86.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 8
+nodeid = 9
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 9
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2681.000000
+更新物理节点为：9
+new nodelist = 
+[22, 23, 9]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 10
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 10
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2737.000000
+更新物理节点为：10
+new nodelist = 
+[22, 23, 10]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 11
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 11
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2793.000000
+更新物理节点为：11
+new nodelist = 
+[22, 23, 11]
+迁移之后的时延为： 46.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 11
+nodeid = 12
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 12
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2849.000000
+更新物理节点为：12
+new nodelist = 
+[22, 23, 12]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 13
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 13
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2905.000000
+更新物理节点为：13
+new nodelist = 
+[22, 23, 13]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 14
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 14
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 2961.000000
+更新物理节点为：14
+new nodelist = 
+[22, 23, 14]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 15
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 15
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3017.000000
+更新物理节点为：15
+new nodelist = 
+[22, 23, 15]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 16
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 16
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3073.000000
+更新物理节点为：16
+new nodelist = 
+[22, 23, 16]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 17
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 17
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3129.000000
+更新物理节点为：17
+new nodelist = 
+[22, 23, 17]
+迁移之后的时延为： 96.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 17
+nodeid = 18
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 18
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3185.000000
+更新物理节点为：18
+new nodelist = 
+[22, 23, 18]
+迁移之后的时延为： 50.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 18
+nodeid = 19
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 19
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3241.000000
+更新物理节点为：19
+new nodelist = 
+[22, 23, 19]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 20
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 20
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3297.000000
+更新物理节点为：20
+new nodelist = 
+[22, 23, 20]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 21
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 21
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3353.000000
+更新物理节点为：21
+new nodelist = 
+[22, 23, 21]
+迁移之后的时延为： 1000040.000000
+约束2不满足
+False
+nodeid = 22
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 23
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 24
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 25
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[22, 23, 24]
+nodeid = 22
+nodeid = 23
+nodeid = 24
+此SFC上的VNF所在的物理节点列表为：
+[22, 23, 24]
+vnfid = 24
+vnfListSingelton.dict_VNFReliability[5] = 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.860000
+获取物理节点可靠性的方法本体
+NodeId = 25
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.790000
+[22, 23, 24]
+SFC的新的可靠性为：0.960000
+约束1满足
+约束1满足
+迁移之前的时延： 3409.000000
+更新物理节点为：25
+new nodelist = 
+[22, 23, 25]
+迁移之后的时延为： 91.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 25
+////////////////////////////这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = 
+[8, 11, 17, 18, 25]
+这是为VNF计算迁移目的地的方法本体：
+nodeIdList = 
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+nodeid = 1
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 1
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 2
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 2
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3472.000000
+更新物理节点为：2
+new nodelist = 
+[16, 17, 2]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 3
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 3
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 4
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 4
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 5
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 5
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 6
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 6
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3535.000000
+更新物理节点为：6
+new nodelist = 
+[16, 17, 6]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 7
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 7
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3598.000000
+更新物理节点为：7
+new nodelist = 
+[16, 17, 7]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 8
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 8
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3661.000000
+更新物理节点为：8
+new nodelist = 
+[16, 17, 8]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 9
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 9
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 10
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 10
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3724.000000
+更新物理节点为：10
+new nodelist = 
+[16, 17, 10]
+迁移之后的时延为： 78.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 10
+nodeid = 11
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 11
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.9
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.9
+迁移之后的可靠性：0.900000
+约束1不满足
+False
+nodeid = 12
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 12
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3787.000000
+更新物理节点为：12
+new nodelist = 
+[16, 17, 12]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 13
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 13
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.94
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.94
+迁移之后的可靠性：0.940000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3850.000000
+更新物理节点为：13
+new nodelist = 
+[16, 17, 13]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 14
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 14
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.92
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.92
+迁移之后的可靠性：0.920000
+约束1不满足
+False
+nodeid = 15
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 15
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3913.000000
+更新物理节点为：15
+new nodelist = 
+[16, 17, 15]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+nodeid = 16
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 17
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 18
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+不能迁移到同意条SFC所在的物理节点上
+False
+nodeid = 19
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 19
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.93
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.93
+迁移之后的可靠性：0.930000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 3976.000000
+更新物理节点为：19
+new nodelist = 
+[16, 17, 19]
+迁移之后的时延为： 89.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 19
+nodeid = 20
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 20
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4039.000000
+更新物理节点为：20
+new nodelist = 
+[16, 17, 20]
+迁移之后的时延为： 48.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 20
+nodeid = 21
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 21
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.95
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.95
+迁移之后的可靠性：0.950000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4102.000000
+更新物理节点为：21
+new nodelist = 
+[16, 17, 21]
+迁移之后的时延为： 79.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 21
+nodeid = 22
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 22
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.96
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.96
+迁移之后的可靠性：0.960000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4165.000000
+更新物理节点为：22
+new nodelist = 
+[16, 17, 22]
+迁移之后的时延为： 49.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 22
+nodeid = 23
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 23
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4228.000000
+更新物理节点为：23
+new nodelist = 
+[16, 17, 23]
+迁移之后的时延为： 93.000000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 23
+nodeid = 24
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 24
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4291.000000
+更新物理节点为：24
+new nodelist = 
+[16, 17, 24]
+迁移之后的时延为： 57.300000
+约束2满足
+约束2满足
+约束3满足
+约束3满足
+满足迁移条件，返回true
+约束4满足
+True
+node 将被加入此VNF的迁移目的地中 24
+nodeid = 25
+判断某个物理节点是否是某个VNF迁移的目的地方法本体
+判断约束条件1是是否满足方法本体
+待迁移SFC上的VNF列表为：
+[16, 17, 18]
+nodeid = 16
+nodeid = 17
+nodeid = 18
+此SFC上的VNF所在的物理节点列表为：
+[16, 17, 18]
+vnfid = 18
+vnfListSingelton.dict_VNFReliability[5] = 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+迁移之前此VNF的可靠性 0.920000
+获取物理节点可靠性的方法本体
+NodeId = 25
+nodeListSingelton.dict_provided_reliablity[NodeId] = 
+0.99
+判断物理节点是否过载方法本体
+resourceOverload = 
+False
+这是物理节点类159行，overloadeState = 
+False
+不过载，物理节点的可靠性为：
+0.99
+迁移之后的可靠性：0.990000
+满足约束1.1， 开始判断约束1.2
+requestSFCReliability = 0.850000
+[16, 17, 18]
+SFC的新的可靠性为：0.920000
+约束1满足
+约束1满足
+迁移之前的时延： 4354.000000
+更新物理节点为：25
+new nodelist = 
+[16, 17, 25]
+迁移之后的时延为： 1000037.000000
+约束2不满足
+False
+////////////////////////////这是为VNF计算迁移目的地的方法本体：allsatidfiedNodeList = 
+[10, 19, 20, 21, 22, 23, 24]
+第7.3步
+这是getMigrationPlan方法，vnfList和desList分别为：
+[24, 18]
+[[8, 11, 17, 18, 25], [10, 19, 20, 21, 22, 23, 24]]
+finalNodeIdList = 
+[18, 22]
+这是getMigrationPlan方法，vnfList和desList分别为：
+[24, 18]
+[[8, 11, 17, 18, 25], [10, 19, 20, 21, 22, 23, 24]]
+finalNodeIdList = 
+[18, 22]
+VNFWithMinReliaPlan = 
+[18, 22]
+VNFWithMaxFlowPlan = 
+[18, 22]
+第8步
+VNFWithMinReliaPlan = 
+[18, 22]
+migVNFWithMinReliaList = 
+[24, 18]
+i = 0
+delayBefore = 4410
+VNFWithMinReliaPlan[i] = 18
+!= 1
+VNFWithMinReliaPlan组 des_list = 
+[18]
+nfvid = 16
+self.VNF_reliability = 0
+VNF的可靠性为： 0.950000
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+VNF的可靠性为： 0.810000
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+VNF的可靠性为： 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.707940
+totalRelibility = 0.707940
+nfvid = 22
+self.VNF_reliability = 0
+VNF的可靠性为： 0.880000
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+VNF的可靠性为： 0.930000
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+VNF的可靠性为： 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.703824
+totalRelibility = 1.411764
+nfvid = 28
+self.VNF_reliability = 0
+VNF的可靠性为： 0.890000
+nfvid = 28
+self.VNF_reliability = 0
+nfvid = 29
+self.VNF_reliability = 0
+VNF的可靠性为： 0.960000
+nfvid = 29
+self.VNF_reliability = 0
+nfvid = 30
+self.VNF_reliability = 0
+VNF的可靠性为： 0.900000
+nfvid = 30
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.768960
+totalRelibility = 2.180724
+needMigratedVNFList = 
+[24]
+destinationPhysicalNodeList = 
+[18]
+migrationTime = 3.601473
+[22, 23, 24]
+SFCDelayAfterMigration = 4466.000000
+SFCDelayBeforMigration = 4410.000000
+56.0
+delayIncreationOfSFC = 56.000000
+resourceIncreationOfSFC = 0.000000
+QoSDecreationOfSFC = 0.183844
+additionnalCost = 0.000000
+cost = 59.785317
+i = 1
+delayBefore = 4529
+VNFWithMinReliaPlan[i] = 22
+!= 1
+VNFWithMinReliaPlan组 des_list = 
+[22]
+nfvid = 16
+self.VNF_reliability = 0
+VNF的可靠性为： 0.950000
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+VNF的可靠性为： 0.810000
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+VNF的可靠性为： 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.707940
+totalRelibility = 0.707940
+nfvid = 22
+self.VNF_reliability = 0
+VNF的可靠性为： 0.880000
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+VNF的可靠性为： 0.930000
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+VNF的可靠性为： 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.703824
+totalRelibility = 1.411764
+nfvid = 28
+self.VNF_reliability = 0
+VNF的可靠性为： 0.890000
+nfvid = 28
+self.VNF_reliability = 0
+nfvid = 29
+self.VNF_reliability = 0
+VNF的可靠性为： 0.960000
+nfvid = 29
+self.VNF_reliability = 0
+nfvid = 30
+self.VNF_reliability = 0
+VNF的可靠性为： 0.900000
+nfvid = 30
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.768960
+totalRelibility = 2.180724
+needMigratedVNFList = 
+[18]
+destinationPhysicalNodeList = 
+[22]
+migrationTime = 3.383799
+[16, 17, 18]
+SFCDelayAfterMigration = 4592.000000
+SFCDelayBeforMigration = 4529.000000
+63.0
+delayIncreationOfSFC = 63.000000
+resourceIncreationOfSFC = 0.000000
+QoSDecreationOfSFC = 0.133581
+additionnalCost = 0.000000
+cost = 66.517379
+migVNFWithMaxFlowList1 = 
+[24, 18]
+VNFWithMaxFlowPlan = 
+[18, 22]
+VNFWithMaxFlowPlan[i] = 18
+VNFWithMaxFlowPlan组 554行，des_list1 = 
+[18]
+nfvid = 16
+self.VNF_reliability = 0
+VNF的可靠性为： 0.950000
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+VNF的可靠性为： 0.810000
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+VNF的可靠性为： 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.707940
+totalRelibility = 0.707940
+nfvid = 22
+self.VNF_reliability = 0
+VNF的可靠性为： 0.880000
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+VNF的可靠性为： 0.930000
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+VNF的可靠性为： 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.703824
+totalRelibility = 1.411764
+nfvid = 28
+self.VNF_reliability = 0
+VNF的可靠性为： 0.890000
+nfvid = 28
+self.VNF_reliability = 0
+nfvid = 29
+self.VNF_reliability = 0
+VNF的可靠性为： 0.960000
+nfvid = 29
+self.VNF_reliability = 0
+nfvid = 30
+self.VNF_reliability = 0
+VNF的可靠性为： 0.900000
+nfvid = 30
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.768960
+totalRelibility = 2.180724
+needMigratedVNFList = 
+[24]
+destinationPhysicalNodeList = 
+[18]
+migrationTime = 4.266143
+[22, 23, 24]
+SFCDelayAfterMigration = 4704.000000
+SFCDelayBeforMigration = 4648.000000
+56.0
+delayIncreationOfSFC = 56.000000
+resourceIncreationOfSFC = 0.000000
+QoSDecreationOfSFC = 0.160207
+additionnalCost = 0.000000
+cost = 60.426350
+VNFWithMaxFlowPlan[i] = 22
+VNFWithMaxFlowPlan组 554行，des_list1 = 
+[22]
+nfvid = 16
+self.VNF_reliability = 0
+VNF的可靠性为： 0.950000
+nfvid = 16
+self.VNF_reliability = 0
+nfvid = 17
+self.VNF_reliability = 0
+VNF的可靠性为： 0.810000
+nfvid = 17
+self.VNF_reliability = 0
+nfvid = 18
+self.VNF_reliability = 0
+VNF的可靠性为： 0.920000
+nfvid = 18
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.707940
+totalRelibility = 0.707940
+nfvid = 22
+self.VNF_reliability = 0
+VNF的可靠性为： 0.880000
+nfvid = 22
+self.VNF_reliability = 0
+nfvid = 23
+self.VNF_reliability = 0
+VNF的可靠性为： 0.930000
+nfvid = 23
+self.VNF_reliability = 0
+nfvid = 24
+self.VNF_reliability = 0
+VNF的可靠性为： 0.860000
+nfvid = 24
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.703824
+totalRelibility = 1.411764
+nfvid = 28
+self.VNF_reliability = 0
+VNF的可靠性为： 0.890000
+nfvid = 28
+self.VNF_reliability = 0
+nfvid = 29
+self.VNF_reliability = 0
+VNF的可靠性为： 0.960000
+nfvid = 29
+self.VNF_reliability = 0
+nfvid = 30
+self.VNF_reliability = 0
+VNF的可靠性为： 0.900000
+nfvid = 30
+self.VNF_reliability = 0
+SFC的新的可靠性为：0.768960
+totalRelibility = 2.180724
+needMigratedVNFList = 
+[18]
+destinationPhysicalNodeList = 
+[22]
+migrationTime = 2.537102
+[16, 17, 18]
+SFCDelayAfterMigration = 4830.000000
+SFCDelayBeforMigration = 4767.000000
+63.0
+delayIncreationOfSFC = 63.000000
+resourceIncreationOfSFC = 0.000000
+QoSDecreationOfSFC = 0.157596
+additionnalCost = 0.000000
+cost = 65.694697
+migVNFWithMaxFlowOnSFCIdList = 
+[8, 7]
+迁移结束，迁移方案以及迁移的VNF为：
+[22]
+[24, 18]
+迁移的SFC为： 7
+8 plus
+此VNF占用的CPU = 41
+此VNF占用的内存 = 44
+vnf_id = 24
+此VNF迁移之前所在的物理节点为：24
+此VNF迁移之后所在的物理节点为：22
+读取文件第i行 0 
+读取文件第i行 1 
+读取文件第i行 2 
+读取文件第i行 3 
+读取文件第i行 4 
+读取文件第i行 5 
+读取文件第i行 6 
+读取文件第i行 7 
+读取文件第i行 8 
+读取文件第i行 9 
+读取文件第i行 10 
+读取文件第i行 11 
+读取文件第i行 12 
+读取文件第i行 13 
+读取文件第i行 14 
+读取文件第i行 15 
+读取文件第i行 16 
+读取文件第i行 17 
+读取文件第i行 18 
+读取文件第i行 19 
+读取文件第i行 20 
+读取文件第i行 21 
+迁移后的物理节点所在的行为： 21
+读取文件第i行 22 
+读取文件第i行 23 
+迁移前的node id 所在的行为：23
+node_CPU_before = 128
+node_memo_before = 137
+读取文件第i行 24 
+node_CPU_before = 169
+node_memo_before = 181
+Traceback (most recent call last):
+  File "D:/pycharm workspace/GraduationProject/main/main.py", line 62, in <module>
+    migration.migrateVNFsofMultiSFCIterator()
+  File "D:\pycharm workspace\GraduationProject\migration\VNFMigration.py", line 247, in migrateVNFsofMultiSFCIterator
+    (plan, VNFs, SFCs) = self.migrateVNFsofMultiSFC(sortedSFClist)
+  File "D:\pycharm workspace\GraduationProject\migration\VNFMigration.py", line 647, in migrateVNFsofMultiSFC
+    node_after_id = outPutPlan[i]
+IndexError: list index out of range
+至此，VNF迁移导致的物理机的资源的修改已经完成
+迁移之后的物理节点为： 22
+
+Process finished with exit code 1

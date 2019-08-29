@@ -218,6 +218,8 @@ class VNFMigration():
         print("---------------------这是迁移多条SFC的方法本体---------------------")
         sfcListSingleton = SFCList()
         sfclist = sfcListSingleton.getSFCList()
+        print("sfclist = ")
+        print(sfclist)
         # 1.存放SFC(可靠性低于需求值的SFC)及其可靠性
         sortedSFClist = []
         for i in range(len(sfclist)):
@@ -228,36 +230,45 @@ class VNFMigration():
                   sfcListSingleton.dict_createdtime[sfcid])
             reliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
             if (reliability < sfcInstance.getRequestMinReliability()):
+                print("sfcid = %d" %sfcid)
                 sortedSFClist.append((sfcid, reliability))
 
         # 对原数组进行排序(现在temp中存储的数据是按照SFC可靠性来排列的，最小的排在最前边)
         sortedSFClist.sort(key=self.takeSecond, reverse=False)
+        print("sortedSFClist = ")
+        print(sortedSFClist)
         # 记录每次迁移的情况
         output_plan_list = []
         out_migrate_VNF_list = []
         out_migrate_VNF_SFC_list = []
         # 如果网络中仍然有SFC可靠性低于要求值，则继续进行迭代过程
         while(len(sortedSFClist) > 0):
+
             (plan, VNFs, SFCs) = self.migrateVNFsofMultiSFC(sortedSFClist)
             output_plan_list.append(plan)
             out_migrate_VNF_list.append(VNFs)
             out_migrate_VNF_SFC_list.append(SFCs)
-
-            sortedSFClist = []
-            for i in range(len(sfclist)):
-                sfcid = sfclist[i]
-                sfcInstance = SFC(sfcid,
-                                  sfcListSingleton.dict_maxDelay[sfcid],
-                                  sfcListSingleton.dict_minReliability[sfcid],
-                                  sfcListSingleton.dict_VNFList[sfcid],
-                                  sfcListSingleton.dict_createdtime[sfcid]
-                                  )
-                reliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
-                if (reliability < sfcInstance.getRequestMinReliability()):
-                    sortedSFClist.append((sfcid, reliability))
+            # 将迁移过的SFC从列表中删除
+            del sortedSFClist[0]
+            # sortedSFClist = []
+            # for i in range(len(sfclist)):
+            #     sfcid = sfclist[i]
+            #     if sfcid != SFCs:
+            #         sfcInstance = SFC(sfcid,
+            #                           sfcListSingleton.dict_maxDelay[sfcid],
+            #                           sfcListSingleton.dict_minReliability[sfcid],
+            #                           sfcListSingleton.dict_VNFList[sfcid],
+            #                           sfcListSingleton.dict_createdtime[sfcid]
+            #                           )
+            #         reliability = sfcInstance.get_SFC_relialibility(sfcInstance.getVNFList())
+            #         if (reliability < sfcInstance.getRequestMinReliability()):
+            #             sortedSFClist.append((sfcid, reliability))
 
             # 对原数组进行排序(现在temp中存储的数据是按照SFC可靠性来排列的，最小的排在最前边)
-            sortedSFClist.sort(key=self.takeSecond, reverse=False)
+            if len(sortedSFClist) != 0:
+                sortedSFClist.sort(key=self.takeSecond, reverse=False)
+            else:
+                break
 
     # 迁移多条SFC（一次操作）
     def migrateVNFsofMultiSFC(self, sortedSFClist):
@@ -319,7 +330,7 @@ class VNFMigration():
                                     nodeListSingelton.dict_capacity_Memory[nodeid],
                                     nodeListSingelton.dict_provided_reliablity[nodeid]
                                     )
-                if(node.overloadeState):
+                if(node.if_overload()):
                     overloadedNodeIdList.append(nodeid)
         print("过载节点的集合有：")
         print(overloadedNodeIdList)
@@ -550,8 +561,10 @@ class VNFMigration():
                               sfcListSingleton.dict_VNFList[migratedsfcId],
                               sfcListSingleton.dict_createdtime[migratedsfcId]
                               )
-            delayBefore = sfcInstance.getDelay()
-            requestedResourceBefore = sfcInstance.getRequestMinReliability()
+            vnflist = sfcInstance.getVNFList()
+            delayBefore = sfcInstance.get_SFC_delay(vnflist)
+            print("delayBefore = %d" %delayBefore)
+            requestedResourceBefore = sfcInstance.getSFCRequestedResource()
             vnf_list = [migVNFWithMinReliaList[i]]
             print("VNFWithMinReliaPlan[i] = %d" %VNFWithMinReliaPlan[i])
             if(VNFWithMinReliaPlan[i] != -1):
@@ -582,8 +595,11 @@ class VNFMigration():
                               sfcListSingleton.dict_VNFList[migratedsfcId],
                               sfcListSingleton.dict_createdtime[migratedsfcId]
                               )
-            delayBefore = sfcInstance.getDelay()
-            requestedResourceBefore = sfcInstance.getRequestMinReliability()
+            # delayBefore = sfcInstance.getDelay()
+            vnflist = sfcInstance.getVNFList()
+            delayBefore = sfcInstance.get_SFC_delay(vnflist)
+
+            requestedResourceBefore = sfcInstance.getSFCRequestedResource()
             vnf_list = [migVNFWithMaxFlowList[i]]
             if(VNFWithMaxFlowPlan[i] != -1):
                 des_list1 = [VNFWithMaxFlowPlan[i]]
@@ -720,6 +736,7 @@ class VNFMigration():
             ws.write(node_rows_after, 2, node_memo_after)  # 改变（node_rows,2）的值
             wb.save('D:/pycharm workspace/GraduationProject/topo/NodeList_copy.xls')
             print("至此，VNF迁移导致的物理机的资源的修改已经完成")
+
 
             # 设置迁移之后的物理机的资源
             node_after_instance = PhysicalNode(node_after_id,
