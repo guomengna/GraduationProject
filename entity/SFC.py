@@ -120,6 +120,16 @@ class SFC():
         SFCReliability = 1
         for i in range(len(VNF_list)):
             vnfid = VNF_list[i]
+            # VNFInstance = VNF(vnfid,
+            #                   vnfListSingelton.dict_VNFListType[vnfid],
+            #                   vnfListSingelton.dict_VNFRequestCPU[vnfid],
+            #                   vnfListSingelton.dict_VNFRequestMemory[vnfid],
+            #                   vnfListSingelton.dict_locatedVMID[vnfid],
+            #                   vnfListSingelton.dict_locatedSFCIDList[vnfid],
+            #                   vnfListSingelton.dict_numbersOnSFCList[vnfid],
+            #                   vnfListSingelton.dict_VNFReliability[vnfid])
+            # print("VNF的可靠性为： %f" %VNFInstance.getVNFRliability(vnfid))
+            # SFCReliability *= VNFInstance.getVNFRliability(vnfid)
             VNFInstance = VNF(vnfid,
                               vnfListSingelton.dict_VNFListType[vnfid],
                               vnfListSingelton.dict_VNFRequestCPU[vnfid],
@@ -128,20 +138,33 @@ class SFC():
                               vnfListSingelton.dict_locatedSFCIDList[vnfid],
                               vnfListSingelton.dict_numbersOnSFCList[vnfid],
                               vnfListSingelton.dict_VNFReliability[vnfid])
-            print("VNF的可靠性为： %f" %VNFInstance.getVNFRliability(vnfid))
-            SFCReliability *= VNFInstance.getVNFRliability(vnfid)
-        print("SFC的新的可靠性为：%f" % SFCReliability)
+            # 读取所在的VM
+            vmid = VNFInstance.get_VM_id(vnfid)
+            vmInstance = VM(vmid, vmListSingelton.dict_VMRequestCPU[vmid],
+                            vmListSingelton.dict_VMRequestMemory[vmid],
+                            vmListSingelton.dict_VMLocatedPhysicalnode[vmid],
+                            vmListSingelton.dict_VMReliability[vmid])
+            nodeid = vmInstance.get_physicalNode_id(vmid)
+            SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+        print("SFC的可靠性为：%f" % SFCReliability)
         return SFCReliability
 
     """更新获取SFC可靠性的方法，不通过直接读取VNF文件，而是通过读取所在物理节点的可靠性计算"""
     """将更新的VNF的id和新的物理节点的id传入"""
     def get_SFC_relialibility1(self, vnflist, updatevnfid, nodeid):
+        print("////////计算SFC可靠性的新方法")
+        print("updatevnfid = %d" %updatevnfid)
+        print("nodeid = %d" %nodeid)
         SFCReliability = 1
         for i in range(len(vnflist)):
             vnfid = vnflist[i]
+            print("vnfid = %d" %vnfid)
             if vnfid == updatevnfid:
                 nodeid = nodeid
                 SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+                print("nodeListSingelton.dict_provided_reliablity[nodeid] = %f"
+                      %nodeListSingelton.dict_provided_reliablity[nodeid])
+
             else:
                 VNFInstance = VNF(vnfid,
                                   vnfListSingelton.dict_VNFListType[vnfid],
@@ -159,8 +182,8 @@ class SFC():
                                 vmListSingelton.dict_VMReliability[vmid])
                 nodeid = vmInstance.get_physicalNode_id(vmid)
                 SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
-            print("SFC的新的可靠性为：%f" % SFCReliability)
-            return SFCReliability
+        print("SFC的新的可靠性为：%f" % SFCReliability)
+        return SFCReliability
 
     # 获取SFC的时延,时延为SFC上各个VNF之间的时延的加和。
     def get_SFC_delay(self, VNF_list):

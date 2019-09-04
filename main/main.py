@@ -57,9 +57,10 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 # SFCReliabilityMonitorInstance.reliability_monitor()
 migration = VNFMigration()
 # 迁移一条SFC上的VNF
-# migration.migrateVNFsofOneSFC()
+migration.migrateVNFsofOneSFC()
+# migration.findDestinationForVNF(15, 6)
 # 迁移多条SFC上的VNF
-migration.migrateVNFsofMultiSFCIterator()
+# migration.migrateVNFsofMultiSFCIterator()
 
 
 # excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy1.xls')
@@ -165,8 +166,7 @@ migration.migrateVNFsofMultiSFCIterator()
 # migration.judgingIfNodeOverload(1)
 
 """测试通过"""
-"""5代表vnf,1代表位于SFC1上"""
-# migration.findDestinationForVNF(5, 1)
+
 # migration.judgeConstrain1(8, 10, 2)
 # migration.judgeConstrain2(8, 10, 2)
 # migration.judgeConstrain3(8, 10, 2)

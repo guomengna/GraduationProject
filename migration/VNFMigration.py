@@ -33,6 +33,10 @@ class VNFMigration():
                           sfcListSingleton.dict_VNFList[migratedsfcId],
                           sfcListSingleton.dict_createdtime[migratedsfcId]
                           )
+        vnflist = SfcInstance.getVNFList()
+        # 迁移之前的可靠性
+        reliability_before = SfcInstance.get_SFC_relialibility1(vnflist, -1, -1)
+        print("//////////////////迁移此次SFC的可靠性：%d" %reliability_before)
         # 迁移前此SFC的时延
         delayBefore = SfcInstance.get_SFC_delay(SfcInstance.getVNFList())
         print("//////////////////迁移前此SFC的时延为：%f" % delayBefore)
@@ -94,10 +98,16 @@ class VNFMigration():
                 vnfid_b = combineVNFList[i][1]
                 vnf_list = [vnfid_a, vnfid_b]
                 destinationListForvnf_a = self.findDestinationForVNF(vnfid_a, migratedsfcId)
+                print("vnf a 的迁移目的地：")
+                print(destinationListForvnf_a)
+                print("vnf b 的迁移目的地：")
+                print(destinationListForvnf_b)
                 destinationListForvnf_b = self.findDestinationForVNF(vnfid_b, migratedsfcId)
                 for j in range(len(destinationListForvnf_a)):
                     desid_vnf_a = destinationListForvnf_a[j]
+                    print("vnf a 的目的地选的是：%d" %desid_vnf_a)
                     for k in range(len(destinationListForvnf_b)):
+                        print("vnf b 的目的地选的是：%d" % desid_vnf_b)
                         if(destinationListForvnf_b[k] != desid_vnf_a):
                             desid_vnf_b = destinationListForvnf_b[k]
                             desNodeIdList.append([desid_vnf_a, desid_vnf_b])
@@ -106,6 +116,7 @@ class VNFMigration():
                             MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
                                                                                       requestedResourceBefore,
                                                                                       vnf_list, des_list)
+                            print("迁移前的时延为：%d" %delayBefore)
                             planEvalu = MigrationPlanEvaluationInstance.evaluation()
                             if(planEvalu > maxPlanEvaluation):
                                 maxPlanEvaluation = planEvalu
@@ -153,13 +164,24 @@ class VNFMigration():
 
             # 选择迁移vnfid1
             # 首先获取到vnfid1的所有的目的地节点,共有len(desNodeList)种方案
-            # desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
-            desNodeList = [6, 8, 22, 23, 24, 25]
+            desNodeList = self.findDestinationForVNF(vnfid1, migratedsfcId)
+            print("vnfid1 = %d" %vnfid1)
+            print(vnfid1)
+            # desNodeList = [6, 8, 22, 23, 24, 25]
             print("vnfid1的所有的目的地节点:")
             print(desNodeList)
             vnf_list = [vnfid1]
             for i in range(len(desNodeList)):
                 des_list1 = [desNodeList[i]]
+                print("物理节点选的：%d" %desNodeList[i])
+                sfcInstance = SFC(migratedsfcId,
+                  sfcListSingleton.dict_maxDelay[migratedsfcId],
+                  sfcListSingleton.dict_minReliability[migratedsfcId],
+                  sfcListSingleton.dict_VNFList[migratedsfcId],
+                  sfcListSingleton.dict_createdtime[migratedsfcId])
+                vnflist = sfcInstance.getVNFList()
+                relisbility_after = sfcInstance.get_SFC_relialibility1(vnflist, vnfid1, desNodeList[i])
+                print("迁移后的可靠性为：%f" %relisbility_after)
                 MigrationPlanEvaluationInstance = MigrationPlanEvaluation(migratedsfcId, delayBefore,
                                                                           requestedResourceBefore,
                                                                           vnf_list, des_list1)
@@ -848,6 +870,7 @@ class VNFMigration():
                 minReliability = sfcReliability
                 SFCIDwithMINRelibility = sfcId
         print("SFCIDwithMINRelibility = %d " % SFCIDwithMINRelibility)
+        print("sfcReliability = %f" %minReliability)
         print("寻找可靠性最低的SFC的方法结束///////////////////////")
         return SFCIDwithMINRelibility
 
@@ -1080,7 +1103,7 @@ class VNFMigration():
     # 判断第二个约束条件是否满足，满足返回True，否则返回False
     def judgeConstrain2(self, vnfId, nodeId, migratedSFCId):
         # 约束2 迁移之后SFC的时延增加不可超过一个σ（参数设置，以毫秒记）
-        delayIncreace = 30 # 设时延的最大增量为20ms
+        delayIncreace = 100 # 设时延的最大增量为20ms
         SFCInstance = SFC(migratedSFCId,
                           sfcListSingleton.dict_maxDelay[migratedSFCId],
                           sfcListSingleton.dict_minReliability[migratedSFCId],

@@ -106,7 +106,7 @@ class MigrationCostCaculation():
         nodeidlist = []
         i = 0
         for vnfid in VNFList:
-            if vnfid == 5:
+            if vnfid == 15:
                 VNFinstance = VNF(vnfid,
                vnfListSingelton.dict_VNFListType[vnfid],
                vnfListSingelton.dict_VNFRequestCPU[vnfid],
@@ -126,7 +126,7 @@ class MigrationCostCaculation():
 
                 print("before node id = %d" % nodeid)
 
-                VMinstance.setPhysicalNodeId(6)
+                VMinstance.setPhysicalNodeId(16)
 
         SFCDelayAfterMigration = SFCInstance.get_SFC_delay(VNFList)
 
