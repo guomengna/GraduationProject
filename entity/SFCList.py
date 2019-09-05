@@ -18,7 +18,7 @@ class SFCList(object):
 
     excelFile = xlrd.open_workbook('D:/pycharm workspace'
                                    '/GraduationProject/topo/'
-                                   'allSFCList_4.xlsx', 'r')
+                                   'allSFCList_3.xlsx', 'r')
     # excelFile = xlrd.open_workbook('E:/pycharm workspace/GraduationProject/topo/'
     #                                'allSFCList.xlsx', 'r')
     nums = len(excelFile.sheets())

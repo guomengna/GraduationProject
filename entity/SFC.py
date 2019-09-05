@@ -151,19 +151,21 @@ class SFC():
 
     """更新获取SFC可靠性的方法，不通过直接读取VNF文件，而是通过读取所在物理节点的可靠性计算"""
     """将更新的VNF的id和新的物理节点的id传入"""
-    def get_SFC_relialibility1(self, vnflist, updatevnfid, nodeid):
+    def get_SFC_relialibility1(self, vnflist, updatevnfid, nodeid_in):
         print("////////计算SFC可靠性的新方法")
         print("updatevnfid = %d" %updatevnfid)
-        print("nodeid = %d" %nodeid)
+        print("nodeid = %d" %nodeid_in)
         SFCReliability = 1
         for i in range(len(vnflist)):
             vnfid = vnflist[i]
             print("vnfid = %d" %vnfid)
             if vnfid == updatevnfid:
-                nodeid = nodeid
-                SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+                print("vnfid == updatevnfid")
+                nodeid = nodeid_in
+                SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid_in]
+                print("nodeid = %d" %nodeid_in)
                 print("nodeListSingelton.dict_provided_reliablity[nodeid] = %f"
-                      %nodeListSingelton.dict_provided_reliablity[nodeid])
+                      %nodeListSingelton.dict_provided_reliablity[nodeid_in])
 
             else:
                 VNFInstance = VNF(vnfid,
@@ -182,6 +184,8 @@ class SFC():
                                 vmListSingelton.dict_VMReliability[vmid])
                 nodeid = vmInstance.get_physicalNode_id(vmid)
                 SFCReliability *= nodeListSingelton.dict_provided_reliablity[nodeid]
+                print("nodeid = %d" % nodeid)
+                print("nodeListSingelton.dict_provided_reliablity[nodeid] %f" %nodeListSingelton.dict_provided_reliablity[nodeid])
         print("SFC的新的可靠性为：%f" % SFCReliability)
         return SFCReliability
 

@@ -58,9 +58,22 @@ from monitor.SFCReliabilityMonitor import SFCReliabilityMonitor
 migration = VNFMigration()
 # 迁移一条SFC上的VNF
 migration.migrateVNFsofOneSFC()
-# migration.findDestinationForVNF(15, 6)
+# migration.findDestinationForVNF(9, 11)
+# SFCInstance = SFC(11,
+#                               sfcListSingleton.dict_maxDelay[11],
+#                               sfcListSingleton.dict_minReliability[11],
+#                               sfcListSingleton.dict_VNFList[11],
+#                               sfcListSingleton.dict_createdtime[11]
+#                               )
+# vnflist = SFCInstance.getVNFList()
+# print(SFCInstance.get_SFC_relialibility(vnflist))
+# currentSFCReliability = SFCInstance.get_SFC_relialibility1(vnflist, 9, 6)
+# print("currentSFCReliability = %f" %currentSFCReliability)
 # 迁移多条SFC上的VNF
-# migration.migrateVNFsofMultiSFCIterator()
+migration.migrateVNFsofMultiSFCIterator()
+
+
+
 
 
 # excelFile = xlrd.open_workbook('D:/pycharm workspace/GraduationProject/topo/NodeList_copy1.xls')
