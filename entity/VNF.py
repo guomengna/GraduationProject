@@ -86,7 +86,7 @@ class VNF():
         return physicalNodeInstance.getAvailable_CPU(physicalNodeId)
 
     # 获取当前VNF可以使用的内存资源数
-    def getAvailibleCPU(self, VNFId):
+    def getAvailibleMemory(self, VNFId):
         vmId = self.get_VM_id(VNFId)
         vmInstance = VM()
         physicalNodeId = vmInstance.get_physicalNode_id(vmId)
